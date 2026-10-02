@@ -216,3 +216,6 @@ Error 111 connecting to 127.0.0.1:11000. Connection refused.
 2026-10-02 21:21:44,675 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:short
 2026-10-02 21:21:44,712 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:default
 2026-10-02 21:21:44,715 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:long
+2026-10-02 21:35:14,883 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:short
+2026-10-02 21:35:14,894 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:default
+2026-10-02 21:35:14,900 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:long
