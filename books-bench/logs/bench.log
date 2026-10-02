@@ -64,3 +64,4 @@
 2026-10-02 20:58:11,294 INFO /usr/local/py-utils/bin/bench --site books.localhost execute frappe.db.get_value --args ["User", "Administrator", ["name", "email", "enabled"]]
 2026-10-02 20:58:32,068 INFO /usr/local/py-utils/bin/bench --site books.localhost set-admin-password dEyW9U_U3PTCZ8gaMxu50jEDWMRYC1r4 --logout-all-sessions
 2026-10-02 20:58:48,227 INFO /usr/local/py-utils/bin/bench --site books.localhost set-admin-password BooksDev2026! --logout-all-sessions
+2026-10-02 21:37:25,636 INFO /usr/local/py-utils/bin/bench --site books.localhost list-apps
