@@ -1,0 +1,178 @@
+2026-10-02 20:53:00,661 WARNING scheduler Failed to update scheduler heartbeat
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2610, in get_connection
+    connection.can_read()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1110, in can_read
+    return self._parser.can_read(timeout)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/_parsers/hiredis.py", line 101, in can_read
+    return self.read_from_socket(timeout=timeout, raise_on_timeout=False)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/_parsers/hiredis.py", line 112, in read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/scheduler.py", line 73, in _update_scheduler_heartbeat
+    get_redis_conn().set(
+    ~~~~~~~~~~~~~~~~~~~~^
+    	_get_scheduler_heartbeat_key(),
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    	time.time(),
+     ^^^^^^^^^^^^
+    	ex=SCHEDULER_HEARTBEAT_TTL,
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 417, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/commands/core.py", line 2518, in set
+    return self.execute_command("SET", *pieces, **options)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2617, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.
+2026-10-02 20:53:30,691 WARNING scheduler Failed to update scheduler heartbeat
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/scheduler.py", line 73, in _update_scheduler_heartbeat
+    get_redis_conn().set(
+    ~~~~~~~~~~~~~~~~~~~~^
+    	_get_scheduler_heartbeat_key(),
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    	time.time(),
+     ^^^^^^^^^^^^
+    	ex=SCHEDULER_HEARTBEAT_TTL,
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 417, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/commands/core.py", line 2518, in set
+    return self.execute_command("SET", *pieces, **options)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.
+2026-10-02 20:54:00,694 WARNING scheduler Failed to update scheduler heartbeat
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/scheduler.py", line 73, in _update_scheduler_heartbeat
+    get_redis_conn().set(
+    ~~~~~~~~~~~~~~~~~~~~^
+    	_get_scheduler_heartbeat_key(),
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    	time.time(),
+     ^^^^^^^^^^^^
+    	ex=SCHEDULER_HEARTBEAT_TTL,
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 417, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/commands/core.py", line 2518, in set
+    return self.execute_command("SET", *pieces, **options)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.

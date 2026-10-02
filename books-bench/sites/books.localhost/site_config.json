@@ -1,0 +1,13 @@
+{
+ "allow_tests": 1,
+ "db_host": "127.0.0.1",
+ "db_name": "_0a53f709df00e309",
+ "db_password": "XBnFgnXSFSQS7ekD",
+ "db_port": 5432,
+ "db_type": "postgres",
+ "db_user": "_0a53f709df00e309",
+ "installed_apps": [
+  "frappe",
+  "frappe_books"
+ ]
+}

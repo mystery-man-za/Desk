@@ -1,0 +1,2236 @@
+2026-10-02 20:49:03,639 WARNING database DDL Query made to DB:
+create table "tabOAuth Client" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"client_id" varchar(140),
+"user" varchar(140),
+"client_secret" varchar(140),
+"default_redirect_uri" varchar(140),
+"skip_authorization" smallint NOT NULL DEFAULT 0,
+"is_dynamic_client" smallint NOT NULL DEFAULT 0,
+"app_name" varchar(140),
+"scopes" text DEFAULT 'all openid',
+"redirect_uris" text,
+"client_uri" varchar(140),
+"software_id" varchar(140),
+"tos_uri" varchar(140),
+"contacts" text,
+"logo_uri" varchar(140),
+"software_version" varchar(140),
+"policy_uri" varchar(140),
+"grant_type" varchar(140),
+"token_endpoint_auth_method" varchar(140) DEFAULT 'Client Secret Basic',
+"response_type" varchar(140) DEFAULT 'Code',
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:03,641 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabOAuth Client_creation_index" ON "tabOAuth Client"("creation");CREATE INDEX IF NOT EXISTS "tabOAuth Client_is_dynamic_client_index" ON "tabOAuth Client"("is_dynamic_client");
+2026-10-02 20:49:03,684 WARNING database DDL Query made to DB:
+create table "tabLDAP Group Mapping" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"ldap_group" varchar(140),
+"erpnext_role" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:03,685 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabLDAP Group Mapping_parent_index" ON "tabLDAP Group Mapping"("parent");
+2026-10-02 20:49:03,840 WARNING database DDL Query made to DB:
+create table "tabOAuth Bearer Token" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"client" varchar(140),
+"user" varchar(140) NOT NULL DEFAULT '',
+"scopes" text,
+"access_token" varchar(140) UNIQUE,
+"refresh_token" varchar(140) UNIQUE,
+"expiration_time" timestamp,
+"expires_in" int NOT NULL DEFAULT 0,
+"status" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:03,842 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabOAuth Bearer Token_creation_index" ON "tabOAuth Bearer Token"("creation");CREATE INDEX IF NOT EXISTS "tabOAuth Bearer Token_user_index" ON "tabOAuth Bearer Token"("user");CREATE INDEX IF NOT EXISTS "tabOAuth Bearer Token_expiration_time_index" ON "tabOAuth Bearer Token"("expiration_time");
+2026-10-02 20:49:03,908 WARNING database DDL Query made to DB:
+create table "tabIntegration Request" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"request_id" varchar(140),
+"integration_request_service" varchar(140),
+"is_remote_request" smallint NOT NULL DEFAULT 0,
+"request_description" varchar(140),
+"status" varchar(140) DEFAULT 'Queued',
+"url" text,
+"request_headers" text,
+"data" text,
+"response_headers" text,
+"output" text,
+"error" text,
+"reference_doctype" varchar(140),
+"reference_docname" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:03,909 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabIntegration Request_creation_index" ON "tabIntegration Request"("creation");
+2026-10-02 20:49:03,961 WARNING database DDL Query made to DB:
+create table "tabOAuth Scope" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"scope" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:03,962 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabOAuth Scope_parent_index" ON "tabOAuth Scope"("parent");
+2026-10-02 20:49:04,039 WARNING database DDL Query made to DB:
+create table "tabConnected App" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"provider_name" varchar(140),
+"openid_configuration" varchar(140),
+"client_id" varchar(140),
+"redirect_uri" varchar(140),
+"client_secret" text,
+"authorization_uri" text,
+"token_uri" varchar(140),
+"revocation_uri" varchar(140),
+"userinfo_uri" varchar(140),
+"introspection_uri" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:04,040 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabConnected App_creation_index" ON "tabConnected App"("creation");
+2026-10-02 20:49:04,255 WARNING database DDL Query made to DB:
+create table "tabToken Cache" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"user" varchar(140),
+"connected_app" varchar(140),
+"provider_name" varchar(140),
+"access_token" text,
+"refresh_token" text,
+"expires_in" int NOT NULL DEFAULT 0,
+"state" varchar(140),
+"success_uri" varchar(140),
+"token_type" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:04,256 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabToken Cache_creation_index" ON "tabToken Cache"("creation");
+2026-10-02 20:49:04,797 WARNING database DDL Query made to DB:
+create table "tabGoogle Contacts" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"enable" smallint NOT NULL DEFAULT 0,
+"email_id" varchar(140),
+"last_sync_on" timestamp,
+"authorization_code" text,
+"refresh_token" text,
+"next_sync_token" text,
+"pull_from_google_contacts" smallint NOT NULL DEFAULT 0,
+"push_to_google_contacts" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:04,798 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabGoogle Contacts_creation_index" ON "tabGoogle Contacts"("creation");
+2026-10-02 20:49:04,843 WARNING database DDL Query made to DB:
+create table "tabOAuth Client Role" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"role" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:04,846 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabOAuth Client Role_parent_index" ON "tabOAuth Client Role"("parent");
+2026-10-02 20:49:04,963 WARNING database DDL Query made to DB:
+create table "tabOAuth Authorization Code" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"client" varchar(140),
+"user" varchar(140),
+"scopes" text,
+"authorization_code" varchar(140) UNIQUE,
+"expiration_time" timestamp,
+"redirect_uri_bound_to_authorization_code" varchar(140),
+"validity" varchar(140),
+"nonce" varchar(140),
+"code_challenge" varchar(140),
+"code_challenge_method" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:04,964 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabOAuth Authorization Code_creation_index" ON "tabOAuth Authorization Code"("creation");
+2026-10-02 20:49:05,050 WARNING database DDL Query made to DB:
+create table "tabWebhook" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"webhook_doctype" varchar(140),
+"webhook_docevent" varchar(140),
+"enabled" smallint NOT NULL DEFAULT 1,
+"condition" text,
+"request_url" text,
+"is_dynamic_url" smallint NOT NULL DEFAULT 0,
+"timeout" int NOT NULL DEFAULT 5,
+"max_retries" int NOT NULL DEFAULT 3,
+"background_jobs_queue" varchar(140),
+"request_method" varchar(140) DEFAULT 'POST',
+"request_structure" varchar(140),
+"enable_security" smallint NOT NULL DEFAULT 0,
+"webhook_secret" text,
+"webhook_json" text,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:05,053 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabWebhook_creation_index" ON "tabWebhook"("creation");
+2026-10-02 20:49:05,111 WARNING database DDL Query made to DB:
+create table "tabWebhook Header" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"key" text,
+"value" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:05,112 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabWebhook Header_parent_index" ON "tabWebhook Header"("parent");
+2026-10-02 20:49:05,308 WARNING database DDL Query made to DB:
+create table "tabNetwork Printer Settings" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"server_ip" varchar(140) DEFAULT 'localhost',
+"port" int NOT NULL DEFAULT 631,
+"printer_name" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:05,309 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabNetwork Printer Settings_creation_index" ON "tabNetwork Printer Settings"("creation");
+2026-10-02 20:49:05,573 WARNING database DDL Query made to DB:
+create table "tabPrint Format Field Template" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"document_type" varchar(140),
+"field" varchar(140),
+"standard" smallint NOT NULL DEFAULT 0,
+"module" varchar(140),
+"template_file" varchar(140),
+"template" text,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:05,574 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabPrint Format Field Template_creation_index" ON "tabPrint Format Field Template"("creation");
+2026-10-02 20:49:05,626 WARNING database DDL Query made to DB:
+create table "tabPrint Format Snippet" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"snippet_type" varchar(140) DEFAULT 'Section',
+"document_type" varchar(140),
+"standard" smallint NOT NULL DEFAULT 0,
+"module" varchar(140),
+"content" text,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:05,629 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabPrint Format Snippet_creation_index" ON "tabPrint Format Snippet"("creation");
+2026-10-02 20:49:05,761 WARNING database DDL Query made to DB:
+create table "tabPrint Heading" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"print_heading" varchar(140) UNIQUE,
+"description" text,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:05,763 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabPrint Heading_creation_index" ON "tabPrint Heading"("creation");
+2026-10-02 20:49:06,396 WARNING database DDL Query made to DB:
+create table "tabGender" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"gender" varchar(140) UNIQUE,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:06,397 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabGender_creation_index" ON "tabGender"("creation");
+2026-10-02 20:49:06,592 WARNING database DDL Query made to DB:
+create table "tabContact Email" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"email_id" varchar(140),
+"is_primary" smallint NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:06,593 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabContact Email_parent_index" ON "tabContact Email"("parent");
+2026-10-02 20:49:06,661 WARNING database DDL Query made to DB:
+create table "tabAddress Template" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"country" varchar(140) UNIQUE,
+"is_default" smallint NOT NULL DEFAULT 0,
+"template" text,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:06,662 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAddress Template_creation_index" ON "tabAddress Template"("creation");
+2026-10-02 20:49:06,740 WARNING database DDL Query made to DB:
+create table "tabAddress" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"address_title" varchar(140),
+"address_type" varchar(140),
+"address_line1" varchar(240),
+"address_line2" varchar(240),
+"city" varchar(140),
+"county" varchar(140),
+"state" varchar(140),
+"country" varchar(140),
+"pincode" varchar(140),
+"email_id" varchar(140),
+"phone" varchar(140),
+"fax" varchar(140),
+"is_primary_address" smallint NOT NULL DEFAULT 0,
+"is_shipping_address" smallint NOT NULL DEFAULT 0,
+"disabled" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:06,742 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAddress_creation_index" ON "tabAddress"("creation");CREATE INDEX IF NOT EXISTS "tabAddress_city_index" ON "tabAddress"("city");CREATE INDEX IF NOT EXISTS "tabAddress_country_index" ON "tabAddress"("country");CREATE INDEX IF NOT EXISTS "tabAddress_pincode_index" ON "tabAddress"("pincode");
+2026-10-02 20:49:06,949 WARNING database DDL Query made to DB:
+create table "tabContact" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"first_name" varchar(140),
+"middle_name" varchar(140),
+"last_name" varchar(140),
+"full_name" varchar(140),
+"email_id" varchar(140),
+"user" varchar(140),
+"address" varchar(140),
+"sync_with_google_contacts" smallint NOT NULL DEFAULT 0,
+"status" varchar(140) DEFAULT 'Passive',
+"salutation" varchar(140),
+"designation" varchar(140),
+"gender" varchar(140),
+"phone" varchar(140),
+"mobile_no" varchar(140),
+"company_name" varchar(140),
+"image" text,
+"google_contacts" varchar(140),
+"google_contacts_id" varchar(140),
+"pulled_from_google_contacts" smallint NOT NULL DEFAULT 0,
+"is_primary_contact" smallint NOT NULL DEFAULT 0,
+"department" varchar(140),
+"unsubscribed" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:06,951 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabContact_creation_index" ON "tabContact"("creation");CREATE INDEX IF NOT EXISTS "tabContact_email_id_index" ON "tabContact"("email_id");
+2026-10-02 20:49:07,159 WARNING database DDL Query made to DB:
+create table "tabContact Phone" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"phone" varchar(140),
+"is_primary_phone" smallint NOT NULL DEFAULT 0,
+"is_primary_mobile_no" smallint NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:07,160 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabContact Phone_parent_index" ON "tabContact Phone"("parent");
+2026-10-02 20:49:07,205 WARNING database DDL Query made to DB:
+create table "tabSalutation" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"salutation" varchar(140) UNIQUE,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:07,207 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabSalutation_creation_index" ON "tabSalutation"("creation");
+2026-10-02 20:49:07,370 WARNING database DDL Query made to DB:
+create table "tabAutomation Flow" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"title" varchar(140),
+"document_type" varchar(140),
+"enabled" smallint NOT NULL DEFAULT 0,
+"disabled_reason" text,
+"trigger_type" varchar(140),
+"trigger_field" varchar(140),
+"from_value" varchar(140),
+"to_value" varchar(140),
+"custom_event" varchar(140),
+"date_field" varchar(140),
+"date_offset" int NOT NULL DEFAULT 0,
+"date_direction" varchar(140),
+"cron_expression" varchar(140),
+"next_run" timestamp,
+"filters" text,
+"condition" text,
+"relationships" json,
+"revalidate_on_run" smallint NOT NULL DEFAULT 0,
+"run_as" varchar(140) DEFAULT 'Automation User',
+"automation_user" varchar(140) DEFAULT 'Administrator',
+"stop_on_error" smallint NOT NULL DEFAULT 1,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:07,373 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAutomation Flow_creation_index" ON "tabAutomation Flow"("creation");CREATE INDEX IF NOT EXISTS "tabAutomation Flow_modified_index" ON "tabAutomation Flow"("modified");CREATE INDEX IF NOT EXISTS "tabAutomation Flow_next_run_index" ON "tabAutomation Flow"("next_run");
+2026-10-02 20:49:07,633 WARNING database DDL Query made to DB:
+create table "tabAutomation Run Step" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"step_idx" int NOT NULL DEFAULT 0,
+"step_key" varchar(140),
+"action_type" varchar(140),
+"status" varchar(140),
+"duration_ms" int NOT NULL DEFAULT 0,
+"detail" text,
+"message" text,
+"exception" varchar(140),
+"traceback" text,
+"condition" text,
+"condition_values" json,
+"output" json,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:07,634 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAutomation Run Step_parent_index" ON "tabAutomation Run Step"("parent");
+2026-10-02 20:49:07,698 WARNING database DDL Query made to DB:
+create table "tabAutomation Event Subscription" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"event_name" varchar(140),
+"correlation_key" varchar(140),
+"status" varchar(140) DEFAULT 'Waiting',
+"expires_at" timestamp,
+"run" varchar(140),
+"step_key" varchar(140),
+"resume_queue" varchar(140),
+"event_payload" json,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:07,700 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAutomation Event Subscription_creation_index" ON "tabAutomation Event Subscription"("creation");CREATE INDEX IF NOT EXISTS "tabAutomation Event Subscription_event_name_index" ON "tabAutomation Event Subscription"("event_name");CREATE INDEX IF NOT EXISTS "tabAutomation Event Subscription_correlation_key_index" ON "tabAutomation Event Subscription"("correlation_key");CREATE INDEX IF NOT EXISTS "tabAutomation Event Subscription_status_index" ON "tabAutomation Event Subscription"("status");CREATE INDEX IF NOT EXISTS "tabAutomation Event Subscription_expires_at_index" ON "tabAutomation Event Subscription"("expires_at");
+2026-10-02 20:49:07,724 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "event_correlation_status" ON "public"."tabAutomation Event Subscription" ("event_name", "correlation_key", "status")
+2026-10-02 20:49:07,728 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "event_expiry_status" ON "public"."tabAutomation Event Subscription" ("status", "expires_at")
+2026-10-02 20:49:07,776 WARNING database DDL Query made to DB:
+create table "tabAssignment Rule User" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"user" varchar(140),
+"weight" int NOT NULL DEFAULT 1,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:07,777 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAssignment Rule User_parent_index" ON "tabAssignment Rule User"("parent");
+2026-10-02 20:49:07,859 WARNING database DDL Query made to DB:
+create table "tabAutomation Trigger Queue" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"automation" varchar(140),
+"ref_doctype" varchar(140),
+"ref_name" varchar(140),
+"status" varchar(140) DEFAULT 'Pending',
+"triggered_at" timestamp,
+"run_after" timestamp,
+"attempt" int NOT NULL DEFAULT 0,
+"depth" int NOT NULL DEFAULT 0,
+"triggered_by" varchar(140),
+"event_payload" json,
+"resume_run" varchar(140),
+"resume_from_idx" int NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:07,861 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAutomation Trigger Queue_creation_index" ON "tabAutomation Trigger Queue"("creation");CREATE INDEX IF NOT EXISTS "tabAutomation Trigger Queue_automation_index" ON "tabAutomation Trigger Queue"("automation");CREATE INDEX IF NOT EXISTS "tabAutomation Trigger Queue_ref_doctype_index" ON "tabAutomation Trigger Queue"("ref_doctype");CREATE INDEX IF NOT EXISTS "tabAutomation Trigger Queue_status_index" ON "tabAutomation Trigger Queue"("status");CREATE INDEX IF NOT EXISTS "tabAutomation Trigger Queue_run_after_index" ON "tabAutomation Trigger Queue"("run_after");
+2026-10-02 20:49:07,894 WARNING database DDL Query made to DB:
+DROP INDEX IF EXISTS "unique_dedup_key"
+2026-10-02 20:49:07,898 WARNING database DDL Query made to DB:
+CREATE UNIQUE INDEX "unique_dedup_key" ON "tabAutomation Trigger Queue" ("automation", "ref_doctype", "ref_name")
+		WHERE "status" IN ('Pending', 'Scheduled') AND "resume_run" IS NULL
+2026-10-02 20:49:07,904 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "drain_scan" ON "public"."tabAutomation Trigger Queue" ("status", "run_after", "triggered_at")
+2026-10-02 20:49:07,909 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "pending_lookup" ON "public"."tabAutomation Trigger Queue" ("automation", "ref_doctype", "ref_name")
+2026-10-02 20:49:08,007 WARNING database DDL Query made to DB:
+create table "tabAutomation Run" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"automation" varchar(140),
+"automation_title" varchar(140),
+"status" varchar(140),
+"reference_doctype" varchar(140),
+"reference_name" varchar(140),
+"user" varchar(140),
+"depth" int NOT NULL DEFAULT 0,
+"queue_row" varchar(140),
+"started_at" timestamp,
+"ended_at" timestamp,
+"error_summary" text,
+"actions_snapshot" json,
+"relationships" json,
+"run_state" json,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:08,008 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAutomation Run_creation_index" ON "tabAutomation Run"("creation");
+2026-10-02 20:49:08,057 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAutomation Run_automation_creation_index" ON "public"."tabAutomation Run" ("automation", "creation")
+2026-10-02 20:49:08,066 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAutomation Run_reference_doctype_reference_name_index" ON "public"."tabAutomation Run" ("reference_doctype", "reference_name")
+2026-10-02 20:49:08,163 WARNING database DDL Query made to DB:
+create table "tabReminder" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"user" varchar(140),
+"remind_at" timestamp,
+"description" text,
+"reminder_doctype" varchar(140),
+"reminder_docname" varchar(140),
+"notified" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:08,165 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabReminder_creation_index" ON "tabReminder"("creation");CREATE INDEX IF NOT EXISTS "tabReminder_user_index" ON "tabReminder"("user");CREATE INDEX IF NOT EXISTS "tabReminder_remind_at_index" ON "tabReminder"("remind_at");
+2026-10-02 20:49:08,230 WARNING database DDL Query made to DB:
+create table "tabAuto Repeat User" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"user" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:08,231 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAuto Repeat User_parent_index" ON "tabAuto Repeat User"("parent");
+2026-10-02 20:49:08,288 WARNING database DDL Query made to DB:
+create table "tabMilestone Tracker" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"document_type" varchar(140) UNIQUE,
+"track_field" varchar(140),
+"disabled" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:08,289 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabMilestone Tracker_creation_index" ON "tabMilestone Tracker"("creation");
+2026-10-02 20:49:08,334 WARNING database DDL Query made to DB:
+create table "tabAssignment Rule Day" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"day" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:08,335 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAssignment Rule Day_parent_index" ON "tabAssignment Rule Day"("parent");
+2026-10-02 20:49:08,444 WARNING database DDL Query made to DB:
+create table "tabAuto Repeat" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_doctype" varchar(140),
+"reference_document" varchar(140),
+"submit_on_creation" smallint NOT NULL DEFAULT 0,
+"start_date" date,
+"end_date" date,
+"disabled" smallint NOT NULL DEFAULT 0,
+"frequency" varchar(140),
+"repeat_on_day" int NOT NULL DEFAULT 0,
+"repeat_on_last_day" smallint NOT NULL DEFAULT 0,
+"next_schedule_date" date,
+"generate_separate_documents_for_each_assignee" smallint NOT NULL DEFAULT 0,
+"notify_by_email" smallint NOT NULL DEFAULT 0,
+"recipients" text,
+"template" varchar(140),
+"subject" varchar(140),
+"message" text DEFAULT 'Please find attached {{ doc.doctype }} #{{ doc.name }}',
+"print_format" varchar(140),
+"status" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:08,446 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAuto Repeat_creation_index" ON "tabAuto Repeat"("creation");CREATE INDEX IF NOT EXISTS "tabAuto Repeat_next_schedule_date_index" ON "tabAuto Repeat"("next_schedule_date");
+2026-10-02 20:49:08,538 WARNING database DDL Query made to DB:
+create table "tabAssignment Rule" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"document_type" varchar(140),
+"due_date_based_on" varchar(140),
+"priority" int NOT NULL DEFAULT 0,
+"disabled" smallint NOT NULL DEFAULT 0,
+"description" text DEFAULT 'Automatic Assignment',
+"assign_condition" text,
+"unassign_condition" text,
+"close_condition" text,
+"rule" varchar(140),
+"field" varchar(140),
+"last_user" varchar(140),
+"current_index" int NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:08,539 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAssignment Rule_creation_index" ON "tabAssignment Rule"("creation");
+2026-10-02 20:49:08,682 WARNING database DDL Query made to DB:
+create table "tabAuto Repeat Day" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"day" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:08,684 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAuto Repeat Day_parent_index" ON "tabAuto Repeat Day"("parent");
+2026-10-02 20:49:08,748 WARNING database DDL Query made to DB:
+create table "tabMilestone" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_type" varchar(140),
+"reference_name" varchar(140),
+"track_field" varchar(140),
+"value" varchar(140),
+"milestone_tracker" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:08,749 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabMilestone_creation_index" ON "tabMilestone"("creation");CREATE INDEX IF NOT EXISTS "tabMilestone_reference_type_index" ON "tabMilestone"("reference_type");
+2026-10-02 20:49:08,772 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabMilestone_reference_type_reference_name_index" ON "public"."tabMilestone" ("reference_type", "reference_name")
+2026-10-02 20:49:08,816 WARNING database DDL Query made to DB:
+create table "tabAutomation Action" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"step_key" varchar(140),
+"step_type" varchar(140) DEFAULT 'Action',
+"action_type" varchar(140),
+"target" varchar(140) DEFAULT 'trigger',
+"output_alias" varchar(140),
+"params" json,
+"step_condition" text,
+"related_condition" json,
+"parent_step" int NOT NULL DEFAULT 0,
+"branch" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:08,816 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabAutomation Action_parent_index" ON "tabAutomation Action"("parent");
+2026-10-02 20:49:15,755 WARNING database DDL Query made to DB:
+create table "tabBooks Account" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account_name" varchar(140) UNIQUE,
+"root_type" varchar(140),
+"parent_books_account" varchar(140),
+"account_type" varchar(140),
+"is_group" smallint NOT NULL DEFAULT 0,
+"gst_head" varchar(140),
+"lft" int NOT NULL DEFAULT 0,
+"rgt" int NOT NULL DEFAULT 0,
+"old_parent" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:15,756 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Account_creation_index" ON "tabBooks Account"("creation");
+2026-10-02 20:49:15,944 WARNING database DDL Query made to DB:
+create table "tabBooks Sales Quote Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"item_code" varchar(140),
+"description" text,
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"transfer_unit" varchar(140),
+"transfer_quantity" decimal(21,9) NOT NULL DEFAULT 1.0,
+"qty" decimal(21,9) NOT NULL DEFAULT 1.0,
+"unit" varchar(140),
+"batch" varchar(140),
+"quantity" decimal(21,9) NOT NULL DEFAULT 1.0,
+"unit_conversion_factor" decimal(21,9) NOT NULL DEFAULT 1.0,
+"account" varchar(140),
+"tax" varchar(140),
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"set_item_discount_amount" smallint NOT NULL DEFAULT 0,
+"item_discount_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discount_percent" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discounted_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_taxed_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"hsn_code" int NOT NULL DEFAULT 0,
+"stock_not_transferred" decimal(21,9) NOT NULL DEFAULT 0.0,
+"is_manual_rate" smallint NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:15,945 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Sales Quote Item_parent_index" ON "tabBooks Sales Quote Item"("parent");
+2026-10-02 20:49:16,089 WARNING database DDL Query made to DB:
+create table "tabBooks Applied Coupon Codes" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"coupons" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:16,091 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Applied Coupon Codes_parent_index" ON "tabBooks Applied Coupon Codes"("parent");
+2026-10-02 20:49:16,200 WARNING database DDL Query made to DB:
+create table "tabBooks Loyalty Point Entry" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"loyalty_program" varchar(140),
+"loyalty_program_tier" varchar(140),
+"customer" varchar(140),
+"invoice" varchar(140),
+"loyalty_points" int NOT NULL DEFAULT 0,
+"purchase_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"expiry_date" date,
+"posting_date" date,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:16,202 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Loyalty Point Entry_creation_index" ON "tabBooks Loyalty Point Entry"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Loyalty Point Entry_customer_index" ON "tabBooks Loyalty Point Entry"("customer");CREATE INDEX IF NOT EXISTS "tabBooks Loyalty Point Entry_invoice_index" ON "tabBooks Loyalty Point Entry"("invoice");
+2026-10-02 20:49:16,279 WARNING database DDL Query made to DB:
+create table "tabBooks Item Group" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"image" text,
+"tax" varchar(140),
+"hsn_code" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:16,280 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Item Group_creation_index" ON "tabBooks Item Group"("creation");
+2026-10-02 20:49:16,443 WARNING database DDL Query made to DB:
+create table "tabBooks Number Series" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"start" int NOT NULL DEFAULT 1001,
+"pad_zeros" int NOT NULL DEFAULT 4,
+"reference_type" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:16,444 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Number Series_creation_index" ON "tabBooks Number Series"("creation");
+2026-10-02 20:49:16,531 WARNING database DDL Query made to DB:
+create table "tabBooks Ledger Entry" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"posting_date" date,
+"party" varchar(140),
+"account" varchar(140),
+"debit" decimal(21,9) NOT NULL DEFAULT 0.0,
+"credit" decimal(21,9) NOT NULL DEFAULT 0.0,
+"voucher_type" varchar(140),
+"voucher_no" varchar(140),
+"reverted" smallint NOT NULL DEFAULT 0,
+"reverts" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:16,533 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Ledger Entry_creation_index" ON "tabBooks Ledger Entry"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Ledger Entry_posting_date_index" ON "tabBooks Ledger Entry"("posting_date");CREATE INDEX IF NOT EXISTS "tabBooks Ledger Entry_party_index" ON "tabBooks Ledger Entry"("party");CREATE INDEX IF NOT EXISTS "tabBooks Ledger Entry_account_index" ON "tabBooks Ledger Entry"("account");CREATE INDEX IF NOT EXISTS "tabBooks Ledger Entry_voucher_no_index" ON "tabBooks Ledger Entry"("voucher_no");
+2026-10-02 20:49:16,588 WARNING database DDL Query made to DB:
+create table "tabBooks Closing Cash" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"denomination" decimal(21,9) NOT NULL DEFAULT 0.0,
+"count" int NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:16,589 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Closing Cash_parent_index" ON "tabBooks Closing Cash"("parent");
+2026-10-02 20:49:16,637 WARNING database DDL Query made to DB:
+create table "tabBooks Sales Invoice Payment" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"payment_method" varchar(140),
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"reference_id" varchar(140),
+"clearance_date" date,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:16,638 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Sales Invoice Payment_parent_index" ON "tabBooks Sales Invoice Payment"("parent");
+2026-10-02 20:49:16,736 WARNING database DDL Query made to DB:
+create table "tabBooks Pos Closing Shift" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"closing_date" timestamp,
+"opening_shift" varchar(140),
+"journal_entry" varchar(140),
+"amended_from" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:16,738 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Pos Closing Shift_creation_index" ON "tabBooks Pos Closing Shift"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Pos Closing Shift_opening_shift_index" ON "tabBooks Pos Closing Shift"("opening_shift");CREATE INDEX IF NOT EXISTS "tabBooks Pos Closing Shift_amended_from_index" ON "tabBooks Pos Closing Shift"("amended_from");
+2026-10-02 20:49:16,832 WARNING database DDL Query made to DB:
+create table "tabBooks Sales Invoice Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"item_code" varchar(140),
+"description" text,
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"transfer_unit" varchar(140),
+"transfer_quantity" decimal(21,9) NOT NULL DEFAULT 1.0,
+"qty" decimal(21,9) NOT NULL DEFAULT 1.0,
+"unit" varchar(140),
+"batch" varchar(140),
+"serial_number" text,
+"quantity" decimal(21,9) NOT NULL DEFAULT 1.0,
+"unit_conversion_factor" decimal(21,9) NOT NULL DEFAULT 1.0,
+"account" varchar(140),
+"tax" varchar(140),
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"set_item_discount_amount" smallint NOT NULL DEFAULT 0,
+"item_discount_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discount_percent" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discounted_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_taxed_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"hsn_code" int NOT NULL DEFAULT 0,
+"stock_not_transferred" decimal(21,9) NOT NULL DEFAULT 0.0,
+"is_free_item" smallint NOT NULL DEFAULT 0,
+"pricing_rule" varchar(140),
+"is_manual_rate" smallint NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:16,833 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Sales Invoice Item_parent_index" ON "tabBooks Sales Invoice Item"("parent");
+2026-10-02 20:49:16,880 WARNING database DDL Query made to DB:
+create table "tabBooks Opening Amounts" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"payment_method" varchar(140),
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:16,881 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Opening Amounts_parent_index" ON "tabBooks Opening Amounts"("parent");
+2026-10-02 20:49:16,997 WARNING database DDL Query made to DB:
+create table "tabBooks Payment" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140),
+"party" varchar(140),
+"date" timestamp,
+"status" varchar(140) DEFAULT 'Saved',
+"payment_type" varchar(140),
+"account" varchar(140),
+"payment_account" varchar(140),
+"payment_method" varchar(140) DEFAULT 'Cash',
+"clearance_date" date,
+"reference_id" varchar(140),
+"reference_date" date,
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"writeoff" decimal(21,9) NOT NULL DEFAULT 0.0,
+"amount_paid" decimal(21,9) NOT NULL DEFAULT 0.0,
+"attachment" text,
+"reference_type" varchar(140),
+"amended_from" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:16,998 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Payment_creation_index" ON "tabBooks Payment"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Payment_status_index" ON "tabBooks Payment"("status");CREATE INDEX IF NOT EXISTS "tabBooks Payment_amended_from_index" ON "tabBooks Payment"("amended_from");
+2026-10-02 20:49:17,139 WARNING database DDL Query made to DB:
+create table "tabBooks Purchase Invoice" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140),
+"party" varchar(140),
+"account" varchar(140),
+"date" timestamp,
+"status" varchar(140) DEFAULT 'Saved',
+"price_list" varchar(140),
+"net_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"base_grand_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"grand_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"currency" varchar(140),
+"exchange_rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"outstanding_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"stock_not_transferred" decimal(21,9) NOT NULL DEFAULT 0.0,
+"terms" text,
+"attachment" text,
+"is_returned" smallint NOT NULL DEFAULT 0,
+"is_fully_returned" smallint NOT NULL DEFAULT 0,
+"back_reference" varchar(140),
+"return_against" varchar(140),
+"amended_from" varchar(140),
+"discount_after_tax" smallint NOT NULL DEFAULT 0,
+"make_auto_payment" smallint NOT NULL DEFAULT 0,
+"make_auto_stock_transfer" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:17,141 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Purchase Invoice_creation_index" ON "tabBooks Purchase Invoice"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Purchase Invoice_party_index" ON "tabBooks Purchase Invoice"("party");CREATE INDEX IF NOT EXISTS "tabBooks Purchase Invoice_status_index" ON "tabBooks Purchase Invoice"("status");CREATE INDEX IF NOT EXISTS "tabBooks Purchase Invoice_return_against_index" ON "tabBooks Purchase Invoice"("return_against");CREATE INDEX IF NOT EXISTS "tabBooks Purchase Invoice_amended_from_index" ON "tabBooks Purchase Invoice"("amended_from");
+2026-10-02 20:49:17,260 WARNING database DDL Query made to DB:
+create table "tabBooks Uom Conversion Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"uom" varchar(140),
+"conversion_factor" decimal(21,9) NOT NULL DEFAULT 1.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:17,261 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Uom Conversion Item_parent_index" ON "tabBooks Uom Conversion Item"("parent");
+2026-10-02 20:49:17,335 WARNING database DDL Query made to DB:
+create table "tabBooks Coupon Code" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"coupon_name" varchar(140),
+"is_enabled" smallint NOT NULL DEFAULT 1,
+"pricing_rule" varchar(140),
+"min_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"max_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"valid_from" date,
+"valid_to" date,
+"maximum_use" int NOT NULL DEFAULT 0,
+"used" int NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:17,336 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Coupon Code_creation_index" ON "tabBooks Coupon Code"("creation");
+2026-10-02 20:49:17,462 WARNING database DDL Query made to DB:
+create table "tabBooks Payment For" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_type" varchar(140),
+"reference_name" varchar(140),
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:17,463 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Payment For_parent_index" ON "tabBooks Payment For"("parent");CREATE INDEX IF NOT EXISTS "tabBooks Payment For_reference_name_index" ON "tabBooks Payment For"("reference_name");
+2026-10-02 20:49:17,559 WARNING database DDL Query made to DB:
+create table "tabBooks Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"image" text,
+"item_code" varchar(140),
+"item_group" varchar(140),
+"item_usage" varchar(140) DEFAULT 'Both',
+"item_type" varchar(140) DEFAULT 'Product',
+"unit" varchar(140) DEFAULT 'Unit',
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"description" text,
+"income_account" varchar(140),
+"expense_account" varchar(140),
+"tax" varchar(140),
+"hsn_code" varchar(140),
+"barcode" varchar(140),
+"track_item" smallint NOT NULL DEFAULT 0,
+"has_batch" smallint NOT NULL DEFAULT 0,
+"batch_series" varchar(140),
+"has_serial_number" smallint NOT NULL DEFAULT 0,
+"serial_number_series" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:17,560 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Item_creation_index" ON "tabBooks Item"("creation");
+2026-10-02 20:49:17,618 WARNING database DDL Query made to DB:
+create table "tabBooks Uom" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"is_whole" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:17,619 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Uom_creation_index" ON "tabBooks Uom"("creation");
+2026-10-02 20:49:17,704 WARNING database DDL Query made to DB:
+create table "tabBooks Address" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"address_line1" varchar(140),
+"address_line2" varchar(140),
+"city" varchar(140),
+"country" varchar(140),
+"state" varchar(140),
+"postal_code" varchar(140),
+"email_address" varchar(140),
+"phone" varchar(140),
+"fax" varchar(140),
+"address_display" text,
+"pos" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:17,705 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Address_creation_index" ON "tabBooks Address"("creation");
+2026-10-02 20:49:17,778 WARNING database DDL Query made to DB:
+create table "tabBooks Pricing Rule Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_name" varchar(140),
+"reference_item" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:17,779 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Pricing Rule Detail_parent_index" ON "tabBooks Pricing Rule Detail"("parent");
+2026-10-02 20:49:17,855 WARNING database DDL Query made to DB:
+create table "tabBooks Lead" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"status" varchar(140) DEFAULT 'Open',
+"email" varchar(140),
+"mobile" varchar(140),
+"address" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:17,856 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Lead_creation_index" ON "tabBooks Lead"("creation");
+2026-10-02 20:49:18,024 WARNING database DDL Query made to DB:
+create table "tabBooks Price List Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"unit" varchar(140),
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:18,025 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Price List Item_parent_index" ON "tabBooks Price List Item"("parent");
+2026-10-02 20:49:18,201 WARNING database DDL Query made to DB:
+create table "tabBooks Pricing Rule" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140) DEFAULT 'PRLE-',
+"is_enabled" smallint NOT NULL DEFAULT 1,
+"title" varchar(140),
+"discount_type" varchar(140),
+"is_coupon_code_based" smallint NOT NULL DEFAULT 0,
+"priority" varchar(140),
+"price_discount_type" varchar(140),
+"discount_rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"discount_percentage" decimal(21,9) NOT NULL DEFAULT 0.0,
+"discount_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"free_item" varchar(140),
+"free_item_quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"free_item_unit" varchar(140),
+"round_free_item_qty" smallint NOT NULL DEFAULT 0,
+"rounding_method" varchar(140) DEFAULT 'round',
+"is_recursive" smallint NOT NULL DEFAULT 0,
+"recurse_every" decimal(21,9) NOT NULL DEFAULT 0.0,
+"min_quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"max_quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"min_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"max_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"valid_from" date,
+"valid_to" date,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:18,203 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Pricing Rule_creation_index" ON "tabBooks Pricing Rule"("creation");
+2026-10-02 20:49:18,315 WARNING database DDL Query made to DB:
+create table "tabBooks Journal Entry Account" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"debit" decimal(21,9) NOT NULL DEFAULT 0.0,
+"credit" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:18,327 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Journal Entry Account_parent_index" ON "tabBooks Journal Entry Account"("parent");
+2026-10-02 20:49:18,461 WARNING database DDL Query made to DB:
+create table "tabBooks Pos Profile" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"pos_customer" varchar(140),
+"inventory" varchar(140),
+"pos_print_template" varchar(140),
+"pos_ui" varchar(140) DEFAULT 'Classic',
+"item_visibility" varchar(140) DEFAULT 'Inventory Items',
+"can_change_rate" smallint NOT NULL DEFAULT 0,
+"hide_unavailable_items" smallint NOT NULL DEFAULT 0,
+"can_edit_discount" smallint NOT NULL DEFAULT 0,
+"ignore_pricing_rule" smallint NOT NULL DEFAULT 0,
+"save_button_colour" varchar(140) DEFAULT '#86efac',
+"cancel_button_colour" varchar(140) DEFAULT '#f98080',
+"held_button_colour" varchar(140) DEFAULT '#f98080',
+"return_button_colour" varchar(140) DEFAULT '#f98080',
+"pay_button_colour" varchar(140) DEFAULT '#86efac',
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:18,462 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Pos Profile_creation_index" ON "tabBooks Pos Profile"("creation");
+2026-10-02 20:49:18,567 WARNING database DDL Query made to DB:
+create table "tabBooks Sales Quote" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140),
+"party" varchar(140),
+"date" timestamp,
+"status" varchar(140) DEFAULT 'Saved',
+"price_list" varchar(140),
+"reference_type" varchar(140) DEFAULT 'Books Party',
+"net_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"base_grand_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"grand_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"currency" varchar(140),
+"exchange_rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"outstanding_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"terms" text,
+"attachment" text,
+"is_fully_returned" smallint NOT NULL DEFAULT 0,
+"amended_from" varchar(140),
+"discount_after_tax" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:18,569 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Sales Quote_creation_index" ON "tabBooks Sales Quote"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Sales Quote_status_index" ON "tabBooks Sales Quote"("status");CREATE INDEX IF NOT EXISTS "tabBooks Sales Quote_amended_from_index" ON "tabBooks Sales Quote"("amended_from");
+2026-10-02 20:49:18,634 WARNING database DDL Query made to DB:
+create table "tabBooks Custom Field" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"fieldname" varchar(140),
+"section" varchar(140) DEFAULT 'Default',
+"tab" varchar(140) DEFAULT 'Custom',
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:18,635 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Custom Field_parent_index" ON "tabBooks Custom Field"("parent");
+2026-10-02 20:49:18,695 WARNING database DDL Query made to DB:
+create table "tabBooks Batch" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"expiry_date" date,
+"manufacture_date" date,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:18,696 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Batch_creation_index" ON "tabBooks Batch"("creation");
+2026-10-02 20:49:18,890 WARNING database DDL Query made to DB:
+create table "tabBooks Shipment" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140),
+"party" varchar(140),
+"date" timestamp,
+"status" varchar(140) DEFAULT 'Saved',
+"grand_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"terms" text,
+"attachment" text,
+"is_returned" smallint NOT NULL DEFAULT 0,
+"is_fully_billed" smallint NOT NULL DEFAULT 0,
+"back_reference" varchar(140),
+"return_against" varchar(140),
+"amended_from" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:18,892 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Shipment_creation_index" ON "tabBooks Shipment"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Shipment_status_index" ON "tabBooks Shipment"("status");CREATE INDEX IF NOT EXISTS "tabBooks Shipment_amended_from_index" ON "tabBooks Shipment"("amended_from");
+2026-10-02 20:49:19,000 WARNING database DDL Query made to DB:
+create table "tabBooks Stock Ledger Entry" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"date" timestamp,
+"location" varchar(140),
+"batch" varchar(140),
+"serial_number" varchar(140),
+"item" varchar(140),
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"value_change" decimal(21,9) NOT NULL DEFAULT 0.0,
+"balance_quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"balance_value" decimal(21,9) NOT NULL DEFAULT 0.0,
+"stock_queue" text,
+"reference_type" varchar(140),
+"reference_name" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:19,002 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Stock Ledger Entry_creation_index" ON "tabBooks Stock Ledger Entry"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Stock Ledger Entry_date_index" ON "tabBooks Stock Ledger Entry"("date");CREATE INDEX IF NOT EXISTS "tabBooks Stock Ledger Entry_location_index" ON "tabBooks Stock Ledger Entry"("location");CREATE INDEX IF NOT EXISTS "tabBooks Stock Ledger Entry_batch_index" ON "tabBooks Stock Ledger Entry"("batch");CREATE INDEX IF NOT EXISTS "tabBooks Stock Ledger Entry_item_index" ON "tabBooks Stock Ledger Entry"("item");CREATE INDEX IF NOT EXISTS "tabBooks Stock Ledger Entry_reference_name_index" ON "tabBooks Stock Ledger Entry"("reference_name");
+2026-10-02 20:49:19,030 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Stock Ledger Entry_item_location_batch_date_index" ON "public"."tabBooks Stock Ledger Entry" ("item", "location", "batch", "date")
+2026-10-02 20:49:19,067 WARNING database DDL Query made to DB:
+create table "tabBooks Item Enquiry" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"customer" varchar(140),
+"contact" varchar(140),
+"description" text,
+"similar_product" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:19,068 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Item Enquiry_creation_index" ON "tabBooks Item Enquiry"("creation");
+2026-10-02 20:49:19,125 WARNING database DDL Query made to DB:
+create table "tabBooks Location" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"address" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:19,126 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Location_creation_index" ON "tabBooks Location"("creation");
+2026-10-02 20:49:19,184 WARNING database DDL Query made to DB:
+create table "tabBooks Payment Method" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"type" varchar(140),
+"account" varchar(140),
+"requires_clearance_date" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:19,185 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Payment Method_creation_index" ON "tabBooks Payment Method"("creation");
+2026-10-02 20:49:19,359 WARNING database DDL Query made to DB:
+create table "tabBooks Shipment Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"location" varchar(140),
+"transfer_unit" varchar(140),
+"transfer_quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"unit" varchar(140),
+"batch" varchar(140),
+"serial_number" text,
+"quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"unit_conversion_factor" decimal(21,9) NOT NULL DEFAULT 1.0,
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discount_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discount_percent" decimal(21,9) NOT NULL DEFAULT 0.0,
+"description" text,
+"hsn_code" int NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:19,360 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Shipment Item_parent_index" ON "tabBooks Shipment Item"("parent");
+2026-10-02 20:49:19,409 WARNING database DDL Query made to DB:
+create table "tabBooks Pricing Rule Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"unit" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:19,410 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Pricing Rule Item_parent_index" ON "tabBooks Pricing Rule Item"("parent");CREATE INDEX IF NOT EXISTS "tabBooks Pricing Rule Item_item_index" ON "tabBooks Pricing Rule Item"("item");
+2026-10-02 20:49:19,461 WARNING database DDL Query made to DB:
+create table "tabBooks Tax Summary" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"from_account" varchar(140),
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:19,462 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Tax Summary_parent_index" ON "tabBooks Tax Summary"("parent");
+2026-10-02 20:49:19,533 WARNING database DDL Query made to DB:
+create table "tabBooks Stock Movement" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140),
+"movement_type" varchar(140),
+"date" timestamp,
+"status" varchar(140) DEFAULT 'Saved',
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"amended_from" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:19,535 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Stock Movement_creation_index" ON "tabBooks Stock Movement"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Stock Movement_status_index" ON "tabBooks Stock Movement"("status");CREATE INDEX IF NOT EXISTS "tabBooks Stock Movement_amended_from_index" ON "tabBooks Stock Movement"("amended_from");
+2026-10-02 20:49:19,729 WARNING database DDL Query made to DB:
+create table "tabBooks Sales Invoice" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140),
+"party" varchar(140),
+"account" varchar(140),
+"date" timestamp,
+"status" varchar(140) DEFAULT 'Saved',
+"price_list" varchar(140),
+"net_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"base_grand_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"grand_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"currency" varchar(140),
+"exchange_rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"outstanding_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"stock_not_transferred" decimal(21,9) NOT NULL DEFAULT 0.0,
+"terms" text,
+"attachment" text,
+"is_returned" smallint NOT NULL DEFAULT 0,
+"is_fully_returned" smallint NOT NULL DEFAULT 0,
+"back_reference" varchar(140),
+"return_against" varchar(140),
+"quote" varchar(140),
+"loyalty_program" varchar(140),
+"available_loyalty_points" int NOT NULL DEFAULT 0,
+"redeem_loyalty_points" smallint NOT NULL DEFAULT 0,
+"loyalty_points" int NOT NULL DEFAULT 0,
+"is_pos" smallint NOT NULL DEFAULT 0,
+"is_pricing_rule_applied" smallint NOT NULL DEFAULT 0,
+"amended_from" varchar(140),
+"discount_after_tax" smallint NOT NULL DEFAULT 0,
+"make_auto_payment" smallint NOT NULL DEFAULT 0,
+"make_auto_stock_transfer" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:19,734 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Sales Invoice_creation_index" ON "tabBooks Sales Invoice"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Sales Invoice_party_index" ON "tabBooks Sales Invoice"("party");CREATE INDEX IF NOT EXISTS "tabBooks Sales Invoice_status_index" ON "tabBooks Sales Invoice"("status");CREATE INDEX IF NOT EXISTS "tabBooks Sales Invoice_return_against_index" ON "tabBooks Sales Invoice"("return_against");CREATE INDEX IF NOT EXISTS "tabBooks Sales Invoice_amended_from_index" ON "tabBooks Sales Invoice"("amended_from");
+2026-10-02 20:49:19,926 WARNING database DDL Query made to DB:
+create table "tabBooks Purchase Receipt Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"location" varchar(140),
+"transfer_unit" varchar(140),
+"transfer_quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"unit" varchar(140),
+"batch" varchar(140),
+"serial_number" text,
+"quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"unit_conversion_factor" decimal(21,9) NOT NULL DEFAULT 1.0,
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discount_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discount_percent" decimal(21,9) NOT NULL DEFAULT 0.0,
+"description" text,
+"hsn_code" int NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:19,927 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Purchase Receipt Item_parent_index" ON "tabBooks Purchase Receipt Item"("parent");
+2026-10-02 20:49:20,085 WARNING database DDL Query made to DB:
+create table "tabBooks Custom Form" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:20,086 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Custom Form_creation_index" ON "tabBooks Custom Form"("creation");
+2026-10-02 20:49:20,218 WARNING database DDL Query made to DB:
+create table "tabBooks Party" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"image" text,
+"role" varchar(140) DEFAULT 'Both',
+"email" varchar(140),
+"phone" varchar(140),
+"address" varchar(140),
+"default_account" varchar(140),
+"currency" varchar(140),
+"from_lead" varchar(140),
+"loyalty_program" varchar(140),
+"loyalty_points" int NOT NULL DEFAULT 0,
+"tax_id" varchar(140),
+"outstanding_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"gst_type" varchar(140) DEFAULT 'Unregistered',
+"gstin" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:20,219 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Party_creation_index" ON "tabBooks Party"("creation");
+2026-10-02 20:49:20,361 WARNING database DDL Query made to DB:
+create table "tabBooks Purchase Receipt" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140),
+"party" varchar(140),
+"date" timestamp,
+"status" varchar(140) DEFAULT 'Saved',
+"grand_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"terms" text,
+"attachment" text,
+"is_returned" smallint NOT NULL DEFAULT 0,
+"is_fully_billed" smallint NOT NULL DEFAULT 0,
+"back_reference" varchar(140),
+"return_against" varchar(140),
+"amended_from" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:20,363 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Purchase Receipt_creation_index" ON "tabBooks Purchase Receipt"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Purchase Receipt_status_index" ON "tabBooks Purchase Receipt"("status");CREATE INDEX IF NOT EXISTS "tabBooks Purchase Receipt_amended_from_index" ON "tabBooks Purchase Receipt"("amended_from");
+2026-10-02 20:49:20,437 WARNING database DDL Query made to DB:
+create table "tabBooks Pos Opening Shift" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"opening_date" timestamp,
+"journal_entry" varchar(140),
+"amended_from" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:20,439 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Pos Opening Shift_creation_index" ON "tabBooks Pos Opening Shift"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Pos Opening Shift_opening_date_index" ON "tabBooks Pos Opening Shift"("opening_date");CREATE INDEX IF NOT EXISTS "tabBooks Pos Opening Shift_amended_from_index" ON "tabBooks Pos Opening Shift"("amended_from");
+2026-10-02 20:49:20,509 WARNING database DDL Query made to DB:
+create table "tabBooks Collection Rules Items" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"tier_name" varchar(140),
+"collection_factor" decimal(21,9) NOT NULL DEFAULT 0.0,
+"minimum_total_spent" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:20,510 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Collection Rules Items_parent_index" ON "tabBooks Collection Rules Items"("parent");
+2026-10-02 20:49:20,572 WARNING database DDL Query made to DB:
+create table "tabBooks Stock Movement Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"from_location" varchar(140),
+"to_location" varchar(140),
+"transfer_unit" varchar(140),
+"transfer_quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"unit" varchar(140),
+"batch" varchar(140),
+"serial_number" text,
+"quantity" decimal(21,9) NOT NULL DEFAULT 0.0,
+"unit_conversion_factor" decimal(21,9) NOT NULL DEFAULT 1.0,
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:20,573 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Stock Movement Item_parent_index" ON "tabBooks Stock Movement Item"("parent");
+2026-10-02 20:49:20,656 WARNING database DDL Query made to DB:
+create table "tabBooks Journal Entry" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"number_series" varchar(140),
+"entry_type" varchar(140),
+"posting_date" date,
+"status" varchar(140) DEFAULT 'Saved',
+"reference_number" varchar(140),
+"reference_date" date,
+"user_remark" text,
+"attachment" text,
+"total_debit" decimal(21,9) NOT NULL DEFAULT 0.0,
+"total_credit" decimal(21,9) NOT NULL DEFAULT 0.0,
+"amended_from" varchar(140),
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:20,657 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Journal Entry_creation_index" ON "tabBooks Journal Entry"("creation");CREATE INDEX IF NOT EXISTS "tabBooks Journal Entry_status_index" ON "tabBooks Journal Entry"("status");CREATE INDEX IF NOT EXISTS "tabBooks Journal Entry_amended_from_index" ON "tabBooks Journal Entry"("amended_from");
+2026-10-02 20:49:20,709 WARNING database DDL Query made to DB:
+create table "tabBooks Default Cash Denominations" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"denomination" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:20,710 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Default Cash Denominations_parent_index" ON "tabBooks Default Cash Denominations"("parent");
+2026-10-02 20:49:20,762 WARNING database DDL Query made to DB:
+create table "tabBooks Serial Number" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"description" text,
+"status" varchar(140) DEFAULT 'Inactive',
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:20,764 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Serial Number_creation_index" ON "tabBooks Serial Number"("creation");
+2026-10-02 20:49:20,823 WARNING database DDL Query made to DB:
+create table "tabBooks Price List" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"is_enabled" smallint NOT NULL DEFAULT 1,
+"is_sales" smallint NOT NULL DEFAULT 1,
+"is_purchase" smallint NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:20,824 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Price List_creation_index" ON "tabBooks Price List"("creation");
+2026-10-02 20:49:20,881 WARNING database DDL Query made to DB:
+create table "tabBooks Opening Cash" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"denomination" decimal(21,9) NOT NULL DEFAULT 0.0,
+"count" int NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:20,882 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Opening Cash_parent_index" ON "tabBooks Opening Cash"("parent");
+2026-10-02 20:49:21,508 WARNING database DDL Query made to DB:
+create table "tabBooks Loyalty Program" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"from_date" date,
+"to_date" date,
+"is_enabled" smallint NOT NULL DEFAULT 1,
+"status" varchar(140) DEFAULT 'Active',
+"conversion_factor" decimal(21,9) NOT NULL DEFAULT 1.0,
+"expiry_duration" int NOT NULL DEFAULT 0,
+"expense_account" varchar(140),
+"maximum_use" int NOT NULL DEFAULT 0,
+"used" int NOT NULL DEFAULT 0,
+"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:21,508 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Loyalty Program_creation_index" ON "tabBooks Loyalty Program"("creation");
+2026-10-02 20:49:21,578 WARNING database DDL Query made to DB:
+create table "tabBooks Closing Amounts" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"payment_method" varchar(140),
+"opening_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"closing_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"expected_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"difference_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:21,579 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Closing Amounts_parent_index" ON "tabBooks Closing Amounts"("parent");
+2026-10-02 20:49:21,656 WARNING database DDL Query made to DB:
+create table "tabBooks Purchase Invoice Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item" varchar(140),
+"item_code" varchar(140),
+"description" text,
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+"transfer_unit" varchar(140),
+"transfer_quantity" decimal(21,9) NOT NULL DEFAULT 1.0,
+"qty" decimal(21,9) NOT NULL DEFAULT 1.0,
+"unit" varchar(140),
+"batch" varchar(140),
+"serial_number" text,
+"quantity" decimal(21,9) NOT NULL DEFAULT 1.0,
+"unit_conversion_factor" decimal(21,9) NOT NULL DEFAULT 1.0,
+"account" varchar(140),
+"tax" varchar(140),
+"amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"set_item_discount_amount" smallint NOT NULL DEFAULT 0,
+"item_discount_amount" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discount_percent" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_discounted_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"item_taxed_total" decimal(21,9) NOT NULL DEFAULT 0.0,
+"hsn_code" int NOT NULL DEFAULT 0,
+"stock_not_transferred" decimal(21,9) NOT NULL DEFAULT 0.0,
+"is_manual_rate" smallint NOT NULL DEFAULT 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:21,657 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Purchase Invoice Item_parent_index" ON "tabBooks Purchase Invoice Item"("parent");
+2026-10-02 20:49:21,753 WARNING database DDL Query made to DB:
+create table "tabBooks Tax" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"_user_tags" text,
+"_comments" text,
+"_assign" text,
+"_liked_by" text
+			)
+2026-10-02 20:49:21,754 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Tax_creation_index" ON "tabBooks Tax"("creation");
+2026-10-02 20:49:21,810 WARNING database DDL Query made to DB:
+create table "tabBooks Tax Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"payment_account" varchar(140),
+"rate" decimal(21,9) NOT NULL DEFAULT 0.0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-10-02 20:49:21,811 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "tabBooks Tax Detail_parent_index" ON "tabBooks Tax Detail"("parent");
+2026-10-02 20:51:28,157 WARNING database Couldn't set session time zone 'NoneType' object has no attribute 'get'
+2026-10-02 20:55:07,912 WARNING database Couldn't set session time zone 'NoneType' object has no attribute 'get'

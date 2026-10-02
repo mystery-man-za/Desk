@@ -1,0 +1,86 @@
+2026-10-02 21:18:17,974 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: books.localhost
+Form Dict: {'image': '/private/files/174011.jpg', 'name': 'New Item 01', 'item_code': '929292', 'item_group': None, 'item_usage': 'Sales', 'item_type': 'Product', 'unit': 'Unit', 'rate': '300.00000000000', 'description': None, 'income_account': 'Sales', 'expense_account': 'Cost of Goods Sold', 'tax': None, 'hsn_code': None, 'barcode': '838383838383', 'track_item': 0, 'has_batch': 0, 'batch_series': None, 'has_serial_number': 0, 'serial_number_series': None, 'uom_conversions': []}
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/model/base_document.py", line 818, in db_insert
+    name = frappe.db.sql(
+    	"""INSERT INTO `tab{doctype}` ({columns})
+    ...<7 lines>...
+    	list(d.values()),
+    )
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/database/postgres/database.py", line 353, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/database/database.py", line 301, in sql
+    self.execute_query(query, values)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/database/database.py", line 403, in execute_query
+    return self._cursor.execute(query, values)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "tabBooks Item_pkey"
+DETAIL:  Key (name)=(New Item 01) already exists.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/app.py", line 134, in application
+    response = frappe.api.handle(request)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/api/__init__.py", line 64, in handle
+    data = endpoint(**arguments)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/api/v2.py", line 209, in create_doc
+    return doc.insert().as_dict()
+           ~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/model/document.py", line 753, in insert
+    self.db_insert(ignore_if_duplicate=ignore_if_duplicate)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/model/base_document.py", line 845, in db_insert
+    raise frappe.DuplicateEntryError(self.doctype, self.name, e)
+frappe.exceptions.DuplicateEntryError: ('Books Item', 'New Item 01', UniqueViolation('duplicate key value violates unique constraint "tabBooks Item_pkey"\nDETAIL:  Key (name)=(New Item 01) already exists.\n'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/error.py", line 171, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/error.py", line 77, in log_error
+    error_log = frappe.get_doc(
+    	doctype="Error Log",
+    ...<6 lines>...
+    	fingerprint=fingerprint,
+    )
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/model/utils/__init__.py", line 225, in wrapper
+    return func(*args, **kw)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/model/document.py", line 131, in get_doc
+    return get_doc_from_dict(kwargs)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/model/document.py", line 160, in get_doc_from_dict
+    if controller := get_controller(data["doctype"]):
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/model/base_document.py", line 126, in get_controller
+    site_controllers[doctype] = import_controller(doctype)
+                                ~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/model/base_document.py", line 137, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, ("module", "custom", "is_tree"), as_dict=True)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/database/database.py", line 595, in get_value
+    result = self.get_values(
+    	doctype,
+    ...<13 lines>...
+    	wait=wait,
+    )
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/database/database.py", line 711, in get_values
+    out = query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/query_builder/utils.py", line 184, in execute_query
+    result = frappe.local.db.sql(query, params, *args, **kwargs)  # nosemgrep
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/database/postgres/database.py", line 353, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/database/database.py", line 301, in sql
+    self.execute_query(query, values)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/database/database.py", line 403, in execute_query
+    return self._cursor.execute(query, values)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+

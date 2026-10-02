@@ -1,0 +1,28 @@
+                                Table "public.tabError Log"
+      Column       |              Type              | Collation | Nullable |    Default    
+-------------------+--------------------------------+-----------+----------+---------------
+ name              | character varying(140)         |           | not null | 
+ creation          | timestamp(6) without time zone |           |          | 
+ modified          | timestamp(6) without time zone |           |          | 
+ modified_by       | character varying(140)         |           |          | 
+ owner             | character varying(140)         |           |          | 
+ docstatus         | smallint                       |           | not null | '0'::smallint
+ idx               | bigint                         |           | not null | '0'::bigint
+ seen              | smallint                       |           | not null | 0
+ reference_doctype | character varying(140)         |           |          | 
+ reference_name    | character varying(140)         |           |          | 
+ method            | character varying(140)         |           |          | 
+ error             | text                           |           |          | 
+ trace_id          | character varying(140)         |           |          | 
+ fingerprint       | character varying(140)         |           |          | 
+ metadata          | text                           |           |          | 
+ _user_tags        | text                           |           |          | 
+ _comments         | text                           |           |          | 
+ _assign           | text                           |           |          | 
+ _liked_by         | text                           |           |          | 
+Indexes:
+    "tabError Log_pkey" PRIMARY KEY, btree (name)
+    "tabError Log_creation_index" btree (creation)
+    "tabError Log_fingerprint_index" btree (fingerprint)
+    "tabError Log_reference_name_index" btree (reference_name)
+
