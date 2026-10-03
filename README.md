@@ -8,6 +8,8 @@ login, permissions, database, and server-side APIs.
 
 - [`frappe-books/`](frappe-books/) — the Books app source, including the Vue
   frontend and Python app.
+- [`app/`](app/) — an independent Node.js, React/Vite, and SQLite web app
+  starter for a new Books implementation.
 - [`books-bench/`](books-bench/) — this project's bench configuration and
   development `Procfile`.
 - `books-bench/apps/frappe_books` — a relative link to `../../frappe-books`.
@@ -99,6 +101,12 @@ The Books app's browser routes, including `/books`, are registered in the Frappe
 app. Its frontend calls Frappe APIs using the current site's session and CSRF
 token. The Python app and Frappe Framework are therefore required to run the
 complete application; this is not a standalone static frontend.
+
+## Independent web app starter
+
+The [`app/`](app/) directory is a separate Node.js backend and React/Vite
+frontend backed by SQLite. It does not replace or depend on the Frappe app.
+See [`app/README.md`](app/README.md) for setup and development commands.
 
 The root `frappe-books/package.json` defines the app's frontend build scripts.
 The frontend package also defines `test`, `typecheck`, `lint`, and `build`
