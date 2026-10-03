@@ -52,7 +52,11 @@ export function createAccount(
            WHERE id = ? AND company_id = ?`,
         )
         .get(input.parentId, companyId) as
-        | { root_type: RootType; account_type: string | null; is_group: number }
+        | {
+            root_type: RootType;
+            account_type: string | null;
+            is_group: number;
+          }
         | undefined;
 
       if (!parent) {
@@ -91,6 +95,18 @@ export function createAccount(
         'An account with this name already exists for the company.',
       );
     }
+    if (input.code) {
+      const duplicateCode = database
+        .prepare('SELECT 1 FROM accounts WHERE company_id = ? AND code = ?')
+        .get(companyId, input.code);
+      if (duplicateCode) {
+        throw new ApiError(
+          409,
+          'DUPLICATE_ACCOUNT_CODE',
+          'An account with this code already exists for the company.',
+        );
+      }
+    }
 
     const result = database
       .prepare(
@@ -101,7 +117,7 @@ export function createAccount(
       .run(
         companyId,
         input.name,
-        input.code ?? null,
+        input.code || null,
         rootType,
         accountType ?? null,
         input.parentId ?? null,
@@ -122,6 +138,19 @@ export function createAccount(
   try {
     return getAccount(database, companyId, create());
   } catch (error) {
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'message' in error &&
+      typeof error.message === 'string' &&
+      error.message.includes('account code must be unique')
+    ) {
+      throw new ApiError(
+        409,
+        'DUPLICATE_ACCOUNT_CODE',
+        'An account with this code already exists for the company.',
+      );
+    }
     if (
       typeof error === 'object' &&
       error !== null &&
@@ -152,6 +181,129 @@ export function getAccount(
     .get(accountId, companyId);
   if (!row) throw new ApiError(404, 'ACCOUNT_NOT_FOUND', 'Account not found.');
   return mapAccount(row);
+}
+
+export function updateAccount(
+  database: Database.Database,
+  companyId: number,
+  accountId: number,
+  actorUserId: number,
+  input: { name?: string; code?: string | null; accountType?: string | null },
+): AccountRecord {
+  const update = database.transaction(() => {
+    const account = database
+      .prepare(
+        `SELECT id, name, code, account_type
+         FROM accounts WHERE id = ? AND company_id = ?`,
+      )
+      .get(accountId, companyId) as
+      | {
+          id: number;
+          name: string;
+          code: string | null;
+          account_type: string | null;
+        }
+      | undefined;
+    if (!account) throw new ApiError(404, 'ACCOUNT_NOT_FOUND', 'Account not found.');
+
+    const name = input.name ?? account.name;
+    const code =
+      input.code === undefined
+        ? account.code
+        : (input.code || null);
+    if (code !== null) {
+      const duplicateCode = database
+        .prepare(
+          `SELECT 1 FROM accounts
+           WHERE company_id = ? AND code = ? AND id != ?`,
+        )
+        .get(companyId, code, accountId);
+      if (duplicateCode) {
+        throw new ApiError(
+          409,
+          'DUPLICATE_ACCOUNT_CODE',
+          'An account with this code already exists for the company.',
+        );
+      }
+    }
+    if (
+      input.accountType !== undefined &&
+      account.account_type !== null &&
+      input.accountType !== account.account_type
+    ) {
+      throw new ApiError(
+        409,
+        'ACCOUNT_TYPE_IMMUTABLE',
+        'An assigned account type cannot be changed.',
+      );
+    }
+    if (input.name !== undefined) {
+      const duplicateName = database
+        .prepare(
+          `SELECT 1 FROM accounts
+           WHERE company_id = ? AND name = ? AND id != ?`,
+        )
+        .get(companyId, name, accountId);
+      if (duplicateName) {
+        throw new ApiError(
+          409,
+          'DUPLICATE_ACCOUNT_NAME',
+          'An account with this name already exists for the company.',
+        );
+      }
+    }
+
+    database
+      .prepare(
+        `UPDATE accounts
+         SET name = ?, code = ?, account_type = ?
+         WHERE id = ? AND company_id = ?`,
+      )
+      .run(name, code, input.accountType ?? account.account_type, accountId, companyId);
+    recordAuditEvent(database, {
+      actorUserId,
+      eventType: 'account.updated',
+      entityType: 'account',
+      entityId: accountId,
+      details: {
+        companyId,
+        name,
+        code,
+        accountType: input.accountType ?? account.account_type,
+      },
+    });
+  });
+  try {
+    update.immediate();
+  } catch (error) {
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'message' in error &&
+      typeof error.message === 'string' &&
+      error.message.includes('account code must be unique')
+    ) {
+      throw new ApiError(
+        409,
+        'DUPLICATE_ACCOUNT_CODE',
+        'An account with this code already exists for the company.',
+      );
+    }
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'code' in error &&
+      error.code === 'SQLITE_CONSTRAINT_UNIQUE'
+    ) {
+      throw new ApiError(
+        409,
+        'DUPLICATE_ACCOUNT_NAME',
+        'An account with this name already exists for the company.',
+      );
+    }
+    throw error;
+  }
+  return getAccount(database, companyId, accountId);
 }
 
 function assertCompanyExists(database: Database.Database, companyId: number): void {

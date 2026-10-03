@@ -6,8 +6,12 @@ import { createCompaniesRouter } from './features/companies/companies.routes.js'
 import { createHealthRouter } from './features/health/health.routes.js';
 import { createSetupRouter } from './features/setup/setup.routes.js';
 import { createAuditRouter } from './features/audit/audit.routes.js';
+import { createSalesRouter } from './features/sales/sales.routes.js';
 import { createAuthRouter } from './auth/auth.routes.js';
-import { requireAuthentication } from './auth/auth.middleware.js';
+import {
+  requireAuthentication,
+  requireTrustedOriginForMutations,
+} from './auth/auth.middleware.js';
 import helmet from 'helmet';
 import { config } from './config/env.js';
 import { errorHandler } from './middleware/error-handler.js';
@@ -51,10 +55,12 @@ export function createApp(
   );
   app.use(express.json({ limit: '1mb' }));
   app.use('/api/health', createHealthRouter(database));
+  app.use('/api/v1', requireTrustedOriginForMutations);
   app.use('/api/v1/setup', createSetupRouter());
   app.use('/api/v1/auth', createAuthRouter(database));
   app.use('/api/v1', requireAuthentication(database));
   app.use('/api/v1/audit-events', createAuditRouter(database));
+  app.use('/api/v1/companies/:companyId/sales', createSalesRouter(database));
   app.use('/api/v1/companies', createCompaniesRouter(database));
   app.use(
     '/api/v1/companies/:companyId/accounts',

@@ -12,7 +12,9 @@ import {
 import {
   authenticate,
   changePassword,
+  createInitialSystemManager,
   createUser,
+  hasUsers,
   getUser,
   listUsers,
   resetUserPassword,
@@ -31,6 +33,7 @@ const createUserSchema = z.object({
   password: z.string().min(12).max(256),
   role: z.enum(ROLES),
 });
+const bootstrapSchema = createUserSchema.omit({ role: true });
 const updateUserSchema = z
   .object({
     role: z.enum(ROLES).optional(),
@@ -81,6 +84,45 @@ export function createAuthRouter(database: Database.Database): Router {
       },
     },
   });
+
+  const bootstrapLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 5,
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    message: {
+      error: {
+        code: 'BOOTSTRAP_RATE_LIMITED',
+        message: 'Too many setup attempts. Try again later.',
+      },
+    },
+  });
+
+  router.get('/bootstrap-status', (_request, response) => {
+    response.set('Cache-Control', 'no-store');
+    response.json({ required: !hasUsers(database) });
+  });
+
+  router.post(
+    '/bootstrap',
+    requireTrustedOrigin,
+    bootstrapLimiter,
+    async (request, response) => {
+      const input = parseBody(bootstrapSchema, request.body);
+      await createInitialSystemManager(database, {
+        email: input.email,
+        fullname: input.fullname,
+        password: input.password,
+      });
+      const { user, token } = await authenticate(
+        database,
+        input.email,
+        input.password,
+      );
+      response.cookie(SESSION_COOKIE, token, sessionCookieOptions());
+      response.status(201).json({ user });
+    },
+  );
 
   router.post('/login', requireTrustedOrigin, loginLimiter, async (request, response) => {
     const { email, password } = parseBody(loginSchema, request.body);

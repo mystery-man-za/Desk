@@ -1,4 +1,10 @@
+import { Link, Navigate } from 'react-router-dom';
+import { useWorkspace } from '../../app/workspace/WorkspaceContext';
+
 export function DashboardPage() {
+  const { company, loading } = useWorkspace();
+  if (!loading && !company) return <Navigate replace to="/setup" />;
+
   return (
     <section className="dashboard" id="dashboard">
       <div className="welcome-row">
@@ -6,10 +12,19 @@ export function DashboardPage() {
           <div className="eyebrow">YOUR BUSINESS, IN GOOD ORDER</div>
           <h1>A clearer view of your business.</h1>
           <p className="welcome-copy">
-            Your new accounting workspace is ready for its first chapter.
+            {company ? `${company.name} is ready for its first chapter.` : 'Your Books site is ready.'}
           </p>
         </div>
-        <div className="date-chip"><span aria-hidden="true">◷</span> Your workspace</div>
+        {company && (
+          <Link className="date-chip" to="/accounts">
+            <span aria-hidden="true">☷</span> Review accounts
+          </Link>
+        )}
+        {company && (
+          <Link className="primary-button" to="/sales">
+            Create sales invoice
+          </Link>
+        )}
       </div>
 
       <section className="setup-card" aria-labelledby="setup-title">
@@ -26,15 +41,15 @@ export function DashboardPage() {
           <div className="art-dot dot-two" />
         </div>
         <div className="setup-copy">
-          <div className="ready-label"><span /> FOUNDATION READY</div>
-          <h2 id="setup-title">A fresh start for your books.</h2>
+          <div className="ready-label"><span /> COMPANY SETUP COMPLETE</div>
+          <h2 id="setup-title">{company?.name ?? 'Your Books site'}</h2>
           <p>
-            This independent app is up and running. Add your business,
-            shape your chart of accounts, and build from here.
+            Your company workspace has been created. Review the account
+            structure and confirm it suits your business before entering transactions.
           </p>
-          <div className="setup-note">
-            <span className="note-icon" aria-hidden="true">✳</span>
-            <span>Made for the way your business works.</span>
+          <div className="setup-note company-meta">
+            <span>{company?.country} · {company?.currency}</span>
+            <span>{company?.fiscalYearStart} — {company?.fiscalYearEnd}</span>
           </div>
         </div>
       </section>
@@ -44,7 +59,7 @@ export function DashboardPage() {
           <h2>Your foundation</h2>
           <p>The building blocks behind your workspace.</p>
         </div>
-        <span className="section-count">01 / 03</span>
+        <Link className="text-link" to="/accounts">Review chart <span aria-hidden="true">→</span></Link>
       </div>
 
       <div className="foundation-grid">
@@ -53,21 +68,21 @@ export function DashboardPage() {
           <div className="card-overline">BUSINESS</div>
           <h3>Company profile</h3>
           <p>Your business details and accounting preferences.</p>
-          <span className="card-status">Ready to set up</span>
+          <span className="card-status">Company configured</span>
         </article>
         <article className="foundation-card">
           <div className="card-icon lavender-icon" aria-hidden="true">☷</div>
           <div className="card-overline">STRUCTURE</div>
           <h3>Chart of accounts</h3>
           <p>A clear home for every dollar in and out.</p>
-          <span className="card-status coming-soon">Coming next</span>
+          <Link className="card-status card-link" to="/accounts">Review accounts</Link>
         </article>
         <article className="foundation-card">
           <div className="card-icon peach-icon" aria-hidden="true">↗</div>
           <div className="card-overline">ACTIVITY</div>
           <h3>First transactions</h3>
           <p>Start tracking the important things.</p>
-          <span className="card-status coming-soon">Coming next</span>
+          <Link className="card-status card-link" to="/sales">Create an invoice</Link>
         </article>
       </div>
     </section>

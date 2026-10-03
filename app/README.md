@@ -52,10 +52,21 @@ The role mapping follows the Books DocType permissions in the current source:
 
 - **System Manager** can administer users and make Books changes.
 - **Books Manager** can make Books changes but cannot administer site users.
-- **Books User** can read Books data but cannot create or change it.
+- **Books User** is generally read-focused; Books users can create customers
+  and draft/post sales invoices, but cannot change the chart or cancel posted
+  invoices.
 
-Create the initial System Manager once, using environment-provided values rather
-than placing a password in shell history:
+On a new site, open the app and choose **Create the site owner account**. Enter
+your own name, sign-in email, and password; successful setup signs you in and
+continues to the one-time Books company setup wizard. The owner is a named
+**System Manager** user, not Frappe's special `Administrator` account or an
+unrestricted hidden login. There are no default credentials. Bootstrap is
+available only while the database has no users, requires a trusted browser
+origin, is rate-limited, and can succeed only once.
+
+For unattended initial setup, an operator can bootstrap the first
+System Manager using environment-provided values rather than placing a password
+in shell history:
 
 ```sh
 read -r ADMIN_EMAIL
@@ -67,8 +78,13 @@ unset ADMIN_EMAIL ADMIN_NAME ADMIN_PASSWORD
 ```
 
 The password must be at least 12 characters. Initial bootstrap fails once any
-user exists; there is no public sign-up endpoint. A System Manager provisions
-additional users through the authenticated `/api/v1/auth/users` API.
+user exists; there is no public sign-up endpoint after first-run setup. A
+System Manager provisions additional users from **Manage users** in the app.
+They choose whether each person is a System Manager, Books Manager, or Books
+User. New users do not repeat company setup: the company and accounting
+configuration are shared by everyone using the same database. User passwords
+are set by the System Manager and must be handed to each user securely; this
+app does not send invitation email.
 System Managers can reset another user's password through
 `PUT /api/v1/auth/users/:userId/password`; the user should receive the new
 password out of band. Users can change their own password through
@@ -80,6 +96,16 @@ inside the same transaction as the change. Audit records cannot be updated or
 deleted through SQLite. System Managers and Books Managers can page through
 `GET /api/v1/audit-events?limit=50`; details exclude credentials and password
 hashes.
+
+The Sales workspace currently supports customer creation, one-line draft
+invoices, posting to the general ledger, and cancellation through an immutable
+reversing journal entry. Posted invoices debit the active Accounts Receivable
+ledger and credit the selected income account. Amounts are stored as integer
+minor currency units and quantities as thousandths; this initial slice assumes
+two decimal currency places and does not yet support tax, discounts, payments,
+inventory, or multiple editable invoice lines in the UI. The API validates
+balanced postings transactionally; the ledger and posted journal entries
+cannot be edited or deleted.
 
 The SQLite file is stored under a private directory and created with restrictive
 permissions on Unix-like systems. Keep it and its backups private. SQLite is
@@ -102,7 +128,7 @@ app/
     └── src/
         ├── auth/                 # Sessions, passwords, and role policies
         ├── audit/                # Append-only audit event persistence
-        ├── cli/                  # First-site administrator bootstrap
+        ├── cli/                  # First-site owner bootstrap
         ├── app.ts                # Express app composition
         ├── config/               # Runtime configuration
         ├── db/                   # SQLite connection and migrations
@@ -110,6 +136,7 @@ app/
         ├── features/
         │   ├── accounts/         # Account types and starter chart
         │   ├── companies/        # Company setup, validation, and queries
+        │   ├── sales/            # Customers, invoices, and journal posting
         │   ├── health/
         │   └── setup/            # Setup wizard option catalogs
         ├── middleware/           # Cross-cutting HTTP middleware
@@ -137,6 +164,14 @@ available at `GET /api/v1/companies/:companyId` and
 and inherited-root-type rules. System Managers manage users at
 `/api/v1/auth/users`. API errors use a stable
 `{ error: { code, message, details? } }` shape.
+
+The React app provides a first-use flow: create the site owner's System
+Manager account, automatically sign in, create the site's company once, review
+the generated chart of accounts, then continue to the dashboard. The company
+contact name and email entered during company setup are business details, not
+login credentials. System Managers can explicitly provision other site users
+from the Manage users screen. Reusing the same database shares its users,
+company, and setup state; only an empty database needs owner bootstrap.
 
 The starter chart is deliberately a small, independently authored foundation;
 it is **not** the Frappe standard or regional chart and is not ready for real

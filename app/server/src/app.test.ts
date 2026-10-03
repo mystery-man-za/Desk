@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import Database from 'better-sqlite3';
 import { createServer } from 'node:http';
 import { after, before, describe, it } from 'node:test';
-import { createInitialAdmin } from './auth/auth.service.js';
+import { createInitialSystemManager } from './auth/auth.service.js';
 import { createApp } from './app.js';
 import { openDatabase } from './db/database.js';
 import { migrate } from './db/migrations.js';
@@ -78,7 +78,7 @@ describe('HTTP application and site operating model', () => {
     const address = server.address();
     assert.ok(address && typeof address !== 'string');
     origin = `http://127.0.0.1:${address.port}`;
-    await createInitialAdmin(database, {
+    await createInitialSystemManager(database, {
       email: 'admin@example.test',
       fullname: 'Site Administrator',
       password: 'a-secure-password',
@@ -141,9 +141,9 @@ describe('HTTP application and site operating model', () => {
     );
   });
 
-  it('allows initial administrator bootstrap exactly once', async () => {
+  it('allows initial site owner setup exactly once', async () => {
     await assert.rejects(
-      createInitialAdmin(database, {
+      createInitialSystemManager(database, {
         email: 'second-admin@example.test',
         fullname: 'Second Administrator',
         password: 'another-secure-password',
@@ -208,6 +208,279 @@ describe('HTTP application and site operating model', () => {
       ((await duplicate.json()) as { error: { code: string } }).error.code,
       'COMPANY_ALREADY_CONFIGURED',
     );
+  });
+
+  it('posts a balanced invoice and cancels it with an immutable reversing entry', async () => {
+    const customerResponse = await apiFetch(
+      `/api/v1/companies/${companyId}/sales/customers`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Acme Customer',
+          email: 'accounts@acme.example.test',
+        }),
+      },
+    );
+    assert.equal(customerResponse.status, 201);
+    const { customer } = (await customerResponse.json()) as {
+      customer: { id: number; name: string };
+    };
+
+    const receivable = database
+      .prepare(
+        `SELECT id FROM accounts
+         WHERE company_id = ? AND account_type = 'Receivable' AND is_group = 0`,
+      )
+      .get(companyId) as { id: number };
+    const revenue = database
+      .prepare(
+        `SELECT id FROM accounts
+         WHERE company_id = ? AND name = 'Sales Revenue' AND is_group = 0`,
+      )
+      .get(companyId) as { id: number };
+
+    const createInvoice = await apiFetch(
+      `/api/v1/companies/${companyId}/sales/invoices`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          customerId: customer.id,
+          receivableAccountId: receivable.id,
+          invoiceDate: '2026-10-03',
+          lines: [{
+            description: 'Consulting services',
+            quantityMilli: 1500,
+            unitPriceMinor: 20000,
+            incomeAccountId: revenue.id,
+          }],
+        }),
+      },
+    );
+    assert.equal(createInvoice.status, 201);
+    const { invoice: draft } = (await createInvoice.json()) as {
+      invoice: {
+        id: number;
+        invoiceNumber: string;
+        status: string;
+        subtotalMinor: number;
+        lines: Array<{ lineTotalMinor: number }>;
+      };
+    };
+    assert.equal(draft.invoiceNumber, 'SINV-1001');
+    assert.equal(draft.status, 'Draft');
+    assert.equal(draft.subtotalMinor, 30000);
+    assert.equal(draft.lines[0].lineTotalMinor, 30000);
+
+    const submittedResponse = await apiFetch(
+      `/api/v1/companies/${companyId}/sales/invoices/${draft.id}/submit`,
+      { method: 'POST' },
+    );
+    assert.equal(submittedResponse.status, 200);
+    const { invoice: submitted } = (await submittedResponse.json()) as {
+      invoice: {
+        status: string;
+        journalEntries: Array<{
+          sourceType: string;
+          lines: Array<{
+            accountId: number;
+            debitMinor: number;
+            creditMinor: number;
+          }>;
+        }>;
+      };
+    };
+    assert.equal(submitted.status, 'Submitted');
+    assert.equal(submitted.journalEntries.length, 1);
+    assert.equal(submitted.journalEntries[0].sourceType, 'Sales Invoice');
+    assert.equal(
+      submitted.journalEntries[0].lines.reduce((sum, line) => sum + line.debitMinor, 0),
+      30000,
+    );
+    assert.equal(
+      submitted.journalEntries[0].lines.reduce((sum, line) => sum + line.creditMinor, 0),
+      30000,
+    );
+    assert.ok(
+      submitted.journalEntries[0].lines.some(
+        (line) => line.accountId === receivable.id && line.debitMinor === 30000,
+      ),
+    );
+    assert.ok(
+      submitted.journalEntries[0].lines.some(
+        (line) => line.accountId === revenue.id && line.creditMinor === 30000,
+      ),
+    );
+    assert.throws(
+      () =>
+        database
+          .prepare('UPDATE sales_invoices SET subtotal_minor = 1 WHERE id = ?')
+          .run(draft.id),
+      /submitted sales invoices are immutable/,
+    );
+    assert.throws(
+      () =>
+        database
+          .prepare(
+            'UPDATE sales_invoice_lines SET line_total_minor = 1 WHERE invoice_id = ?',
+          )
+          .run(draft.id),
+      /posted sales invoice lines are immutable/,
+    );
+
+    const cancelResponse = await apiFetch(
+      `/api/v1/companies/${companyId}/sales/invoices/${draft.id}/cancel`,
+      { method: 'POST' },
+    );
+    assert.equal(cancelResponse.status, 200);
+    const { invoice: cancelled } = (await cancelResponse.json()) as {
+      invoice: {
+        status: string;
+        journalEntries: Array<{
+          sourceType: string;
+          entryDate: string;
+          lines: Array<{ debitMinor: number; creditMinor: number }>;
+        }>;
+      };
+    };
+    assert.equal(cancelled.status, 'Cancelled');
+    assert.equal(cancelled.journalEntries.length, 2);
+    const reversal = cancelled.journalEntries.find(
+      (entry) => entry.sourceType === 'Reversal',
+    );
+    assert.ok(reversal);
+    assert.equal(reversal.entryDate, '2026-10-03');
+    assert.equal(
+      reversal.lines.reduce((sum, line) => sum + line.debitMinor, 0),
+      30000,
+    );
+    assert.equal(
+      reversal.lines.reduce((sum, line) => sum + line.creditMinor, 0),
+      30000,
+    );
+
+    const originalCurrency = (
+      database
+        .prepare('SELECT currency FROM company_settings WHERE company_id = ?')
+        .get(companyId) as { currency: string }
+    ).currency;
+    const createPrecisionInvoice = async (
+      currency: string,
+      unitPriceMinor: number,
+      quantityMilli: number,
+      expectedPrecision: number,
+      expectedTotal: number,
+      expectedNumber: string,
+    ) => {
+      database
+        .prepare('UPDATE company_settings SET currency = ? WHERE company_id = ?')
+        .run(currency, companyId);
+      const response = await apiFetch(
+        `/api/v1/companies/${companyId}/sales/invoices`,
+        {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            customerId: customer.id,
+            receivableAccountId: receivable.id,
+            invoiceDate: '2026-10-03',
+            lines: [{
+              description: `${currency} precision test`,
+              quantityMilli,
+              unitPriceMinor,
+              incomeAccountId: revenue.id,
+            }],
+          }),
+        },
+      );
+      assert.equal(response.status, 201);
+      const { invoice } = (await response.json()) as {
+        invoice: {
+          invoiceNumber: string;
+          currencyPrecision: number;
+          subtotalMinor: number;
+        };
+      };
+      assert.equal(invoice.invoiceNumber, expectedNumber);
+      assert.equal(invoice.currencyPrecision, expectedPrecision);
+      assert.equal(invoice.subtotalMinor, expectedTotal);
+    };
+    try {
+      await createPrecisionInvoice('JPY', 1, 1500, 0, 2, 'SINV-1002');
+      await createPrecisionInvoice('KWD', 1234, 1000, 3, 1234, 'SINV-1003');
+    } finally {
+      database
+        .prepare('UPDATE company_settings SET currency = ? WHERE company_id = ?')
+        .run(originalCurrency, companyId);
+    }
+  });
+
+  it('allows safe chart edits while preventing conflicting account codes', async () => {
+    const account = database
+      .prepare(
+        `SELECT id FROM accounts
+         WHERE company_id = ? AND name = 'General Expenses'`,
+      )
+      .get(companyId) as { id: number };
+    const update = await apiFetch(
+      `/api/v1/companies/${companyId}/accounts/${account.id}`,
+      {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ name: 'General Operating Expenses', code: '6000' }),
+      },
+    );
+    assert.equal(update.status, 200);
+    const { account: updated } = (await update.json()) as {
+      account: { name: string; code: string };
+    };
+    assert.equal(updated.name, 'General Operating Expenses');
+    assert.equal(updated.code, '6000');
+
+    const parent = database
+      .prepare(
+        `SELECT id FROM accounts
+         WHERE company_id = ? AND name = 'Operating Expenses'`,
+      )
+      .get(companyId) as { id: number };
+    const duplicateCode = await apiFetch(
+      `/api/v1/companies/${companyId}/accounts`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Duplicate Code Account',
+          code: '6000',
+          parentId: parent.id,
+          isGroup: false,
+        }),
+      },
+    );
+    assert.equal(duplicateCode.status, 409);
+    assert.equal(
+      ((await duplicateCode.json()) as { error: { code: string } }).error.code,
+      'DUPLICATE_ACCOUNT_CODE',
+    );
+
+    const setAccountType = await apiFetch(
+      `/api/v1/companies/${companyId}/accounts/${account.id}`,
+      {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ accountType: 'Expense Account' }),
+      },
+    );
+    assert.equal(setAccountType.status, 200);
+    const changeAccountType = await apiFetch(
+      `/api/v1/companies/${companyId}/accounts/${account.id}`,
+      {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ accountType: 'Bank' }),
+      },
+    );
+    assert.equal(changeAccountType.status, 409);
   });
 
   it('rejects invalid setup input without persisting anything', async () => {
@@ -284,6 +557,66 @@ describe('HTTP application and site operating model', () => {
       readerCookie,
     );
     assert.equal(list.status, 200);
+
+    const createCustomer = await apiFetch(
+      `/api/v1/companies/${companyId}/sales/customers`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ name: 'Reader Customer' }),
+      },
+      readerCookie,
+    );
+    assert.equal(createCustomer.status, 201);
+    const { customer: readerCustomer } = (await createCustomer.json()) as {
+      customer: { id: number };
+    };
+    const revenue = database
+      .prepare(
+        `SELECT id FROM accounts
+         WHERE company_id = ? AND name = 'Sales Revenue' AND is_group = 0`,
+      )
+      .get(companyId) as { id: number };
+    const readerInvoiceResponse = await apiFetch(
+      `/api/v1/companies/${companyId}/sales/invoices`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          customerId: readerCustomer.id,
+          receivableAccountId: (
+            database.prepare(
+              `SELECT id FROM accounts
+               WHERE company_id = ? AND account_type = 'Receivable' AND is_group = 0`,
+            ).get(companyId) as { id: number }
+          ).id,
+          invoiceDate: '2026-10-03',
+          lines: [{
+            description: 'User entered service',
+            quantityMilli: 1000,
+            unitPriceMinor: 5000,
+            incomeAccountId: revenue.id,
+          }],
+        }),
+      },
+      readerCookie,
+    );
+    assert.equal(readerInvoiceResponse.status, 201);
+    const { invoice: readerInvoice } = (await readerInvoiceResponse.json()) as {
+      invoice: { id: number };
+    };
+    const postReaderInvoice = await apiFetch(
+      `/api/v1/companies/${companyId}/sales/invoices/${readerInvoice.id}/submit`,
+      { method: 'POST' },
+      readerCookie,
+    );
+    assert.equal(postReaderInvoice.status, 200);
+    const readerCancel = await apiFetch(
+      `/api/v1/companies/${companyId}/sales/invoices/${readerInvoice.id}/cancel`,
+      { method: 'POST' },
+      readerCookie,
+    );
+    assert.equal(readerCancel.status, 403);
 
     const create = await apiFetch(
       `/api/v1/companies/${companyId}/accounts`,
@@ -551,7 +884,7 @@ describe('database migrations', () => {
     `);
     database.prepare('INSERT INTO companies (name) VALUES (?)').run('Example Co');
     migrate(database);
-    assert.equal(database.pragma('user_version', { simple: true }), 6);
+    assert.equal(database.pragma('user_version', { simple: true }), 8);
     assert.equal(
       (database.prepare('SELECT name FROM companies').get() as { name: string }).name,
       'Example Co',
@@ -565,13 +898,18 @@ describe('database migrations', () => {
 
   it('creates scoped account and user session schemas', () => {
     const database = openDatabase(':memory:');
-    assert.equal(database.pragma('user_version', { simple: true }), 6);
+    assert.equal(database.pragma('user_version', { simple: true }), 8);
     for (const table of [
       'company_settings',
       'accounts',
       'users',
       'sessions',
       'audit_events',
+      'customers',
+      'sales_invoices',
+      'sales_invoice_lines',
+      'journal_entries',
+      'journal_lines',
     ]) {
       assert.equal(
         (
@@ -583,5 +921,107 @@ describe('database migrations', () => {
       );
     }
     database.close();
+  });
+});
+
+describe('first-run site owner setup', () => {
+  const database = openDatabase(':memory:');
+  const server = createServer(createApp(database, { serveFrontend: false }));
+  let origin: string;
+
+  before(async () => {
+    await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+    const address = server.address();
+    assert.ok(address && typeof address !== 'string');
+    origin = `http://127.0.0.1:${address.port}`;
+  });
+
+  after(async () => {
+    await new Promise<void>((resolve, reject) => {
+      server.close((error) => (error ? reject(error) : resolve()));
+    });
+    database.close();
+  });
+
+  it('creates the initial System Manager, signs them in, and closes bootstrap', async () => {
+    const status = await fetch(`${origin}/api/v1/auth/bootstrap-status`);
+    assert.deepEqual(await status.json(), { required: true });
+    assert.equal(status.headers.get('cache-control'), 'no-store');
+
+    const response = await fetch(`${origin}/api/v1/auth/bootstrap`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        origin: trustedOrigin,
+      },
+      body: JSON.stringify({
+        fullname: 'First Site Owner',
+        email: 'owner@example.test',
+        password: 'first-site-password',
+      }),
+    });
+    assert.equal(response.status, 201);
+    assert.match(response.headers.get('set-cookie') ?? '', /HttpOnly/i);
+    assert.match(response.headers.get('set-cookie') ?? '', /SameSite=Strict/i);
+    const body = (await response.json()) as {
+      user: { email: string; role: string };
+    };
+    assert.equal(body.user.email, 'owner@example.test');
+    assert.equal(body.user.role, 'System Manager');
+
+    const cookie = response.headers
+      .getSetCookie()
+      .find((value) => value.startsWith('books_session='))
+      ?.split(';', 1)[0];
+    assert.ok(cookie);
+    const session = await fetch(`${origin}/api/v1/auth/session`, {
+      headers: { cookie },
+    });
+    assert.equal(session.status, 200);
+
+    const statusAfterBootstrap = await fetch(
+      `${origin}/api/v1/auth/bootstrap-status`,
+    );
+    assert.deepEqual(await statusAfterBootstrap.json(), { required: false });
+
+    const secondBootstrap = await fetch(`${origin}/api/v1/auth/bootstrap`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        origin: trustedOrigin,
+      },
+      body: JSON.stringify({
+        fullname: 'Another Owner',
+        email: 'other@example.test',
+        password: 'second-site-password',
+      }),
+    });
+    assert.equal(secondBootstrap.status, 409);
+  });
+
+  it('does not allow bootstrap without a trusted browser origin', async () => {
+    const usersBefore = (
+      database.prepare('SELECT COUNT(*) AS count FROM users').get() as {
+        count: number;
+      }
+    ).count;
+    const response = await fetch(`${origin}/api/v1/auth/bootstrap`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        fullname: 'Untrusted Owner',
+        email: 'untrusted@example.test',
+        password: 'untrusted-password',
+      }),
+    });
+    assert.equal(response.status, 403);
+    assert.equal(
+      (
+        database.prepare('SELECT COUNT(*) AS count FROM users').get() as {
+          count: number;
+        }
+      ).count,
+      usersBefore,
+    );
   });
 });

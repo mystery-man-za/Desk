@@ -43,7 +43,7 @@ export async function authenticate(
   return { user, token: createSession(database, user.id) };
 }
 
-export async function createInitialAdmin(
+export async function createInitialSystemManager(
   database: Database.Database,
   input: { email: string; fullname: string; password: string },
 ): Promise<void> {
@@ -55,8 +55,8 @@ export async function createInitialAdmin(
     if (count.count !== 0) {
       throw new ApiError(
         409,
-        'INITIAL_ADMIN_ALREADY_EXISTS',
-        'Users already exist; initial administrator bootstrap is only allowed once.',
+        'INITIAL_SYSTEM_MANAGER_ALREADY_EXISTS',
+        'Users already exist; site owner setup is only allowed once.',
       );
     }
     const result = database
@@ -68,24 +68,30 @@ export async function createInitialAdmin(
     const userId = Number(result.lastInsertRowid);
     recordAuditEvent(database, {
       actorUserId: userId,
-      eventType: 'user.initial_admin_created',
+      eventType: 'user.initial_system_manager_created',
       entityType: 'user',
       entityId: userId,
       details: { email: input.email, role: 'System Manager' },
     });
   });
   try {
-    create();
+    create.immediate();
   } catch (error) {
     if (isConstraintError(error)) {
       throw new ApiError(
         409,
-        'INITIAL_ADMIN_ALREADY_EXISTS',
-        'An administrator was created concurrently; bootstrap was not completed.',
+        'INITIAL_SYSTEM_MANAGER_ALREADY_EXISTS',
+        'A site owner was created concurrently; setup was not completed.',
       );
     }
+
     throw error;
   }
+}
+
+export function hasUsers(database: Database.Database): boolean {
+  const result = database.prepare('SELECT 1 FROM users LIMIT 1').get();
+  return result !== undefined;
 }
 
 export async function createUser(
@@ -180,7 +186,7 @@ export function updateUser(
       details: { role: nextRole, isActive: nextActive },
     });
   });
-  update();
+  update.immediate();
   return getUser(database, userId);
 }
 

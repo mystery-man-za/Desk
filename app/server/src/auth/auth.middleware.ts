@@ -87,3 +87,15 @@ export const requireTrustedOrigin: RequestHandler = (request, _response, next) =
   }
   next();
 };
+
+export const requireTrustedOriginForMutations: RequestHandler = (
+  request,
+  response,
+  next,
+) => {
+  if (['GET', 'HEAD', 'OPTIONS'].includes(request.method)) {
+    next();
+    return;
+  }
+  requireTrustedOrigin(request, response, next);
+};

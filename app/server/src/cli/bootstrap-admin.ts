@@ -1,5 +1,5 @@
 import { openDatabase } from '../db/database.js';
-import { createInitialAdmin } from '../auth/auth.service.js';
+import { createInitialSystemManager } from '../auth/auth.service.js';
 import { z } from 'zod';
 
 const bootstrapSchema = z.object({
@@ -20,7 +20,7 @@ if (!input.success) {
 } else {
   const database = openDatabase();
   try {
-    await createInitialAdmin(database, input.data);
+    await createInitialSystemManager(database, input.data);
     console.log(`Created the initial System Manager: ${input.data.email}`);
   } catch (error) {
     console.error(error instanceof Error ? error.message : error);
