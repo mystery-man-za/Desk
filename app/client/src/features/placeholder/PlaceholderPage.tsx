@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppIcon, type AppIconName } from '../../components/ui/AppIcon';
 import { AppSheet } from '../../components/ui/AppSheet';
+import { PageTitle } from '../../components/layout/PageTitle';
+import { PageContainer } from '../../components/layout/PageContainer';
 
 type PlaceholderPageProps = {
   title: 'Expenses' | 'Accounting' | 'Reports';
@@ -30,19 +32,16 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
   const isAccounting = title === 'Accounting';
 
   return (
-    <section className={`dashboard feature-page ${isExpenses ? 'expenses-page' : ''}`}>
-      <div className="welcome-row">
-        <div>
-          <div className="eyebrow">{isExpenses ? 'PURCHASES & PAYMENTS' : isAccounting ? 'BOOKKEEPING' : 'FINANCIAL INSIGHT'}</div>
-          <h1>{title}</h1>
-          <p className="welcome-copy">
-            {isExpenses
-              ? 'Keep track of what your business spends.'
-              : isAccounting
-                ? 'Review your books and keep every entry in balance.'
-                : 'Understand how your business is performing.'}
-          </p>
-        </div>
+    <PageContainer className={`feature-page ${isExpenses ? 'expenses-page' : ''}`}>
+      <PageTitle
+        description={isExpenses
+          ? 'Keep track of what your business spends.'
+          : isAccounting
+            ? 'Review your books and keep every entry in balance.'
+            : 'Understand how your business is performing.'}
+        eyebrow={isExpenses ? 'PURCHASES & PAYMENTS' : isAccounting ? 'BOOKKEEPING' : 'FINANCIAL INSIGHT'}
+        title={title}
+      >
         {isExpenses && (
           <button className="primary-button preview-action" onClick={() => setSelectedReport({
             title: 'Record an expense',
@@ -53,7 +52,7 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
             <AppIcon name="plus" size={16} /> New expense
           </button>
         )}
-      </div>
+      </PageTitle>
 
       {isExpenses ? (
         <>
@@ -107,7 +106,7 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
                 ? 'Try another search term or clear your search.'
                 : 'When you record a supplier invoice or expense, it will appear here.'}
             />
-          </section>
+          </PageContainer>
           <div className="feature-note">
             <span className="note-icon">i</span>
             Expense entry and supplier bill posting are not connected yet.

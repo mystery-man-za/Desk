@@ -1,31 +1,31 @@
 import { Link, Navigate } from 'react-router-dom';
 import { useWorkspace } from '../../app/workspace/WorkspaceContext';
+import { PageTitle } from '../../components/layout/PageTitle';
+import { PageContainer } from '../../components/layout/PageContainer';
+import { AppIcon } from '../../components/ui/AppIcon';
 
 export function DashboardPage() {
   const { company, loading } = useWorkspace();
   if (!loading && !company) return <Navigate replace to="/setup" />;
 
   return (
-    <section className="dashboard" id="dashboard">
-      <div className="welcome-row">
-        <div>
-          <div className="eyebrow">YOUR BUSINESS, IN GOOD ORDER</div>
-          <h1>A clearer view of your business.</h1>
-          <p className="welcome-copy">
-            {company ? `${company.name} is ready for its first chapter.` : 'Your Books site is ready.'}
-          </p>
-        </div>
+    <PageContainer className="dashboard-page">
+      <PageTitle
+        description={company ? `${company.name} is ready for its first chapter.` : 'Your Books site is ready.'}
+        eyebrow="YOUR BUSINESS, IN GOOD ORDER"
+        title="A clearer view of your business."
+      >
         {company && (
           <Link className="date-chip" to="/accounts">
-            <span aria-hidden="true">☷</span> Review accounts
+            <AppIcon name="accounts" size={15} /> Review accounts
           </Link>
         )}
         {company && (
           <Link className="primary-button" to="/sales">
-            Create sales invoice
+            <AppIcon name="plus" size={15} /> Create sales invoice
           </Link>
         )}
-      </div>
+      </PageTitle>
 
       <section className="setup-card" aria-labelledby="setup-title">
         <div className="setup-art" aria-hidden="true">
@@ -52,7 +52,7 @@ export function DashboardPage() {
             <span>{company?.fiscalYearStart} — {company?.fiscalYearEnd}</span>
           </div>
         </div>
-      </section>
+      </PageContainer>
 
       <div className="section-heading">
         <div>

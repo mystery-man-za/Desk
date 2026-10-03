@@ -4,6 +4,9 @@ import { useWorkspace } from '../../app/workspace/WorkspaceContext';
 import { ApiError, apiRequest } from '../../shared/api/client';
 import { AppSheet } from '../../components/ui/AppSheet';
 import { AppIcon } from '../../components/ui/AppIcon';
+import { PageTitle } from '../../components/layout/PageTitle';
+import { PageContainer } from '../../components/layout/PageContainer';
+import { StatusBadge, type StatusTone } from '../../components/ui/StatusBadge';
 
 type Customer = {
   id: number;
@@ -67,6 +70,12 @@ type InvoiceSummary = Pick<
   | 'subtotalMinor'
   | 'status'
 >;
+
+const invoiceStatusTone: Record<Invoice['status'], StatusTone> = {
+  Draft: 'draft',
+  Submitted: 'submitted',
+  Cancelled: 'cancelled',
+};
 
 function dateValue(date: Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
@@ -352,24 +361,21 @@ export function SalesPage() {
   }
 
   return (
-    <section className="dashboard sales-page">
-      <div className="welcome-row">
-        <div>
-          <div className="eyebrow">SALES WORKFLOW</div>
-          <h1>Sales invoices</h1>
-          <p className="welcome-copy">
-            Create a draft, review it, then post it to the general ledger.
-          </p>
-        </div>
+    <PageContainer className="sales-page">
+      <PageTitle
+        description="Create a draft, review it, then post it to the general ledger."
+        eyebrow="SALES WORKFLOW"
+        title="Sales invoices"
+      >
         <Link className="secondary-button" to="/accounts">Chart of accounts</Link>
-      </div>
+      </PageTitle>
 
       {error && <div className="form-alert sales-message" role="alert">{error}</div>}
       {notice && <div className="user-notice sales-message" role="status">{notice}</div>}
 
       <div className="sales-workspace">
         <div className="sales-forms">
-          <section className="sales-card">
+          <section className="sales-card" id="customers">
             <header className="user-admin-heading">
               <div><h2>Add a customer</h2><p>Customers are shared across this company site.</p></div>
             </header>
@@ -525,9 +531,9 @@ export function SalesPage() {
                     <small>{invoice.customerName} · {invoice.invoiceDate}</small>
                   </span>
                   <strong>{formatMoney(invoice.subtotalMinor, invoice.currency, invoice.currencyPrecision)}</strong>
-                  <span className={`invoice-status status-${invoice.status.toLowerCase()}`}>
+                  <StatusBadge tone={invoiceStatusTone[invoice.status]}>
                     {invoice.status}
-                  </span>
+                  </StatusBadge>
                 </button>
               ))}
             </div>
@@ -591,7 +597,7 @@ export function SalesPage() {
               )}
             </div>
           )}
-        </section>
+        </PageContainer>
       </div>
       <AppSheet
         className="confirmation-sheet"

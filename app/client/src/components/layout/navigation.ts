@@ -54,6 +54,12 @@ export const mobileTabs = [
   { to: '/reports', label: 'Reports', icon: 'reports' },
 ] as const;
 
-export function isNavigationItemActive(pathname: string, item: NavItem): boolean {
-  return pathname === item.to || pathname.startsWith(`${item.to}/`);
+export function isNavigationItemActive(
+  pathname: string,
+  item: NavItem,
+  hash = '',
+): boolean {
+  const [itemPath, itemHash] = item.to.split('#');
+  if (pathname !== itemPath && !pathname.startsWith(`${itemPath}/`)) return false;
+  return !itemHash || hash === `#${itemHash}`;
 }

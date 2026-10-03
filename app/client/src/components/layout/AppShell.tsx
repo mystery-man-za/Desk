@@ -26,7 +26,11 @@ export function AppShell() {
           <ApiStatus />
         </footer>
       </main>
-      <MobileNavigation open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+      <MobileNavigation
+        onClose={() => setMobileMenuOpen(false)}
+        onOpen={() => setMobileMenuOpen(true)}
+        open={mobileMenuOpen}
+      />
     </div>
   );
 }

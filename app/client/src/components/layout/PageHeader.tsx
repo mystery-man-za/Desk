@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import { useWorkspace } from '../../app/workspace/WorkspaceContext';
-import { ApiStatus } from '../system/ApiStatus';
 import { AppIcon } from '../ui/AppIcon';
 
 const titles: Record<string, string> = {
@@ -43,7 +42,6 @@ export function PageHeader({
       </div>
       <div className="topbar-right">
         <span className="environment-tag">BOOKS</span>
-        <ApiStatus />
         <button
           aria-label="Open navigation menu"
           className="icon-button mobile-menu-trigger"

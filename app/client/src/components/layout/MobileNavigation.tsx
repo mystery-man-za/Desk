@@ -6,17 +6,24 @@ import { AppIcon } from '../ui/AppIcon';
 import { AppSheet } from '../ui/AppSheet';
 import { isNavigationItemActive, mobileTabs, navigationGroups } from './navigation';
 
-export function MobileNavigation() {
-  const { pathname } = useLocation();
+export function MobileNavigation({
+  open,
+  onOpen,
+  onClose,
+}: {
+  open: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}) {
+  const { pathname, hash } = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const { company } = useWorkspace();
-  const [open, setOpen] = useState(false);
   const activeGroup = navigationGroups.find((group) =>
     group.items.some(
       (item) =>
         (!item.roles || item.roles.includes(user?.role ?? '')) &&
-        isNavigationItemActive(pathname, item),
+        isNavigationItemActive(pathname, item, hash),
     ),
   );
   const [expandedGroup, setExpandedGroup] = useState(activeGroup?.label ?? '');
@@ -59,7 +66,7 @@ export function MobileNavigation() {
           className={`mobile-tab${open || isMoreActive ? ' active' : ''}`}
           onClick={() => {
             setExpandedGroup(activeGroup?.label ?? '');
-            setOpen(true);
+            onOpen();
           }}
           type="button"
         >
@@ -71,7 +78,7 @@ export function MobileNavigation() {
       <AppSheet
         className="navigation-sheet"
         description={company?.name ?? 'Your Books workspace'}
-        onClose={() => setOpen(false)}
+        onClose={onClose}
         open={open}
         title="Books"
       >
@@ -80,7 +87,7 @@ export function MobileNavigation() {
           <NavLink
             aria-current={pathname === '/dashboard' ? 'page' : undefined}
             className={`sheet-nav-item${pathname === '/dashboard' ? ' active' : ''}`}
-            onClick={() => setOpen(false)}
+            onClick={onClose}
             to="/dashboard"
           >
             <AppIcon name="dashboard" />
@@ -101,7 +108,7 @@ export function MobileNavigation() {
                     setExpandedGroup(expanded ? '' : group.label);
                     if (visibleItems.length === 1) {
                       navigate(visibleItems[0].to);
-                      setOpen(false);
+                      onClose();
                     }
                   }}
                   type="button"
@@ -117,13 +124,13 @@ export function MobileNavigation() {
                 {expanded && visibleItems.length > 0 && (
                   <div className="sheet-nav-subitems">
                     {visibleItems.map((item) => {
-                      const active = isNavigationItemActive(pathname, item);
+                      const active = isNavigationItemActive(pathname, item, hash);
                       return (
                         <NavLink
                           aria-current={active ? 'page' : undefined}
                           className={`sheet-nav-subitem${active ? ' active' : ''}`}
                           key={item.to}
-                          onClick={() => setOpen(false)}
+                          onClick={onClose}
                           to={item.to}
                         >
                           {item.label}

@@ -3,6 +3,8 @@ import { Link, Navigate } from 'react-router-dom';
 import { useWorkspace } from '../../app/workspace/WorkspaceContext';
 import { useAuth } from '../../app/auth/AuthContext';
 import { apiRequest } from '../../shared/api/client';
+import { PageTitle } from '../../components/layout/PageTitle';
+import { PageContainer } from '../../components/layout/PageContainer';
 
 type Account = {
   id: number;
@@ -71,17 +73,14 @@ export function AccountsPage() {
   }
 
   return (
-    <section className="dashboard accounts-page">
-      <div className="welcome-row">
-        <div>
-          <div className="eyebrow">ACCOUNTING FOUNDATION</div>
-          <h1>Chart of accounts</h1>
-          <p className="welcome-copy">
-            Review how {company?.name} is organized before adding transactions.
-          </p>
-        </div>
+    <PageContainer className="accounts-page">
+      <PageTitle
+        description={`Review how ${company?.name} is organized before adding transactions.`}
+        eyebrow="ACCOUNTING FOUNDATION"
+        title="Chart of accounts"
+      >
         <Link className="secondary-button" to="/dashboard">Back to dashboard</Link>
-      </div>
+      </PageTitle>
 
       <div className="accounts-summary">
         <div><strong>{accounts.length}</strong><span>accounts</span></div>
@@ -123,7 +122,7 @@ export function AccountsPage() {
                   key={account.id}
                 />
               ))}
-            </section>
+            </PageContainer>
           );
         })}
       </div>

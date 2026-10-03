@@ -10,6 +10,9 @@ const paths: Record<string, ReactNode> = {
   menu: <><path d="M4 7h16M4 12h16M4 17h16" /></>,
   close: <><path d="m18 6-12 12M6 6l12 12" /></>,
   chevron: <path d="m9 18 6-6-6-6" />,
+  chevronDown: <path d="m6 9 6 6 6-6" />,
+  chevronsLeft: <><path d="m11 17-5-5 5-5" /><path d="m18 17-5-5 5-5" /></>,
+  chevronsRight: <><path d="m6 17 5-5-5-5" /><path d="m13 17 5-5-5-5" /></>,
   search: <><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></>,
   user: <><circle cx="12" cy="8" r="4" /><path d="M5 21a7 7 0 0 1 14 0" /></>,
   plus: <><path d="M12 5v14M5 12h14" /></>,
@@ -21,13 +24,16 @@ export type AppIconName = keyof typeof paths;
 export function AppIcon({
   name,
   size = 18,
+  className,
 }: {
   name: AppIconName;
   size?: number;
+  className?: string;
 }) {
   return (
     <svg
       aria-hidden="true"
+      className={className}
       fill="none"
       height={size}
       stroke="currentColor"

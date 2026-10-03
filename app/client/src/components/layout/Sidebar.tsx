@@ -12,7 +12,7 @@ export function Sidebar({
   open: boolean;
   onHide: () => void;
 }) {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const { company } = useWorkspace();
@@ -20,7 +20,7 @@ export function Sidebar({
   const activeGroup = navigationGroups.find((group) =>
     group.items.some((item) =>
       (!item.roles || item.roles.includes(user?.role ?? '')) &&
-      isNavigationItemActive(pathname, item),
+      isNavigationItemActive(pathname, item, hash),
     ),
   );
 
@@ -93,9 +93,9 @@ export function Sidebar({
                 <div className="sidebar-subnav">
                   {visibleItems.map((item) => (
                     <NavLink
-                      aria-current={isNavigationItemActive(pathname, item) ? 'page' : undefined}
+                      aria-current={isNavigationItemActive(pathname, item, hash) ? 'page' : undefined}
                       className={({ isActive }) =>
-                        `nav-subitem${isActive || isNavigationItemActive(pathname, item) ? ' active' : ''}`
+                        `nav-subitem${isNavigationItemActive(pathname, item, hash) ? ' active' : ''}`
                       }
                       key={item.to}
                       to={item.to}
