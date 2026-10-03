@@ -109,7 +109,7 @@ export function MobileNavigation({
           </div>
           <NavLink
             aria-current={pathname === '/dashboard' ? 'page' : undefined}
-            className={`sheet-nav-item${pathname === '/dashboard' ? ' active' : ''}`}
+            className="sheet-nav-item"
             onClick={onClose}
             to="/dashboard"
           >
