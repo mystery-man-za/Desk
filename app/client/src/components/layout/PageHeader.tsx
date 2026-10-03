@@ -9,6 +9,7 @@ const titles: Record<string, string> = {
   '/expenses': 'Expenses',
   '/accounting': 'Accounting',
   '/reports': 'Reports',
+  '/search': 'Search',
 };
 
 export function PageHeader({

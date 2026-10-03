@@ -39,7 +39,7 @@ export const navigationGroups: NavGroup[] = [
   },
   {
     label: 'Setup',
-    icon: 'accounts',
+    icon: 'setup',
     items: [
       { to: '/accounts', label: 'Chart of accounts' },
       { to: '/settings/users', label: 'Manage users', roles: ['System Manager'] },
@@ -51,8 +51,8 @@ export const mobileTabs = [
   { to: '/dashboard', label: 'Home', icon: 'dashboard' },
   { to: '/sales', label: 'Sales', icon: 'sales' },
   { to: '/expenses', label: 'Purchases', icon: 'expenses' },
-  { to: '/accounts', label: 'Accounts', icon: 'accounts' },
   { to: '/reports', label: 'Reports', icon: 'reports' },
+  { to: '/search', label: 'Search', icon: 'search' },
 ] as const;
 
 export function isNavigationItemActive(

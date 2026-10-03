@@ -89,21 +89,19 @@ export function Sidebar({
               <NavLink
                 aria-expanded={active}
                 aria-label={group.label}
-                className={`nav-item sidebar-group-heading${active && visibleItems.length === 1 ? ' active' : ''}`}
+                className="nav-item sidebar-group-heading"
                 end={visibleItems.length === 1}
                 to={destination.to}
               >
                 <span className="nav-icon"><AppIcon name={group.icon} /></span>
                 <span className="nav-label">{group.label}</span>
-                {visibleItems.length > 1 && (
-                  <AppIcon
-                    className={`nav-chevron${active ? ' expanded' : ''}`}
-                    name="chevron"
-                    size={14}
-                  />
-                )}
+                <AppIcon
+                  className={`nav-chevron${active ? ' expanded' : ''}`}
+                  name="chevron"
+                  size={14}
+                />
               </NavLink>
-              {active && visibleItems.length > 1 && (
+              {active && (
                 <div className="sidebar-subnav">
                   {visibleItems.map((item) => (
                     <NavLink

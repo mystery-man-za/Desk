@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useWorkspace } from '../../app/workspace/WorkspaceContext';
 import { ApiError, apiRequest } from '../../shared/api/client';
 import { AppSheet } from '../../components/ui/AppSheet';
@@ -120,6 +120,7 @@ function calculateLineTotalMinor(quantityMilli: number, unitPriceMinor: number):
 
 export function SalesPage() {
   const { company, loading: workspaceLoading } = useWorkspace();
+  const location = useLocation();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [invoices, setInvoices] = useState<InvoiceSummary[]>([]);
@@ -231,6 +232,26 @@ export function SalesPage() {
       });
     return () => controller.abort();
   }, [company]);
+
+  useEffect(() => {
+    const requestedInvoiceId = (
+      location.state as { invoiceId?: unknown } | null
+    )?.invoiceId;
+    if (!company || typeof requestedInvoiceId !== 'number' ||
+      !Number.isSafeInteger(requestedInvoiceId) || requestedInvoiceId < 1) {
+      return;
+    }
+    const controller = new AbortController();
+    apiRequest<{ invoice: Invoice }>(
+      `/api/v1/companies/${company.id}/sales/invoices/${requestedInvoiceId}`,
+      { signal: controller.signal },
+    )
+      .then((response) => setSelectedInvoice(response.invoice))
+      .catch((cause: unknown) => {
+        if (!controller.signal.aborted) setError(errorMessage(cause));
+      });
+    return () => controller.abort();
+  }, [company, location.state]);
 
   if (!workspaceLoading && !company) return <Navigate replace to="/setup" />;
   if (workspaceLoading || loading) {

@@ -8,6 +8,7 @@ import { LoginPage } from '../features/auth/LoginPage';
 import { FirstRunPage } from '../features/auth/FirstRunPage';
 import { UserManagementPage } from '../features/users/UserManagementPage';
 import { SalesPage } from '../features/sales/SalesPage';
+import { SearchPage } from '../features/search/SearchPage';
 import { AuthProvider } from './auth/AuthContext';
 import { RequireAuth } from './auth/RequireAuth';
 import { WorkspaceProvider } from './workspace/WorkspaceContext';
@@ -32,6 +33,7 @@ export function App() {
                 <Route path="/expenses" element={<PlaceholderPage title="Expenses" />} />
                 <Route path="/accounting" element={<PlaceholderPage title="Accounting" />} />
                 <Route path="/reports" element={<PlaceholderPage title="Reports" />} />
+                <Route path="/search" element={<SearchPage />} />
               </Route>
             </Route>
           </Route>

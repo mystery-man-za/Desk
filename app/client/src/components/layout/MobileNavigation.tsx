@@ -49,6 +49,7 @@ export function MobileNavigation({
       <nav aria-label="Quick navigation" className="mobile-tab-bar">
         {mobileTabs.map(({ to, label, icon }) => {
           const active = pathname === to || pathname.startsWith(`${to}/`);
+          const currentPath = pathname === to;
           const contents = (
             <>
               <AppIcon name={icon} size={24} />
@@ -56,10 +57,10 @@ export function MobileNavigation({
             </>
           );
 
-          if (active) {
+          if (currentPath) {
             return (
               <button
-                aria-current="page"
+                aria-current={active ? 'page' : undefined}
                 className="mobile-tab active"
                 key={to}
                 onClick={scrollToTop}
@@ -72,7 +73,7 @@ export function MobileNavigation({
 
           return (
             <NavLink
-              className="mobile-tab"
+              className={`mobile-tab${active ? ' active' : ''}`}
               end={to === '/dashboard'}
               key={to}
               to={to}
@@ -108,7 +109,6 @@ export function MobileNavigation({
           >
             <AppIcon name="dashboard" />
             <span>Dashboard</span>
-            <AppIcon name="chevron" size={16} />
           </NavLink>
           {navigationGroups.map((group) => {
             const visibleItems = group.items.filter(
@@ -122,10 +122,6 @@ export function MobileNavigation({
                   className={`sheet-nav-item sheet-nav-group-heading${activeGroup?.label === group.label ? ' active' : ''}`}
                   onClick={() => {
                     setExpandedGroup(expanded ? '' : group.label);
-                    if (visibleItems.length === 1) {
-                      navigate(visibleItems[0].to);
-                      onClose();
-                    }
                   }}
                   type="button"
                 >
