@@ -63,7 +63,10 @@ export function MobileNavigation({
                 aria-current={active ? 'page' : undefined}
                 className="mobile-tab active"
                 key={to}
-                onClick={scrollToTop}
+                onClick={() => {
+                  if (hash) navigate(to, { replace: true });
+                  scrollToTop();
+                }}
                 type="button"
               >
                 {contents}
@@ -86,6 +89,9 @@ export function MobileNavigation({
 
       <AppSheet
         className="navigation-sheet"
+        dragToClose
+        exitDuration={200}
+        focusContainer
         onClose={onClose}
         open={open}
         title="Books"
@@ -119,7 +125,7 @@ export function MobileNavigation({
               <div className="sheet-nav-group" key={group.label}>
                 <button
                   aria-expanded={expanded}
-                  className={`sheet-nav-item sheet-nav-group-heading${activeGroup?.label === group.label ? ' active' : ''}`}
+                  className="sheet-nav-item sheet-nav-group-heading"
                   onClick={() => {
                     setExpandedGroup(expanded ? '' : group.label);
                   }}
@@ -140,13 +146,12 @@ export function MobileNavigation({
                       return (
                         <NavLink
                           aria-current={active ? 'page' : undefined}
-                          className={`sheet-nav-subitem${active ? ' active' : ''}`}
+                          className="sheet-nav-subitem"
                           key={item.to}
                           onClick={onClose}
                           to={item.to}
                         >
                           {item.label}
-                          {active && <span className="nav-current-mark" />}
                         </NavLink>
                       );
                     })}

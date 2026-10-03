@@ -1,5 +1,6 @@
 import {
   Building2,
+  ChevronLeft,
   ChevronDown,
   ChevronRight,
   ChevronsLeft,
@@ -32,6 +33,7 @@ const icons = {
   menu: PanelLeft,
   panelLeft: PanelLeft,
   close: X,
+  back: ChevronLeft,
   chevron: ChevronRight,
   chevronDown: ChevronDown,
   chevronsLeft: ChevronsLeft,

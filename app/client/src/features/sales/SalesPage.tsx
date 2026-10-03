@@ -253,6 +253,14 @@ export function SalesPage() {
     return () => controller.abort();
   }, [company, location.state]);
 
+  useEffect(() => {
+    if (location.hash !== '#customers' || loading) return;
+    document.getElementById('customers')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }, [loading, location.hash]);
+
   if (!workspaceLoading && !company) return <Navigate replace to="/setup" />;
   if (workspaceLoading || loading) {
     return (
