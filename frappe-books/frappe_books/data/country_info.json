@@ -1,0 +1,516 @@
+{
+  "Afghanistan": {
+    "fiscal_year_start": "12-20",
+    "fiscal_year_end": "12-21",
+    "locale": "ps-AF"
+  },
+  "Albania": {
+    "locale": "sq-AL"
+  },
+  "Algeria": {
+    "locale": "ar-DZ"
+  },
+  "American Samoa": {
+    "locale": "en-AS"
+  },
+  "Argentina": {
+    "locale": "es-AR"
+  },
+  "Armenia": {
+    "locale": "hy-AM"
+  },
+  "Australia": {
+    "fiscal_year_start": "07-01",
+    "fiscal_year_end": "06-30",
+    "locale": "en-AU"
+  },
+  "Austria": {
+    "locale": "de-AT"
+  },
+  "Bahrain": {
+    "locale": "ar-BH"
+  },
+  "Bangladesh": {
+    "fiscal_year_start": "07-01",
+    "fiscal_year_end": "06-30",
+    "locale": "bn-BD"
+  },
+  "Belarus": {
+    "locale": "be-BY"
+  },
+  "Belgium": {
+    "locale": "en-BE"
+  },
+  "Belize": {
+    "locale": "en-BZ"
+  },
+  "Benin": {
+    "locale": "fr-BJ"
+  },
+  "Bolivia, Plurinational State of": {
+    "locale": "es-BO"
+  },
+  "Bosnia and Herzegovina": {
+    "locale": "bs-BA"
+  },
+  "Botswana": {
+    "locale": "en-BW"
+  },
+  "Brazil": {
+    "locale": "pt-BR"
+  },
+  "Brunei Darussalam": {
+    "locale": "ms-BN"
+  },
+  "Bulgaria": {
+    "locale": "bg-BG"
+  },
+  "Burkina Faso": {
+    "locale": "fr-BF"
+  },
+  "Burundi": {
+    "locale": "fr-BI"
+  },
+  "Cambodia": {
+    "locale": "km-KH"
+  },
+  "Cameroon": {
+    "locale": "fr-CM"
+  },
+  "Canada": {
+    "fiscal_year_start": "04-01",
+    "fiscal_year_end": "03-31",
+    "locale": "en-CA"
+  },
+  "Cape Verde": {
+    "locale": "kea-CV"
+  },
+  "Central African Republic": {
+    "locale": "fr-CF"
+  },
+  "Chad": {
+    "locale": "fr-TD"
+  },
+  "Chile": {
+    "locale": "es-CL"
+  },
+  "China": {
+    "locale": "ii-CN"
+  },
+  "Colombia": {
+    "locale": "es-CO"
+  },
+  "Comoros": {
+    "locale": "fr-KM"
+  },
+  "Congo": {
+    "locale": "fr-CG"
+  },
+  "Congo, The Democratic Republic of the": {
+    "locale": "fr-CD"
+  },
+  "Costa Rica": {
+    "fiscal_year_start": "10-01",
+    "fiscal_year_end": "09-30",
+    "locale": "es-CR"
+  },
+  "Croatia": {
+    "locale": "hr-HR"
+  },
+  "Cyprus": {
+    "locale": "el-CY"
+  },
+  "Czech Republic": {
+    "locale": "cs-CZ"
+  },
+  "Denmark": {
+    "locale": "da-DK"
+  },
+  "Djibouti": {
+    "locale": "fr-DJ"
+  },
+  "Dominican Republic": {
+    "locale": "es-DO"
+  },
+  "Ecuador": {
+    "locale": "es-EC"
+  },
+  "Egypt": {
+    "fiscal_year_start": "07-01",
+    "fiscal_year_end": "06-30",
+    "locale": "ar-EG"
+  },
+  "El Salvador": {
+    "locale": "es-SV"
+  },
+  "Equatorial Guinea": {
+    "locale": "fr-GQ"
+  },
+  "Eritrea": {
+    "locale": "ti-ER"
+  },
+  "Estonia": {
+    "locale": "et-EE"
+  },
+  "Ethiopia": {
+    "locale": "am-ET"
+  },
+  "Faroe Islands": {
+    "locale": "fo-FO"
+  },
+  "Finland": {
+    "locale": "fi-FI"
+  },
+  "France": {
+    "locale": "fr-FR"
+  },
+  "Gabon": {
+    "locale": "fr-GA"
+  },
+  "Georgia": {
+    "locale": "ka-GE"
+  },
+  "Germany": {
+    "locale": "de-DE"
+  },
+  "Ghana": {
+    "locale": "ak-GH"
+  },
+  "Greece": {
+    "locale": "el-GR"
+  },
+  "Greenland": {
+    "locale": "kl-GL"
+  },
+  "Guadeloupe": {
+    "locale": "fr-GP"
+  },
+  "Guam": {
+    "locale": "en-GU"
+  },
+  "Guatemala": {
+    "locale": "es-GT"
+  },
+  "Guinea": {
+    "locale": "fr-GN"
+  },
+  "Guinea-Bissau": {
+    "locale": "pt-GW"
+  },
+  "Honduras": {
+    "locale": "es-HN"
+  },
+  "Hong Kong": {
+    "fiscal_year_start": "04-01",
+    "fiscal_year_end": "03-31",
+    "locale": "en-HK"
+  },
+  "Hungary": {
+    "locale": "hu-HU"
+  },
+  "Iceland": {
+    "locale": "is-IS"
+  },
+  "India": {
+    "fiscal_year_start": "04-01",
+    "fiscal_year_end": "03-31",
+    "locale": "en-IN"
+  },
+  "Indonesia": {
+    "locale": "id-ID"
+  },
+  "Iran": {
+    "fiscal_year_start": "06-23",
+    "fiscal_year_end": "06-22",
+    "locale": "fa-IR"
+  },
+  "Iraq": {
+    "locale": "ar-IQ"
+  },
+  "Ireland": {
+    "locale": "en-IE"
+  },
+  "Israel": {
+    "locale": "en-IL"
+  },
+  "Italy": {
+    "fiscal_year_start": "07-01",
+    "fiscal_year_end": "06-30",
+    "locale": "it-IT"
+  },
+  "Ivory Coast": {
+    "locale": "fr-CI"
+  },
+  "Jamaica": {
+    "locale": "en-JM"
+  },
+  "Japan": {
+    "locale": "ja-JP"
+  },
+  "Jordan": {
+    "locale": "ar-JO"
+  },
+  "Kenya": {
+    "locale": "ebu-KE"
+  },
+  "Korea, Republic of": {
+    "locale": "ko-KR"
+  },
+  "Kosovo": {
+    "locale": "sq-XK"
+  },
+  "Kuwait": {
+    "locale": "ar-KW"
+  },
+  "Latvia": {
+    "locale": "lv-LV"
+  },
+  "Lebanon": {
+    "locale": "ar-LB"
+  },
+  "Libya": {
+    "locale": "ar-LY"
+  },
+  "Liechtenstein": {
+    "locale": "de-LI"
+  },
+  "Lithuania": {
+    "locale": "lt-LT"
+  },
+  "Luxembourg": {
+    "locale": "fr-LU"
+  },
+  "Macedonia": {
+    "locale": "mk-MK"
+  },
+  "Madagascar": {
+    "locale": "fr-MG"
+  },
+  "Malaysia": {
+    "locale": "ms-MY"
+  },
+  "Mali": {
+    "locale": "bm-ML"
+  },
+  "Malta": {
+    "locale": "en-MT"
+  },
+  "Marshall Islands": {
+    "locale": "en-MH"
+  },
+  "Martinique": {
+    "locale": "fr-MQ"
+  },
+  "Mauritius": {
+    "locale": "en-MU"
+  },
+  "Mexico": {
+    "locale": "es-MX"
+  },
+  "Moldova, Republic of": {
+    "locale": "ro-MD"
+  },
+  "Monaco": {
+    "locale": "fr-MC"
+  },
+  "Morocco": {
+    "locale": "ar-MA"
+  },
+  "Mozambique": {
+    "locale": "pt-MZ"
+  },
+  "Myanmar": {
+    "fiscal_year_start": "04-01",
+    "fiscal_year_end": "03-31",
+    "locale": "my-MM"
+  },
+  "Namibia": {
+    "locale": "en-NA"
+  },
+  "Nepal": {
+    "locale": "ne-NP"
+  },
+  "Netherlands": {
+    "locale": "nl-NL"
+  },
+  "New Zealand": {
+    "fiscal_year_start": "04-01",
+    "fiscal_year_end": "03-31",
+    "locale": "en-NZ"
+  },
+  "Nicaragua": {
+    "locale": "es-NI"
+  },
+  "Niger": {
+    "locale": "fr-NE"
+  },
+  "Nigeria": {
+    "locale": "ig-NG"
+  },
+  "Northern Mariana Islands": {
+    "locale": "en-MP"
+  },
+  "Norway": {
+    "locale": "nb-NO"
+  },
+  "Oman": {
+    "locale": "ar-OM"
+  },
+  "Pakistan": {
+    "fiscal_year_start": "07-01",
+    "fiscal_year_end": "06-30",
+    "locale": "en-PK"
+  },
+  "Panama": {
+    "locale": "es-PA"
+  },
+  "Paraguay": {
+    "locale": "es-PY"
+  },
+  "Peru": {
+    "locale": "es-PE"
+  },
+  "Philippines": {
+    "locale": "en-PH"
+  },
+  "Poland": {
+    "locale": "pl-PL"
+  },
+  "Portugal": {
+    "locale": "pt-PT"
+  },
+  "Puerto Rico": {
+    "locale": "es-PR"
+  },
+  "Qatar": {
+    "locale": "ar-QA"
+  },
+  "Romania": {
+    "locale": "ro-RO"
+  },
+  "Russian Federation": {
+    "locale": "ru-RU"
+  },
+  "Rwanda": {
+    "locale": "fr-RW"
+  },
+  "Réunion": {
+    "locale": "fr-RE"
+  },
+  "Saint Barthélemy": {
+    "locale": "fr-BL"
+  },
+  "Saint Martin (French part)": {
+    "locale": "fr-MF"
+  },
+  "Saudi Arabia": {
+    "locale": "ar-SA"
+  },
+  "Senegal": {
+    "locale": "fr-SN"
+  },
+  "Singapore": {
+    "fiscal_year_start": "04-01",
+    "fiscal_year_end": "03-31",
+    "locale": "en-SG"
+  },
+  "Slovakia": {
+    "locale": "sk-SK"
+  },
+  "Slovenia": {
+    "locale": "sl-SI"
+  },
+  "Somalia": {
+    "locale": "so-SO"
+  },
+  "South Africa": {
+    "fiscal_year_start": "03-01",
+    "fiscal_year_end": "02-28",
+    "locale": "en-ZA"
+  },
+  "Spain": {
+    "locale": "eu-ES"
+  },
+  "Sri Lanka": {
+    "locale": "si-LK"
+  },
+  "Sudan": {
+    "locale": "ar-SD"
+  },
+  "Suriname": {
+    "locale": "nl-SR"
+  },
+  "Sweden": {
+    "locale": "sv-SE"
+  },
+  "Switzerland": {
+    "locale": "de-CH"
+  },
+  "Syria": {
+    "locale": "ar-SY"
+  },
+  "Tanzania": {
+    "locale": "asa-TZ"
+  },
+  "Thailand": {
+    "fiscal_year_start": "10-01",
+    "fiscal_year_end": "09-30",
+    "locale": "th-TH"
+  },
+  "Togo": {
+    "locale": "ee-TG"
+  },
+  "Tonga": {
+    "locale": "to-TO"
+  },
+  "Trinidad and Tobago": {
+    "locale": "en-TT"
+  },
+  "Tunisia": {
+    "locale": "ar-TN"
+  },
+  "Türkiye": {
+    "locale": "tr-TR"
+  },
+  "Uganda": {
+    "locale": "cgg-UG"
+  },
+  "Ukraine": {
+    "locale": "ru-UA"
+  },
+  "United Arab Emirates": {
+    "locale": "ar-AE"
+  },
+  "United Kingdom": {
+    "fiscal_year_start": "04-01",
+    "fiscal_year_end": "03-31",
+    "locale": "en-GB"
+  },
+  "United States": {
+    "locale": "en-US"
+  },
+  "United States Minor Outlying Islands": {
+    "locale": "en-UM"
+  },
+  "Uruguay": {
+    "locale": "es-UY"
+  },
+  "Venezuela, Bolivarian Republic of": {
+    "locale": "es-VE"
+  },
+  "Vietnam": {
+    "locale": "vi-VN"
+  },
+  "Virgin Islands, U.S.": {
+    "locale": "en-VI"
+  },
+  "Yemen": {
+    "locale": "ar-YE"
+  },
+  "Zambia": {
+    "locale": "bem-ZM"
+  },
+  "Zimbabwe": {
+    "locale": "en-ZW"
+  }
+}

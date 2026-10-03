@@ -1,0 +1,50 @@
+{
+  "name": "frappe-books-frontend",
+  "version": "0.37.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "test": "node --test tests/*.test.mjs",
+    "test:ui": "playwright test",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint .",
+    "build": "vite build && node scripts/copy-html-entry.mjs"
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.4.2",
+    "@codemirror/lang-vue": "^0.1.1",
+    "@codemirror/language": "^6.0.0",
+    "@codemirror/state": "^6.0.0",
+    "@codemirror/view": "^6.0.0",
+    "@vueuse/core": "^14.1.0",
+    "frappe-ui": "1.0.0",
+    "lodash": "^4.18.1",
+    "luxon": "^2.5.2",
+    "pesa": "^1.1.12",
+    "reka-ui": "^2.9.9",
+    "vue": "^3.5.0",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "@types/lodash": "^4.14.179",
+    "@types/luxon": "^2.3.1",
+    "@types/node": "^17.0.23",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "autoprefixer": "^10.4.20",
+    "esbuild": "^0.21.5",
+    "eslint": "10.11.0",
+    "eslint-plugin-vue": "10.11.1",
+    "globals": "17.12.0",
+    "postcss": "^8.5.10",
+    "prettier": "3.9.6",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-rtl": "^0.9.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "8.70.1",
+    "vite": "^5.4.21",
+    "vue-eslint-parser": "10.4.1",
+    "vue-tsc": "^3.2.7"
+  }
+}

@@ -1,0 +1,57 @@
+[project]
+name = "frappe_books"
+authors = [
+    { name = "Frappe Technologies Pvt. Ltd.", email = "hello@frappe.io"}
+]
+description = "Frappe Books for Frappe Framework"
+requires-python = ">=3.14"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = [
+    # Frappe develop is installed and managed by bench.
+    "Babel>=2.16.0,<3",
+]
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.bench.frappe-dependencies]
+frappe = ">=17.0.0-dev,<18.0.0"
+
+# These dependencies are only installed when developer mode is enabled
+[tool.bench.dev-dependencies]
+# package_name = "~=1.1.0"
+
+# These apt dependencies will be installed from Ubuntu repositories when you host your app on Frappe Cloud
+[deploy.dependencies.apt]
+packages = []
+
+[tool.ruff]
+line-length = 110
+target-version = "py314"
+
+[tool.ruff.lint]
+select = [
+    "F",
+    "E",
+    "W",
+    "I",
+    "UP",
+    "B",
+    "RUF",
+]
+ignore = [
+    "E101", # indentation contains mixed spaces and tabs (tab indentation)
+    "E501", # line too long (the formatter wraps code; long translatable strings stay whole)
+    "W191", # indentation contains tabs (tab indentation)
+    "UP030", # Use implicit references for positional format fields (translations)
+    "UP031", # Use format specifiers instead of percent format (translations)
+    "UP032", # Use f-string instead of `format` call (translations)
+]
+typing-modules = ["frappe.types.DF"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+docstring-code-format = true

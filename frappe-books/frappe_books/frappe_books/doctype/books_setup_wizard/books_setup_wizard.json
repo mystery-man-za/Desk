@@ -1,0 +1,165 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "creation": "2026-08-27 22:09:40.202314",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "default_section_break_1",
+  "logo",
+  "company_name",
+  "fullname",
+  "email",
+  "locale_section_break_6",
+  "country",
+  "currency",
+  "time_zone",
+  "accounting_section_break_9",
+  "bank_name",
+  "chart_of_accounts",
+  "fiscal_year_start",
+  "fiscal_year_end"
+ ],
+ "fields": [
+  {
+   "fieldname": "default_section_break_1",
+   "fieldtype": "Section Break",
+   "label": "Default"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Company Logo"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Company Name",
+   "placeholder": "Company Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fullname",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Full Name",
+   "placeholder": "John Doe",
+   "reqd": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email",
+   "options": "Email",
+   "placeholder": "john@doe.com",
+   "reqd": 1
+  },
+  {
+   "fieldname": "locale_section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Locale"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Country",
+   "options": "Country",
+   "placeholder": "Select Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "placeholder": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "time_zone",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Time Zone"
+  },
+  {
+   "fieldname": "accounting_section_break_9",
+   "fieldtype": "Section Break",
+   "label": "Accounting"
+  },
+  {
+   "fieldname": "bank_name",
+   "fieldtype": "Data",
+   "label": "Bank Name",
+   "placeholder": "Prime Bank",
+   "reqd": 1
+  },
+  {
+   "fieldname": "chart_of_accounts",
+   "fieldtype": "Autocomplete",
+   "label": "Chart of Accounts",
+   "placeholder": "Select CoA",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fiscal_year_start",
+   "fieldtype": "Date",
+   "label": "Fiscal Year Start Date",
+   "placeholder": "Fiscal Year Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fiscal_year_end",
+   "fieldtype": "Date",
+   "label": "Fiscal Year End Date",
+   "placeholder": "Fiscal Year End Date",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-09-30 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Frappe Books",
+ "name": "Books Setup Wizard",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Books Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Books User"
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

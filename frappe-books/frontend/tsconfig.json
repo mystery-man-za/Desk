@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "strict": true,
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"],
+      "schemas/*": ["schemas/*"],
+      "reports/*": ["reports/*"],
+      "models/*": ["models/*"],
+      "utils/*": ["utils/*"],
+      "#utils/*": ["node_modules/frappe-ui/src/utils/*"],
+      "frappe-ui-command-palette": [
+        "node_modules/frappe-ui/experimental/CommandPalette/index.ts"
+      ],
+      "frappe-ui-accordion": [
+        "node_modules/frappe-ui/experimental/Accordion/index.ts"
+      ]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  },
+  "ts-node": {
+    "files": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "schemas/**/*.ts",
+    "fyo/**/*.ts",
+    "models/**/*.ts",
+    "reports/**/*.ts",
+    "scripts/**/*.ts",
+    "utils/**/*.ts",
+    "vite.config.ts"
+  ],
+  "exclude": ["node_modules"]
+}

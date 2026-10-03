@@ -1,0 +1,159 @@
+name: Database compatibility
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: astral-sh/setup-uv@v6
+
+      # Keep the ruff version in sync with .pre-commit-config.yaml.
+      - name: Check Python style
+        run: |
+          uvx ruff@0.14.10 check frappe_books
+          uvx ruff@0.14.10 format --check frappe_books
+
+      - name: Check the Vue app
+        working-directory: frontend
+        run: |
+          npm install --global yarn@1.22.22
+          yarn install --frozen-lockfile
+          yarn lint
+          yarn typecheck
+          yarn test
+
+  integration:
+    name: Frappe develop / ${{ matrix.database }}
+    needs: lint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        database: [sqlite, mariadb, postgres]
+    services:
+      mariadb:
+        image: mariadb:11.8
+        env:
+          MARIADB_ROOT_PASSWORD: books-test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s --health-timeout=5s --health-retries=10
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_PASSWORD: books-test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=5s --health-timeout=5s --health-retries=10
+      redis-cache:
+        image: redis:7
+        ports:
+          - 13000:6379
+      redis-queue:
+        image: redis:7
+        ports:
+          - 11000:6379
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcups2-dev libmariadb-dev mariadb-client \
+            postgresql-client redis-server libpango-1.0-0 libharfbuzz-subset0
+          npm install --global yarn@1.22.22
+          uv tool install frappe-bench
+
+      - name: Create develop bench
+        run: |
+          bench init "$RUNNER_TEMP/books-bench" --frappe-branch develop \
+            --python "$(command -v python)" --skip-assets --no-backups
+
+      - name: Install Books and test dependencies
+        working-directory: ${{ runner.temp }}/books-bench
+        run: |
+          bench set-config -g developer_mode 1
+          bench set-config -g redis_cache redis://127.0.0.1:13000
+          bench set-config -g redis_queue redis://127.0.0.1:11000
+          bench set-config -g redis_socketio redis://127.0.0.1:13000
+          bench get-app --soft-link --skip-assets "$GITHUB_WORKSPACE"
+          bench setup requirements --dev
+          bench build
+
+      - name: Create and migrate test site
+        working-directory: ${{ runner.temp }}/books-bench
+        env:
+          BOOKS_TEST_DATABASE: ${{ matrix.database }}
+        run: |
+          case "$BOOKS_TEST_DATABASE" in
+            mariadb) database_args=(--db-host 127.0.0.1 --db-port 3306 --db-root-username root --db-root-password books-test) ;;
+            postgres) database_args=(--db-host 127.0.0.1 --db-port 5432 --db-root-username postgres --db-root-password books-test) ;;
+            sqlite) database_args=() ;;
+          esac
+          bench new-site books-test.localhost --db-type "$BOOKS_TEST_DATABASE" \
+            --admin-password admin "${database_args[@]}"
+          bench --site books-test.localhost install-app frappe_books
+          bench --site books-test.localhost set-config allow_tests 1 --parse
+          bench --site books-test.localhost migrate
+
+      - name: Run integration suite
+        working-directory: ${{ runner.temp }}/books-bench
+        run: bench --site books-test.localhost run-tests --app frappe_books
+
+      - name: Set up a company for the browser tests
+        working-directory: ${{ runner.temp }}/books-bench
+        run: |
+          bench --site books-test.localhost execute frappe.db.set_single_value --args '["Books Setup Wizard", {
+            "company_name": "Books UI Tests", "fullname": "Administrator", "email": "admin@example.com",
+            "country": "India", "currency": "INR", "bank_name": "UI Test Bank", "chart_of_accounts": "Standard Chart of Accounts",
+            "fiscal_year_start": "2026-04-01", "fiscal_year_end": "2027-03-31"}]'
+          bench --site books-test.localhost execute \
+            frappe_books.frappe_books.doctype.books_setup_wizard.books_setup_wizard.complete_setup
+
+      - name: Run browser tests
+        working-directory: ${{ github.workspace }}/frontend
+        env:
+          BOOKS_TEST_URL: http://books-test.localhost:8000
+          BOOKS_FILTER_TEST_BENCH: ${{ runner.temp }}/books-bench
+          BOOKS_FILTER_TEST_SITE: books-test.localhost
+        run: |
+          echo "127.0.0.1 books-test.localhost" | sudo tee -a /etc/hosts
+          (cd "$BOOKS_FILTER_TEST_BENCH" && bench serve --port 8000 --noreload > "$RUNNER_TEMP/web.log" 2>&1 &)
+          timeout 60 bash -c 'until curl -sf "$BOOKS_TEST_URL/api/method/ping" > /dev/null; do sleep 1; done'
+          yarn install --frozen-lockfile
+          yarn playwright install --with-deps chromium
+          yarn test:ui
+
+      - name: Upload browser test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-${{ matrix.database }}
+          path: |
+            frontend/test-results/
+            ${{ runner.temp }}/web.log

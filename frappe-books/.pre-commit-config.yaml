@@ -1,0 +1,80 @@
+exclude: 'node_modules'
+default_stages: [pre-commit]
+fail_fast: false
+
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        files: "frappe_books.*"
+        exclude: ".*json$|.*txt$|.*csv|.*md|.*svg"
+      - id: check-merge-conflict
+      - id: check-ast
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: debug-statements
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.10
+    hooks:
+      - id: ruff
+        name: "Run ruff import sorter"
+        args: ["--select=I", "--fix"]
+
+      - id: ruff
+        name: "Run ruff linter"
+
+      - id: ruff-format
+        name: "Run ruff formatter"
+
+  # Prettier and the Vue app's ESLint run from frontend/node_modules (run `yarn install` first),
+  # so the hooks, editors and CI share the versions pinned in frontend/package.json.
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: frontend/node_modules/.bin/prettier --write --ignore-unknown
+        language: system
+        types_or: [javascript, ts, vue, css, scss]
+        # Ignore any files that might contain jinja / bundles
+        exclude: |
+            (?x)^(
+                frappe_books/public/dist/.*|
+                .*node_modules.*|
+                .*boilerplate.*|
+                frappe_books/templates/includes/.*|
+                frappe_books/public/js/lib/.*
+            )$
+
+      - id: eslint-vue
+        name: eslint (Vue app)
+        entry: frontend/node_modules/.bin/eslint --no-warn-ignored
+        language: system
+        files: ^frontend/
+        types_or: [javascript, ts, vue]
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.44.0
+    hooks:
+      - id: eslint
+        name: eslint (Desk)
+        files: ^frappe_books/
+        types_or: [javascript]
+        args: ['--quiet']
+        # Ignore any files that might contain jinja / bundles
+        exclude: |
+            (?x)^(
+                frappe_books/public/dist/.*|
+                .*boilerplate.*|
+                frappe_books/templates/includes/.*|
+                frappe_books/public/js/lib/.*
+            )$
+
+ci:
+    autoupdate_schedule: weekly
+    # These need frontend/node_modules.
+    skip: [prettier, eslint-vue]
+    submodules: false

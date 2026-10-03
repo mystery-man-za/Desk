@@ -1,0 +1,108 @@
+@import 'frappe-ui/style.css';
+
+html,
+body {
+  @apply font-sans;
+}
+
+html {
+  @apply text-ink-gray-8 bg-surface-base;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+/*
+  Frappe UI Select menus render in a portal, so their height cannot be scoped
+  from an individual control. Cap the shared Reka viewport instead. This keeps
+  long option lists inside the available screen space and makes every Select
+  menu scroll consistently with Books' Link/autocomplete menus.
+  Remove once frappe/frappe-ui#1120 is fixed.
+ */
+[data-slot='content'][role='listbox'] [data-reka-select-viewport] {
+  max-height: min(
+    16rem,
+    var(--reka-select-content-available-height, calc(100vh - 1rem))
+  );
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--surface-gray-4) transparent;
+  scrollbar-width: thin !important;
+}
+
+[data-slot='content'][role='listbox']
+  [data-reka-select-viewport]::-webkit-scrollbar {
+  display: block !important;
+  width: 0.375rem;
+}
+
+[data-slot='content'][role='listbox']
+  [data-reka-select-viewport]::-webkit-scrollbar-thumb {
+  background: var(--surface-gray-4);
+  border-radius: 9999px;
+}
+
+/* Frappe UI toast buttons are flex containers with no cross-axis alignment (frappe/frappe-ui#1253). */
+[data-sonner-toast] [data-button] {
+  align-items: center;
+  justify-content: center;
+}
+
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:root {
+  --w-sidebar: 14rem;
+  --w-quick-edit: 22rem;
+}
+
+.w-quick-edit {
+  width: var(--w-quick-edit);
+  flex-shrink: 0;
+}
+
+/*
+  Transitions
+ */
+
+.quickedit-enter-from,
+.quickedit-leave-to {
+  transform: translateX(var(--w-quick-edit));
+  width: 0px;
+  opacity: 0;
+}
+
+.quickedit-enter-to,
+.quickedit-leave-from {
+  transform: translateX(0px);
+  width: var(--w-quick-edit);
+  opacity: 1;
+}
+
+.quickedit-enter-active,
+.quickedit-leave-active {
+  transition: all 150ms ease-out;
+}
+
+/*
+  RTL
+ */
+
+[dir='rtl'] .rtl-rotate-180 {
+  transform: rotate(180deg);
+}
