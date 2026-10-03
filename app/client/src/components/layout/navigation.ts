@@ -61,5 +61,5 @@ export function isNavigationItemActive(
 ): boolean {
   const [itemPath, itemHash] = item.to.split('#');
   if (pathname !== itemPath && !pathname.startsWith(`${itemPath}/`)) return false;
-  return !itemHash || hash === `#${itemHash}`;
+  return itemHash ? hash === `#${itemHash}` : hash === '';
 }

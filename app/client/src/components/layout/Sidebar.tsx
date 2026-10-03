@@ -94,9 +94,7 @@ export function Sidebar({
                   {visibleItems.map((item) => (
                     <NavLink
                       aria-current={isNavigationItemActive(pathname, item, hash) ? 'page' : undefined}
-                      className={({ isActive }) =>
-                        `nav-subitem${isNavigationItemActive(pathname, item, hash) ? ' active' : ''}`
-                      }
+                      className={`nav-subitem${isNavigationItemActive(pathname, item, hash) ? ' active' : ''}`}
                       key={item.to}
                       to={item.to}
                     >

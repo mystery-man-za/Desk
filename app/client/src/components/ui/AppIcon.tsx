@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 const paths: Record<string, ReactNode> = {
   dashboard: <><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /></>,
+  building: <><path d="M4 21V5l8-2v18M4 21h16V9l-8-2" /><path d="M8 8h.01M8 12h.01M8 16h.01M15 12h.01M15 16h.01M11 21v-3" /></>,
   accounts: <><path d="M4 5h16M4 10h16M4 15h10M4 20h10" /><circle cx="18" cy="17" r="3" /></>,
   sales: <><path d="M4 19V5m0 14h16" /><path d="m7 15 4-4 3 2 6-7" /><path d="M16 6h4v4" /></>,
   expenses: <><path d="M12 3v18M17 7.5c0-1.4-1.6-2.5-3.7-2.5S9.5 6.1 9.5 7.5 11 10 13.3 10s3.7 1.1 3.7 2.5-1.6 2.5-3.7 2.5-3.8-1.1-3.8-2.5" /></>,

@@ -32,7 +32,7 @@ export function DashboardPage() {
           <div className="orbit orbit-one" />
           <div className="orbit orbit-two" />
           <div className="art-sheet">
-            <div className="sheet-mark">b.</div>
+            <div className="sheet-mark">B.</div>
             <div className="sheet-line line-long" />
             <div className="sheet-line line-short" />
             <div className="sheet-chart"><span /><span /><span /><span /><span /></div>
@@ -52,7 +52,7 @@ export function DashboardPage() {
             <span>{company?.fiscalYearStart} — {company?.fiscalYearEnd}</span>
           </div>
         </div>
-      </PageContainer>
+      </section>
 
       <div className="section-heading">
         <div>
@@ -64,27 +64,27 @@ export function DashboardPage() {
 
       <div className="foundation-grid">
         <article className="foundation-card">
-          <div className="card-icon green-icon" aria-hidden="true">⌂</div>
+          <div className="card-icon green-icon" aria-hidden="true"><AppIcon name="building" /></div>
           <div className="card-overline">BUSINESS</div>
           <h3>Company profile</h3>
           <p>Your business details and accounting preferences.</p>
           <span className="card-status">Company configured</span>
         </article>
         <article className="foundation-card">
-          <div className="card-icon lavender-icon" aria-hidden="true">☷</div>
+          <div className="card-icon lavender-icon" aria-hidden="true"><AppIcon name="accounts" /></div>
           <div className="card-overline">STRUCTURE</div>
           <h3>Chart of accounts</h3>
           <p>A clear home for every dollar in and out.</p>
           <Link className="card-status card-link" to="/accounts">Review accounts</Link>
         </article>
         <article className="foundation-card">
-          <div className="card-icon peach-icon" aria-hidden="true">↗</div>
+          <div className="card-icon peach-icon" aria-hidden="true"><AppIcon name="sales" /></div>
           <div className="card-overline">ACTIVITY</div>
           <h3>First transactions</h3>
           <p>Start tracking the important things.</p>
           <Link className="card-status card-link" to="/sales">Create an invoice</Link>
         </article>
       </div>
-    </section>
+    </PageContainer>
   );
 }

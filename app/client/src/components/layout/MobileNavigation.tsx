@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../app/auth/AuthContext';
 import { useWorkspace } from '../../app/workspace/WorkspaceContext';
@@ -31,6 +31,10 @@ export function MobileNavigation({
   const isMoreActive = !mobileTabs.some(
     ({ to }) => pathname === to || pathname.startsWith(`${to}/`),
   );
+
+  useEffect(() => {
+    if (open) setExpandedGroup(activeGroup?.label ?? '');
+  }, [activeGroup?.label, open]);
 
   async function handleSignOut() {
     try {

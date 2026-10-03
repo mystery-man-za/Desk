@@ -4,6 +4,8 @@ import { AppIcon, type AppIconName } from '../../components/ui/AppIcon';
 import { AppSheet } from '../../components/ui/AppSheet';
 import { PageTitle } from '../../components/layout/PageTitle';
 import { PageContainer } from '../../components/layout/PageContainer';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { AppButton } from '../../components/ui/AppButton';
 
 type PlaceholderPageProps = {
   title: 'Expenses' | 'Accounting' | 'Reports';
@@ -43,14 +45,14 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
         title={title}
       >
         {isExpenses && (
-          <button className="primary-button preview-action" onClick={() => setSelectedReport({
+          <AppButton className="preview-action" icon={<AppIcon name="plus" size={16} />} onClick={() => setSelectedReport({
             title: 'Record an expense',
             description: 'Expense entry is not available yet. Your expense workflow will be connected here.',
             icon: 'plus',
             tone: 'green',
-          })} type="button">
-            <AppIcon name="plus" size={16} /> New expense
-          </button>
+          })}>
+            New expense
+          </AppButton>
         )}
       </PageTitle>
 
@@ -95,7 +97,7 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
             <div className="feature-table-header expense-table-header">
               <span>SUPPLIER / DESCRIPTION</span><span>DATE</span><span>STATUS</span><span>AMOUNT</span>
             </div>
-            <FeatureEmptyState
+            <EmptyState
               icon="expenses"
               title={expenseQuery
                 ? 'No matching expenses'
@@ -106,7 +108,7 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
                 ? 'Try another search term or clear your search.'
                 : 'When you record a supplier invoice or expense, it will appear here.'}
             />
-          </PageContainer>
+          </section>
           <div className="feature-note">
             <span className="note-icon">i</span>
             Expense entry and supplier bill posting are not connected yet.
@@ -144,7 +146,7 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
             <div className="feature-table-header ledger-table-header">
               <span>DATE / REFERENCE</span><span>ACCOUNT</span><span>DEBIT</span><span>CREDIT</span>
             </div>
-            <FeatureEmptyState
+            <EmptyState
               icon="accounting"
               title={activeTab === 'General ledger' ? 'No ledger activity to display' : 'Journal entry list is not connected'}
               detail={activeTab === 'General ledger'
@@ -230,7 +232,7 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
                 <AppIcon name={selectedReport?.icon ?? 'reports'} />
               </span>
               <p>Report data will be available here when the accounting report workflow is connected.</p>
-              <button className="primary-button" onClick={() => setSelectedReport(null)} type="button">Done</button>
+              <AppButton onClick={() => setSelectedReport(null)}>Done</AppButton>
             </div>
           </AppSheet>
         </>
@@ -246,11 +248,11 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
           <div className="report-sheet-body">
             <span className="card-icon green-icon"><AppIcon name="expenses" /></span>
             <p>Supplier bills and expense posting are planned for this workspace.</p>
-            <button className="primary-button" onClick={() => setSelectedReport(null)} type="button">Got it</button>
+            <AppButton onClick={() => setSelectedReport(null)}>Got it</AppButton>
           </div>
         </AppSheet>
       )}
-    </section>
+    </PageContainer>
   );
 }
 
@@ -269,24 +271,6 @@ function SummaryCard({
       <span className="summary-label">{label}</span>
       <strong>{value}</strong>
       <small>Current company</small>
-    </div>
-  );
-}
-
-function FeatureEmptyState({
-  icon,
-  title,
-  detail,
-}: {
-  icon: AppIconName;
-  title: string;
-  detail: string;
-}) {
-  return (
-    <div className="feature-empty-state">
-      <span className="empty-icon"><AppIcon name={icon} size={20} /></span>
-      <strong>{title}</strong>
-      <p>{detail}</p>
     </div>
   );
 }

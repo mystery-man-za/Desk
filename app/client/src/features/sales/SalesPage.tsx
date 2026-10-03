@@ -7,6 +7,9 @@ import { AppIcon } from '../../components/ui/AppIcon';
 import { PageTitle } from '../../components/layout/PageTitle';
 import { PageContainer } from '../../components/layout/PageContainer';
 import { StatusBadge, type StatusTone } from '../../components/ui/StatusBadge';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { AppButton } from '../../components/ui/AppButton';
+import { Spinner } from '../../components/ui/Spinner';
 
 type Customer = {
   id: number;
@@ -231,7 +234,11 @@ export function SalesPage() {
 
   if (!workspaceLoading && !company) return <Navigate replace to="/setup" />;
   if (workspaceLoading || loading) {
-    return <section className="dashboard">Loading sales workspace…</section>;
+    return (
+      <section className="dashboard">
+        <Spinner label="Loading sales workspace…" />
+      </section>
+    );
   }
 
   async function refreshInvoices() {
@@ -516,7 +523,12 @@ export function SalesPage() {
             <div><h2>Invoices</h2><p>{invoices.length} invoice{invoices.length === 1 ? '' : 's'}</p></div>
           </header>
           {invoices.length === 0 ? (
-            <p className="empty-state">No sales invoices yet.</p>
+            <EmptyState
+              compact
+              detail="Create a customer invoice to begin recording sales."
+              icon="sales"
+              title="No sales invoices yet"
+            />
           ) : (
             <div className="invoice-list">
               {invoices.map((invoice) => (
@@ -597,7 +609,7 @@ export function SalesPage() {
               )}
             </div>
           )}
-        </PageContainer>
+        </section>
       </div>
       <AppSheet
         className="confirmation-sheet"
@@ -634,18 +646,17 @@ export function SalesPage() {
             >
               Keep invoice
             </button>
-            <button
-              className={pendingAction?.action === 'cancel' ? 'danger-button' : 'primary-button'}
+            <AppButton
+              variant={pendingAction?.action === 'cancel' ? 'danger' : 'primary'}
               disabled={busy}
               onClick={() => void confirmInvoiceStatus()}
-              type="button"
             >
               {busy ? 'Working…' : pendingAction?.action === 'cancel' ? 'Confirm cancellation' : 'Post invoice'}
-            </button>
+            </AppButton>
           </div>
         </div>
       </AppSheet>
-    </section>
+    </PageContainer>
   );
 }
 

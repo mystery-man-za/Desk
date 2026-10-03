@@ -148,6 +148,31 @@ database infrastructure stay outside feature modules. Keep business rules out
 of route handlers as domain logic is introduced. Add schema changes as new
 ordered migrations rather than editing the initial migration.
 
+### Frontend component structure
+
+The React UI follows Frappe Books' component boundaries while keeping its own
+implementation and conventions:
+
+- `components/layout/` contains the app shell, route-aware `Sidebar`, shared
+  `PageHeader`, feature `PageTitle`/`PageContainer`, and responsive
+  `MobileNavigation`. Sidebar and mobile menu items are defined once in
+  `navigation.ts`; available routes are grouped in the same way as Books'
+  desktop sidebar and mobile navigation sheet.
+- `components/ui/` contains reusable app icons, buttons, status badges, empty
+  states, and `AppSheet`. The sheet uses dialog semantics on desktop and a
+  bottom-sheet presentation on small screens, with dismissal, focus handling,
+  and reduced-motion support.
+- `features/` owns page content and feature-specific interaction. Pages use
+  the shared layout and UI primitives rather than implementing their own
+  navigation, dialogs, or page-heading patterns.
+- `styles/global.css` holds the shared visual tokens and responsive patterns.
+  Backend-dependent Books components such as searchable document lists,
+  report tables, filters, and pagination should be added with the corresponding
+  data workflows rather than shipping nonfunctional controls.
+
+This is a React adaptation of Books' component architecture, not a direct
+port of its Vue components or an assertion of feature parity.
+
 ## Backend porting status
 
 The backend has authenticated site sessions, role-checked user administration,

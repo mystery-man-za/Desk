@@ -2,6 +2,10 @@ import { FormEvent, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../app/auth/AuthContext';
 import { ApiError, apiRequest } from '../../shared/api/client';
+import { PageContainer } from '../../components/layout/PageContainer';
+import { PageTitle } from '../../components/layout/PageTitle';
+import { AppSheet } from '../../components/ui/AppSheet';
+import { Spinner } from '../../components/ui/Spinner';
 
 const roles = ['System Manager', 'Books Manager', 'Books User'] as const;
 type UserRole = (typeof roles)[number];
@@ -148,16 +152,15 @@ export function UserManagementPage() {
     }
   }
 
+  const resetTarget = users.find((candidate) => candidate.id === resetUserId);
+
   return (
-    <main className="setup-page users-page">
-      <div className="setup-page-heading">
-        <div className="eyebrow">SITE ACCESS</div>
-        <h1>Manage users.</h1>
-        <p>
-          This database is one Books site. Add each person who should sign in,
-          and assign their site or Books role here.
-        </p>
-      </div>
+    <PageContainer className="users-page">
+      <PageTitle
+        description="This database is one Books site. Add each person who should sign in, and assign their site or Books role here."
+        eyebrow="SITE ACCESS"
+        title="Manage users"
+      />
 
       <section className="user-admin-card">
         <header className="user-admin-heading">
@@ -234,7 +237,7 @@ export function UserManagementPage() {
         {pageError && <div className="form-alert user-list-message" role="alert">{pageError}</div>}
         {notice && <div className="user-notice user-list-message" role="status">{notice}</div>}
         {loading ? (
-          <div className="empty-state">Loading site users…</div>
+          <div className="user-loading"><Spinner label="Loading site users…" size="small" /></div>
         ) : users.length === 0 ? (
           <div className="empty-state">No users are configured for this site.</div>
         ) : (
@@ -296,53 +299,68 @@ export function UserManagementPage() {
                     </>
                   )}
                 </div>
-                {resetUserId === siteUser.id && (
-                  <form className="user-reset-form" onSubmit={resetPassword}>
-                    <label className="field">
-                      <span>New password for {siteUser.fullname}</span>
-                      <input
-                        autoComplete="new-password"
-                        minLength={12}
-                        onChange={(event) => setNewPassword(event.target.value)}
-                        required
-                        type="password"
-                        value={newPassword}
-                      />
-                    </label>
-                    <label className="field">
-                      <span>Confirm new password</span>
-                      <input
-                        autoComplete="new-password"
-                        onChange={(event) => setConfirmPassword(event.target.value)}
-                        required
-                        type="password"
-                        value={confirmPassword}
-                      />
-                    </label>
-                    <div className="user-actions">
-                      <button
-                        className="primary-button"
-                        disabled={busyUserId === siteUser.id}
-                        type="submit"
-                      >
-                        Reset password
-                      </button>
-                      <button
-                        className="secondary-button"
-                        onClick={() => setResetUserId(null)}
-                        type="button"
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
-                )}
               </article>
             ))}
           </div>
         )}
       </section>
-    </main>
+      <AppSheet
+        description={resetTarget
+          ? `Set a new sign-in password for ${resetTarget.fullname}. Their active sessions will be revoked.`
+          : undefined}
+        onClose={() => {
+          setResetUserId(null);
+          setNewPassword('');
+          setConfirmPassword('');
+        }}
+        open={resetTarget !== undefined}
+        title="Reset password"
+      >
+        {resetTarget && (
+          <form className="user-reset-form user-reset-sheet-form" onSubmit={resetPassword}>
+            <label className="field">
+              <span>New password</span>
+              <input
+                autoComplete="new-password"
+                minLength={12}
+                onChange={(event) => setNewPassword(event.target.value)}
+                required
+                type="password"
+                value={newPassword}
+              />
+              <small>At least 12 characters.</small>
+            </label>
+            <label className="field">
+              <span>Confirm new password</span>
+              <input
+                autoComplete="new-password"
+                onChange={(event) => setConfirmPassword(event.target.value)}
+                required
+                type="password"
+                value={confirmPassword}
+              />
+            </label>
+            {pageError && <div className="form-alert user-form-message" role="alert">{pageError}</div>}
+            <div className="user-actions">
+              <button
+                className="secondary-button"
+                onClick={() => setResetUserId(null)}
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                className="primary-button"
+                disabled={busyUserId === resetTarget.id}
+                type="submit"
+              >
+                {busyUserId === resetTarget.id ? 'Resetting…' : 'Reset password'}
+              </button>
+            </div>
+          </form>
+        )}
+      </AppSheet>
+    </PageContainer>
   );
 }
 

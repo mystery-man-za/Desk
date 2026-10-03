@@ -5,6 +5,8 @@ import { useAuth } from '../../app/auth/AuthContext';
 import { apiRequest } from '../../shared/api/client';
 import { PageTitle } from '../../components/layout/PageTitle';
 import { PageContainer } from '../../components/layout/PageContainer';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { Spinner } from '../../components/ui/Spinner';
 
 type Account = {
   id: number;
@@ -69,7 +71,11 @@ export function AccountsPage() {
   if (!workspaceLoading && !company) return <Navigate replace to="/setup" />;
 
   if (workspaceLoading || loading) {
-    return <section className="dashboard">Loading your chart of accounts…</section>;
+    return (
+      <section className="dashboard">
+        <Spinner label="Loading your chart of accounts…" />
+      </section>
+    );
   }
 
   return (
@@ -97,7 +103,12 @@ export function AccountsPage() {
           <span>KIND</span>
         </div>
         {accounts.length === 0 && !error && (
-          <div className="empty-state">No accounts are configured for this company yet.</div>
+          <EmptyState
+            compact
+            detail="Add a group or ledger account to build this company’s chart."
+            icon="accounts"
+            title="No accounts configured"
+          />
         )}
         {rootOrder.map((rootType) => {
           const roots = (accountsByParent.get(null) ?? []).filter(
@@ -122,7 +133,7 @@ export function AccountsPage() {
                   key={account.id}
                 />
               ))}
-            </PageContainer>
+            </section>
           );
         })}
       </div>
@@ -130,7 +141,7 @@ export function AccountsPage() {
         This starter chart is a foundation, not a complete regional chart.
         Account names can be changed; an assigned account type cannot.
       </p>
-    </section>
+    </PageContainer>
   );
 }
 
