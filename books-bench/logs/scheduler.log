@@ -176,3 +176,7 @@ Traceback (most recent call last):
   File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
     raise ConnectionError(self._error_message(e))
 redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.
+2026-10-03 12:16:03,433 ERROR scheduler Skipped queueing frappe.desk.page.backups.backups.delete_downloadable_backups because it was found in queue for books.localhost
+2026-10-03 12:16:03,568 ERROR scheduler Skipped queueing frappe.website.doctype.personal_data_deletion_request.personal_data_deletion_request.process_data_deletion_request because it was found in queue for books.localhost
+2026-10-03 12:16:03,579 ERROR scheduler Skipped queueing frappe.oauth.delete_oauth2_data because it was found in queue for books.localhost
+2026-10-03 12:16:03,599 ERROR scheduler Skipped queueing frappe.desk.utils.delete_old_exported_report_files because it was found in queue for books.localhost

@@ -222,3 +222,450 @@ Error 111 connecting to 127.0.0.1:11000. Connection refused.
 2026-10-02 21:48:45,015 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:short
 2026-10-02 21:48:45,018 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:default
 2026-10-02 21:48:45,020 Worker 2bb6e38701844086b72f8bc7d22a2a36: cleaning registries for queue: workspaces-Desk-books-bench:long
+2026-10-03 12:11:58,843 Worker b1d9a60752d544ac9c0e43bf463c4c70: started with PID 65457, version 2.6.1
+2026-10-03 12:11:58,843 Worker b1d9a60752d544ac9c0e43bf463c4c70: subscribing to channel rq:pubsub:b1d9a60752d544ac9c0e43bf463c4c70
+2026-10-03 12:11:58,845 *** Listening on workspaces-Desk-books-bench:short, workspaces-Desk-books-bench:default, workspaces-Desk-books-bench:long...
+2026-10-03 12:11:58,845 Worker b1d9a60752d544ac9c0e43bf463c4c70: cleaning registries for queue: workspaces-Desk-books-bench:short
+2026-10-03 12:11:58,852 Worker b1d9a60752d544ac9c0e43bf463c4c70: cleaning registries for queue: workspaces-Desk-books-bench:default
+2026-10-03 12:11:58,862 Worker b1d9a60752d544ac9c0e43bf463c4c70: cleaning registries for queue: workspaces-Desk-books-bench:long
+2026-10-03 12:12:04,576 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.drainer.drain_due', 'scheduled_job_t..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvft3lmo5a)
+2026-10-03 12:12:07,627 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.drainer.drain_due', 'scheduled_job_t..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.985323s on worker b1d9a60752d544ac9c0e43bf463c4c70
+2026-10-03 12:12:07,629 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvft3lmo5a)
+2026-10-03 12:12:07,629 Result is kept for 600 seconds
+2026-10-03 12:12:07,678 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.email_account.email_account.notify_unrep..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvf744dvmr)
+2026-10-03 12:12:11,595 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.email_account.email_account.notify_unrep..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:03.886741s on worker b1d9a60752d544ac9c0e43bf463c4c70
+2026-10-03 12:12:11,596 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvf744dvmr)
+2026-10-03 12:12:11,597 Result is kept for 600 seconds
+2026-10-03 12:12:11,621 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.notification.notification.trigger_offset..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfkfghgup)
+2026-10-03 12:12:13,929 Worker b1d9a60752d544ac9c0e43bf463c4c70 [PID 65457]: warm shut down requested
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/bench_helper.py", line 57, in invoke
+    return super().invoke(ctx)
+           ~~~~~~~~~~~~~~^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 1970, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 1353, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 907, in invoke
+    return callback(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/commands/scheduler.py", line 206, in start_worker
+    start_worker(
+    ~~~~~~~~~~~~^
+    	queue,
+     ^^^^^^
+    ...<4 lines>...
+    	strategy=strategy,
+     ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/background_jobs.py", line 433, in start_worker
+    worker.work(
+    ~~~~~~~~~~~^
+    	logging_level=logging_level,
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    	with_scheduler=False,
+     ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 631, in work
+    self.teardown()
+    ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1150, in teardown
+    self.register_death()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 885, in register_death
+    p.execute()
+    ~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 1687, in execute
+    conn = self.connection_pool.get_connection()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.
+
+Error 111 connecting to 127.0.0.1:11000. Connection refused.
+2026-10-03 12:12:25,498 Worker e6e8d19ca7d9486f9a6d3e6bff526085: started with PID 66013, version 2.6.1
+2026-10-03 12:12:25,498 Worker e6e8d19ca7d9486f9a6d3e6bff526085: subscribing to channel rq:pubsub:e6e8d19ca7d9486f9a6d3e6bff526085
+2026-10-03 12:12:25,500 *** Listening on workspaces-Desk-books-bench:short, workspaces-Desk-books-bench:default, workspaces-Desk-books-bench:long...
+2026-10-03 12:12:25,501 Worker e6e8d19ca7d9486f9a6d3e6bff526085: cleaning registries for queue: workspaces-Desk-books-bench:short
+2026-10-03 12:12:25,514 Worker e6e8d19ca7d9486f9a6d3e6bff526085: cleaning registries for queue: workspaces-Desk-books-bench:default
+2026-10-03 12:12:25,524 Worker e6e8d19ca7d9486f9a6d3e6bff526085: cleaning registries for queue: workspaces-Desk-books-bench:long
+2026-10-03 12:12:25,648 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.search.sqlite_search.index_docs_in_queue', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfskgtqqi)
+2026-10-03 12:12:28,009 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.search.sqlite_search.index_docs_in_queue', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.302329s on worker e6e8d19ca7d9486f9a6d3e6bff526085
+2026-10-03 12:12:28,010 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfskgtqqi)
+2026-10-03 12:12:28,011 Result is kept for 600 seconds
+2026-10-03 12:12:28,029 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation.doctype.reminder.reminder.send_reminders', ..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvftau2n63)
+2026-10-03 12:12:29,186 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation.doctype.reminder.reminder.send_reminders', ..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.141794s on worker e6e8d19ca7d9486f9a6d3e6bff526085
+2026-10-03 12:12:29,187 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvftau2n63)
+2026-10-03 12:12:29,187 Result is kept for 600 seconds
+2026-10-03 12:12:29,202 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.deferred_insert.save_to_db', 'scheduled_job_type': 'tv..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfo3fqaj8)
+2026-10-03 12:12:30,416 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.deferred_insert.save_to_db', 'scheduled_job_type': 'tv..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.199020s on worker e6e8d19ca7d9486f9a6d3e6bff526085
+2026-10-03 12:12:30,416 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfo3fqaj8)
+2026-10-03 12:12:30,416 Result is kept for 600 seconds
+2026-10-03 12:12:30,439 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.scheduler.process_cron', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfork1f3p)
+2026-10-03 12:12:31,603 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.scheduler.process_cron', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.142798s on worker e6e8d19ca7d9486f9a6d3e6bff526085
+2026-10-03 12:12:31,604 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfork1f3p)
+2026-10-03 12:12:31,604 Result is kept for 600 seconds
+2026-10-03 12:12:31,629 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.model.utils.link_count.update_link_count', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfuvg3m27)
+2026-10-03 12:12:32,742 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.model.utils.link_count.update_link_count', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.098208s on worker e6e8d19ca7d9486f9a6d3e6bff526085
+2026-10-03 12:12:32,743 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfuvg3m27)
+2026-10-03 12:12:32,744 Result is kept for 600 seconds
+2026-10-03 12:12:32,764 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.retry_sending_emails', 'scheduled_job_type..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgunpisoh)
+2026-10-03 12:12:36,758 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.retry_sending_emails', 'scheduled_job_type..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:03.967395s on worker e6e8d19ca7d9486f9a6d3e6bff526085
+2026-10-03 12:12:36,759 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgunpisoh)
+2026-10-03 12:12:36,759 Result is kept for 600 seconds
+2026-10-03 12:12:36,854 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.google_calendar.google_calendar.s..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgsq68nbr)
+2026-10-03 12:12:38,440 Worker e6e8d19ca7d9486f9a6d3e6bff526085 [PID 66013]: warm shut down requested
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/bench_helper.py", line 57, in invoke
+    return super().invoke(ctx)
+           ~~~~~~~~~~~~~~^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 1970, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 1353, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 907, in invoke
+    return callback(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/commands/scheduler.py", line 206, in start_worker
+    start_worker(
+    ~~~~~~~~~~~~^
+    	queue,
+     ^^^^^^
+    ...<4 lines>...
+    	strategy=strategy,
+     ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/background_jobs.py", line 433, in start_worker
+    worker.work(
+    ~~~~~~~~~~~^
+    	logging_level=logging_level,
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    	with_scheduler=False,
+     ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 631, in work
+    self.teardown()
+    ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1150, in teardown
+    self.register_death()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 885, in register_death
+    p.execute()
+    ~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 1687, in execute
+    conn = self.connection_pool.get_connection()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.
+
+Error 111 connecting to 127.0.0.1:11000. Connection refused.
+2026-10-03 12:12:51,342 Worker 6e147a73896848748ee8647dca37ecf7: started with PID 66585, version 2.6.1
+2026-10-03 12:12:51,344 Worker 6e147a73896848748ee8647dca37ecf7: subscribing to channel rq:pubsub:6e147a73896848748ee8647dca37ecf7
+2026-10-03 12:12:51,346 *** Listening on workspaces-Desk-books-bench:short, workspaces-Desk-books-bench:default, workspaces-Desk-books-bench:long...
+2026-10-03 12:12:51,347 Worker 6e147a73896848748ee8647dca37ecf7: cleaning registries for queue: workspaces-Desk-books-bench:short
+2026-10-03 12:12:51,350 Worker 6e147a73896848748ee8647dca37ecf7: cleaning registries for queue: workspaces-Desk-books-bench:default
+2026-10-03 12:12:51,352 Worker 6e147a73896848748ee8647dca37ecf7: cleaning registries for queue: workspaces-Desk-books-bench:long
+2026-10-03 12:12:51,391 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.utils.telemetry.pulse.client.send_queued_events', 'sch..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfdg2svpd)
+2026-10-03 12:12:54,417 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.utils.telemetry.pulse.client.send_queued_events', 'sch..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.679061s on worker 6e147a73896848748ee8647dca37ecf7
+2026-10-03 12:12:54,417 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfdg2svpd)
+2026-10-03 12:12:54,417 Result is kept for 600 seconds
+2026-10-03 12:12:54,437 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.monitor.flush', 'scheduled_job_type': 'tvg3grmu87'}, method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvg3grmu87)
+2026-10-03 12:12:55,973 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.monitor.flush', 'scheduled_job_type': 'tvg3grmu87'}, method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.519962s on worker 6e147a73896848748ee8647dca37ecf7
+2026-10-03 12:12:55,974 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvg3grmu87)
+2026-10-03 12:12:55,974 Result is kept for 600 seconds
+2026-10-03 12:12:56,006 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.scheduler.process_date_based', 'sche..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgjpnjvhs)
+2026-10-03 12:12:57,689 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.scheduler.process_date_based', 'sche..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.648547s on worker 6e147a73896848748ee8647dca37ecf7
+2026-10-03 12:12:57,691 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgjpnjvhs)
+2026-10-03 12:12:57,692 Result is kept for 600 seconds
+2026-10-03 12:12:57,729 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.email_account.email_account.pull', 'sche..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvf6eii5c1)
+2026-10-03 12:13:00,128 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.email_account.email_account.pull', 'sche..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.376533s on worker 6e147a73896848748ee8647dca37ecf7
+2026-10-03 12:13:00,130 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvf6eii5c1)
+2026-10-03 12:13:00,130 Result is kept for 600 seconds
+2026-10-03 12:13:00,158 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.flush', 'scheduled_job_type': 'tvgd72bons'..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgd72bons)
+2026-10-03 12:13:04,718 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.flush', 'scheduled_job_type': 'tvgd72bons'..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:04.515687s on worker 6e147a73896848748ee8647dca37ecf7
+2026-10-03 12:13:04,718 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgd72bons)
+2026-10-03 12:13:04,719 Result is kept for 600 seconds
+2026-10-03 12:13:04,868 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.webhook.webhook.retry_failed_webh..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfn6bf8cs)
+2026-10-03 12:13:10,615 Worker 6e147a73896848748ee8647dca37ecf7 [PID 66585]: warm shut down requested
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/bench_helper.py", line 57, in invoke
+    return super().invoke(ctx)
+           ~~~~~~~~~~~~~~^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 1970, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 1353, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/click/core.py", line 907, in invoke
+    return callback(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/commands/scheduler.py", line 206, in start_worker
+    start_worker(
+    ~~~~~~~~~~~~^
+    	queue,
+     ^^^^^^
+    ...<4 lines>...
+    	strategy=strategy,
+     ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/apps/frappe/frappe/utils/background_jobs.py", line 433, in start_worker
+    worker.work(
+    ~~~~~~~~~~~^
+    	logging_level=logging_level,
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    	with_scheduler=False,
+     ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 631, in work
+    self.teardown()
+    ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1150, in teardown
+    self.register_death()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 885, in register_death
+    p.execute()
+    ~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 1687, in execute
+    conn = self.connection_pool.get_connection()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.
+
+Error 111 connecting to 127.0.0.1:11000. Connection refused.
+2026-10-03 12:15:28,622 Worker f1af22a7e72047aba15e1fa2779045e2: started with PID 69184, version 2.6.1
+2026-10-03 12:15:28,623 Worker f1af22a7e72047aba15e1fa2779045e2: subscribing to channel rq:pubsub:f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:15:28,624 *** Listening on workspaces-Desk-books-bench:short, workspaces-Desk-books-bench:default, workspaces-Desk-books-bench:long...
+2026-10-03 12:15:28,625 Worker f1af22a7e72047aba15e1fa2779045e2: cleaning registries for queue: workspaces-Desk-books-bench:short
+2026-10-03 12:15:28,628 Worker f1af22a7e72047aba15e1fa2779045e2: cleaning registries for queue: workspaces-Desk-books-bench:default
+2026-10-03 12:15:29,125 Worker f1af22a7e72047aba15e1fa2779045e2: cleaning registries for queue: workspaces-Desk-books-bench:long
+2026-10-03 12:15:29,199 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.search.sqlite_search.build_index_if_not_exists', 'sche..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvg4vfgpfo)
+2026-10-03 12:15:35,278 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.search.sqlite_search.build_index_if_not_exists', 'sche..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:05.786495s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:15:35,288 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvg4vfgpfo)
+2026-10-03 12:15:35,288 Result is kept for 600 seconds
+2026-10-03 12:15:35,327 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.utils.global_search.sync_global_search', 'scheduled_jo..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfvi05ulh)
+2026-10-03 12:15:37,733 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.utils.global_search.sync_global_search', 'scheduled_jo..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.378363s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:15:37,736 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfvi05ulh)
+2026-10-03 12:15:37,736 Result is kept for 600 seconds
+2026-10-03 12:15:37,759 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.website.doctype.web_page.web_page.check_publish_status..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgdoar14l)
+2026-10-03 12:15:40,717 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.website.doctype.web_page.web_page.check_publish_status..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.936169s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:15:40,718 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvgdoar14l)
+2026-10-03 12:15:40,721 Result is kept for 600 seconds
+2026-10-03 12:15:40,764 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.twofactor.delete_all_barcodes_for_users', 'scheduled_j..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgv7rqa4s)
+2026-10-03 12:15:45,223 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.twofactor.delete_all_barcodes_for_users', 'scheduled_j..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:04.425755s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:15:45,243 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvgv7rqa4s)
+2026-10-03 12:15:45,246 Result is kept for 600 seconds
+2026-10-03 12:15:45,358 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.core.doctype.prepared_report.prepared_report.expire_st..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvg8jplthl)
+2026-10-03 12:15:53,362 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.core.doctype.prepared_report.prepared_report.expire_st..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:07.818645s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:15:53,363 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvg8jplthl)
+2026-10-03 12:15:53,363 Result is kept for 600 seconds
+2026-10-03 12:15:53,388 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.model.utils.user_settings.sync_user_settings', 'schedu..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgofd67up)
+2026-10-03 12:15:56,551 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.model.utils.user_settings.sync_user_settings', 'schedu..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:03.136317s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:15:56,557 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvgofd67up)
+2026-10-03 12:15:56,557 Result is kept for 600 seconds
+2026-10-03 12:15:56,652 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.desk.form.document_follow.send_hourly_updates', 'sched..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgrsllvqc)
+2026-10-03 12:15:59,849 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.desk.form.document_follow.send_hourly_updates', 'sched..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:03.126274s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:15:59,850 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvgrsllvqc)
+2026-10-03 12:15:59,850 Result is kept for 600 seconds
+2026-10-03 12:16:00,143 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.desk.page.backups.backups.delete_downloadable_backups'..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvglsv9vc9)
+2026-10-03 12:16:03,557 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.desk.page.backups.backups.delete_downloadable_backups'..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:03.318786s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:03,558 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvglsv9vc9)
+2026-10-03 12:16:03,559 Result is kept for 600 seconds
+2026-10-03 12:16:03,592 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.model.utils.link_count.update_link_count', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfuvg3m27)
+2026-10-03 12:16:11,424 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.model.utils.link_count.update_link_count', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:07.780074s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:11,427 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfuvg3m27)
+2026-10-03 12:16:11,427 Result is kept for 600 seconds
+2026-10-03 12:16:11,510 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.notification.notification.trigger_offset..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfkfghgup)
+2026-10-03 12:16:17,439 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.notification.notification.trigger_offset..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:05.814873s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:17,453 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfkfghgup)
+2026-10-03 12:16:17,460 Result is kept for 600 seconds
+2026-10-03 12:16:17,773 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation.doctype.reminder.reminder.send_reminders', ..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvftau2n63)
+2026-10-03 12:16:23,859 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation.doctype.reminder.reminder.send_reminders', ..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:06.012734s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:23,863 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvftau2n63)
+2026-10-03 12:16:23,863 Result is kept for 600 seconds
+2026-10-03 12:16:24,060 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.utils.telemetry.pulse.client.send_queued_events', 'sch..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfdg2svpd)
+2026-10-03 12:16:31,013 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.utils.telemetry.pulse.client.send_queued_events', 'sch..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:06.690945s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:31,026 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfdg2svpd)
+2026-10-03 12:16:31,026 Result is kept for 600 seconds
+2026-10-03 12:16:31,243 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.scheduler.process_cron', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfork1f3p)
+2026-10-03 12:16:36,956 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.scheduler.process_cron', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:05.618284s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:36,956 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfork1f3p)
+2026-10-03 12:16:36,956 Result is kept for 600 seconds
+2026-10-03 12:16:37,046 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.google_calendar.google_calendar.s..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgsq68nbr)
+2026-10-03 12:16:43,252 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.google_calendar.google_calendar.s..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:06.112060s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:43,253 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgsq68nbr)
+2026-10-03 12:16:43,254 Result is kept for 600 seconds
+2026-10-03 12:16:43,267 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.search.sqlite_search.index_docs_in_queue', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfskgtqqi)
+2026-10-03 12:16:47,955 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.search.sqlite_search.index_docs_in_queue', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:04.652866s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:47,961 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfskgtqqi)
+2026-10-03 12:16:47,961 Result is kept for 600 seconds
+2026-10-03 12:16:48,083 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.webhook.webhook.retry_failed_webh..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfn6bf8cs)
+2026-10-03 12:16:53,130 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.webhook.webhook.retry_failed_webh..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:04.916752s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:53,132 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfn6bf8cs)
+2026-10-03 12:16:53,154 Result is kept for 600 seconds
+2026-10-03 12:16:53,309 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.deferred_insert.save_to_db', 'scheduled_job_type': 'tv..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfo3fqaj8)
+2026-10-03 12:16:55,295 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.deferred_insert.save_to_db', 'scheduled_job_type': 'tv..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.935141s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:55,296 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfo3fqaj8)
+2026-10-03 12:16:55,297 Result is kept for 600 seconds
+2026-10-03 12:16:55,317 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.flush', 'scheduled_job_type': 'tvgd72bons'..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgd72bons)
+2026-10-03 12:16:58,758 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.flush', 'scheduled_job_type': 'tvgd72bons'..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:03.413837s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:16:58,759 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgd72bons)
+2026-10-03 12:16:58,759 Result is kept for 600 seconds
+2026-10-03 12:16:58,780 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.drainer.drain_due', 'scheduled_job_t..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvft3lmo5a)
+2026-10-03 12:17:00,158 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.drainer.drain_due', 'scheduled_job_t..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.346783s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:17:00,160 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvft3lmo5a)
+2026-10-03 12:17:00,160 Result is kept for 600 seconds
+2026-10-03 12:17:00,187 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.monitor.flush', 'scheduled_job_type': 'tvg3grmu87'}, method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvg3grmu87)
+2026-10-03 12:17:01,356 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.monitor.flush', 'scheduled_job_type': 'tvg3grmu87'}, method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.074115s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:17:01,358 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvg3grmu87)
+2026-10-03 12:17:01,359 Result is kept for 600 seconds
+2026-10-03 12:17:01,390 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.email_account.email_account.notify_unrep..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvf744dvmr)
+2026-10-03 12:17:03,830 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.email_account.email_account.notify_unrep..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.411145s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:17:03,835 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvf744dvmr)
+2026-10-03 12:17:03,837 Result is kept for 600 seconds
+2026-10-03 12:17:03,869 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.retry_sending_emails', 'scheduled_job_type..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgunpisoh)
+2026-10-03 12:17:05,135 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.retry_sending_emails', 'scheduled_job_type..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.234096s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:17:05,140 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgunpisoh)
+2026-10-03 12:17:05,140 Result is kept for 600 seconds
+2026-10-03 12:17:05,189 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.website.doctype.personal_data_deletion_request.persona..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgmdocdkk)
+2026-10-03 12:17:07,852 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.website.doctype.personal_data_deletion_request.persona..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.587377s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:17:07,855 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvgmdocdkk)
+2026-10-03 12:17:07,856 Result is kept for 600 seconds
+2026-10-03 12:17:08,004 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.desk.utils.delete_old_exported_report_files', 'schedul..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgepb5rts)
+2026-10-03 12:17:09,892 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.desk.utils.delete_old_exported_report_files', 'schedul..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.834762s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:17:09,894 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvgepb5rts)
+2026-10-03 12:17:09,894 Result is kept for 600 seconds
+2026-10-03 12:17:09,920 workspaces-Desk-books-bench:long: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.oauth.delete_oauth2_data', 'scheduled_job_type': 'tvgo..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgoktusp8)
+2026-10-03 12:17:13,532 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.oauth.delete_oauth2_data', 'scheduled_job_type': 'tvgo..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:03.593655s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:17:13,535 workspaces-Desk-books-bench:long: Job OK (books.localhost||scheduled_job||tvgoktusp8)
+2026-10-03 12:17:13,538 Result is kept for 600 seconds
+2026-10-03 12:20:00,635 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.notification.notification.trigger_offset..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfkfghgup)
+2026-10-03 12:20:03,018 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.notification.notification.trigger_offset..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.360929s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:03,020 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfkfghgup)
+2026-10-03 12:20:03,021 Result is kept for 600 seconds
+2026-10-03 12:20:03,099 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.scheduler.process_cron', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfork1f3p)
+2026-10-03 12:20:03,976 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.scheduler.process_cron', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:00.850149s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:03,978 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfork1f3p)
+2026-10-03 12:20:03,978 Result is kept for 600 seconds
+2026-10-03 12:20:03,991 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.search.sqlite_search.index_docs_in_queue', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfskgtqqi)
+2026-10-03 12:20:05,214 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.search.sqlite_search.index_docs_in_queue', 'scheduled_..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.208914s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:05,216 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfskgtqqi)
+2026-10-03 12:20:05,216 Result is kept for 600 seconds
+2026-10-03 12:20:05,228 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.google_calendar.google_calendar.s..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgsq68nbr)
+2026-10-03 12:20:06,420 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.google_calendar.google_calendar.s..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.173554s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:06,422 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgsq68nbr)
+2026-10-03 12:20:06,424 Result is kept for 600 seconds
+2026-10-03 12:20:06,450 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.email_account.email_account.pull', 'sche..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvf6eii5c1)
+2026-10-03 12:20:08,728 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.doctype.email_account.email_account.pull', 'sche..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:02.257937s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:08,731 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvf6eii5c1)
+2026-10-03 12:20:08,731 Result is kept for 600 seconds
+2026-10-03 12:20:08,759 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.webhook.webhook.retry_failed_webh..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvfn6bf8cs)
+2026-10-03 12:20:09,776 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.integrations.doctype.webhook.webhook.retry_failed_webh..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:00.989895s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:09,776 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvfn6bf8cs)
+2026-10-03 12:20:09,777 Result is kept for 600 seconds
+2026-10-03 12:20:09,794 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.retry_sending_emails', 'scheduled_job_type..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgunpisoh)
+2026-10-03 12:20:10,975 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.retry_sending_emails', 'scheduled_job_type..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.163575s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:10,976 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgunpisoh)
+2026-10-03 12:20:10,976 Result is kept for 600 seconds
+2026-10-03 12:20:10,990 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.drainer.drain_due', 'scheduled_job_t..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvft3lmo5a)
+2026-10-03 12:20:12,909 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.automation_engine.drainer.drain_due', 'scheduled_job_t..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.871930s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:12,914 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvft3lmo5a)
+2026-10-03 12:20:12,914 Result is kept for 600 seconds
+2026-10-03 12:20:12,978 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.flush', 'scheduled_job_type': 'tvgd72bons'..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvgd72bons)
+2026-10-03 12:20:14,240 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.email.queue.flush', 'scheduled_job_type': 'tvgd72bons'..., method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.205500s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:14,242 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvgd72bons)
+2026-10-03 12:20:14,243 Result is kept for 600 seconds
+2026-10-03 12:20:14,266 workspaces-Desk-books-bench:default: frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.monitor.flush', 'scheduled_job_type': 'tvg3grmu87'}, method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') (books.localhost||scheduled_job||tvg3grmu87)
+2026-10-03 12:20:15,389 Successfully completed frappe.utils.background_jobs.execute_job(event=None, is_async=True, job_name='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., kwargs={'job_type': 'frappe.monitor.flush', 'scheduled_job_type': 'tvg3grmu87'}, method='frappe.core.doctype.scheduled_job_type.scheduled_job_type.run_scheduled_jo..., site='books.localhost', user='Administrator') job in 0:00:01.112156s on worker f1af22a7e72047aba15e1fa2779045e2
+2026-10-03 12:20:15,389 workspaces-Desk-books-bench:default: Job OK (books.localhost||scheduled_job||tvg3grmu87)
+2026-10-03 12:20:15,390 Result is kept for 600 seconds

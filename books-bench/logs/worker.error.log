@@ -102,3 +102,312 @@
   child_pid = os.fork()
 /workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=37470) is multi-threaded, use of fork() may lead to deadlocks in the child.
   child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=65457) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=65457) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=65457) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+2026-10-03 12:12:14,343 Worker b1d9a60752d544ac9c0e43bf463c4c70: could not connect to Redis instance: Error 111 connecting to 127.0.0.1:11000. Connection refused. retrying in 2 seconds...
+2026-10-03 12:12:14,344 Worker b1d9a60752d544ac9c0e43bf463c4c70: found an unhandled exception, quitting...
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 607, in work
+    self.execute_job(job, queue)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1696, in execute_job
+    self.monitor_work_horse(job, queue)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1627, in monitor_work_horse
+    retpid, ret_val, rusage = self.wait_for_horse()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1564, in wait_for_horse
+    pid, stat, rusage = os.wait4(self.horse_pid, 0)
+                        ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 510, in request_stop
+    self._shutdown()
+    ~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 519, in _shutdown
+    self.set_shutdown_requested_date()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 950, in set_shutdown_requested_date
+    self.connection.hset(self.key, 'shutdown_requested_date', utcformat(self._shutdown_requested_date))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/commands/core.py", line 5411, in hset
+    return self.execute_command("HSET", name, *pieces)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 668, in _execute_command
+    return conn.retry.call_with_retry(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self._send_command_parse_response(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda _: self._close_connection(conn),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 123, in call_with_retry
+    raise error
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 669, in <lambda>
+    lambda: self._send_command_parse_response(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        conn, command_name, *args, **options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 640, in _send_command_parse_response
+    return self.parse_response(conn, command_name, **options)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 691, in parse_response
+    response = connection.read_response()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1133, in read_response
+    response = self._parser.read_response(disable_decoding=disable_decoding)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/_parsers/hiredis.py", line 163, in read_response
+    self.read_from_socket()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/_parsers/hiredis.py", line 112, in read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66013) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66013) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66013) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66013) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66013) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66013) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66013) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+2026-10-03 12:12:38,881 Worker e6e8d19ca7d9486f9a6d3e6bff526085: could not connect to Redis instance: Error 111 connecting to 127.0.0.1:11000. Connection refused. retrying in 2 seconds...
+2026-10-03 12:12:40,099 Worker e6e8d19ca7d9486f9a6d3e6bff526085: found an unhandled exception, quitting...
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2610, in get_connection
+    connection.can_read()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1110, in can_read
+    return self._parser.can_read(timeout)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/_parsers/hiredis.py", line 101, in can_read
+    return self.read_from_socket(timeout=timeout, raise_on_timeout=False)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/_parsers/hiredis.py", line 112, in read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 607, in work
+    self.execute_job(job, queue)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1696, in execute_job
+    self.monitor_work_horse(job, queue)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1655, in monitor_work_horse
+    self.set_current_job_working_time(0)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 742, in set_current_job_working_time
+    connection.hset(self.key, 'current_job_working_time', current_job_working_time)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/commands/core.py", line 5411, in hset
+    return self.execute_command("HSET", name, *pieces)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2617, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66585) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66585) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66585) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66585) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66585) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=66585) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+2026-10-03 12:13:10,763 Worker 6e147a73896848748ee8647dca37ecf7: could not connect to Redis instance: Error 111 connecting to 127.0.0.1:11000. Connection refused. retrying in 2 seconds...
+2026-10-03 12:13:12,384 Worker 6e147a73896848748ee8647dca37ecf7: found an unhandled exception, quitting...
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2610, in get_connection
+    connection.can_read()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1110, in can_read
+    return self._parser.can_read(timeout)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/_parsers/hiredis.py", line 101, in can_read
+    return self.read_from_socket(timeout=timeout, raise_on_timeout=False)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/_parsers/hiredis.py", line 112, in read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 607, in work
+    self.execute_job(job, queue)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1696, in execute_job
+    self.monitor_work_horse(job, queue)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 1655, in monitor_work_horse
+    self.set_current_job_working_time(0)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py", line 742, in set_current_job_working_time
+    connection.hset(self.key, 'current_job_working_time', current_job_working_time)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/commands/core.py", line 5411, in hset
+    return self.execute_command("HSET", name, *pieces)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 2617, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:11000. Connection refused.
+StartedJobRegistry cleanup: books.localhost||scheduled_job||tvfkfghgup Moved to FailedJobRegistry, due to AbandonedJobError, at 2026-10-03 12:15:29.070062+00:00
+StartedJobRegistry cleanup: books.localhost||scheduled_job||tvgsq68nbr Moved to FailedJobRegistry, due to AbandonedJobError, at 2026-10-03 12:15:29.088405+00:00
+StartedJobRegistry cleanup: books.localhost||scheduled_job||tvfn6bf8cs Moved to FailedJobRegistry, due to AbandonedJobError, at 2026-10-03 12:15:29.103859+00:00
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspaces/Desk/books-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=69184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()

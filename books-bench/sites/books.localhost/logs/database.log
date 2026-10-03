@@ -2234,3 +2234,6 @@ parenttype varchar(140)
 CREATE INDEX IF NOT EXISTS "tabBooks Tax Detail_parent_index" ON "tabBooks Tax Detail"("parent");
 2026-10-02 20:51:28,157 WARNING database Couldn't set session time zone 'NoneType' object has no attribute 'get'
 2026-10-02 20:55:07,912 WARNING database Couldn't set session time zone 'NoneType' object has no attribute 'get'
+2026-10-03 12:12:27,056 WARNING database Couldn't set session time zone 'NoneType' object has no attribute 'get'
+2026-10-03 12:12:52,904 WARNING database Couldn't set session time zone 'NoneType' object has no attribute 'get'
+2026-10-03 12:15:33,396 WARNING database Couldn't set session time zone 'NoneType' object has no attribute 'get'

@@ -84,3 +84,6 @@ Traceback (most recent call last):
            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
 psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
 
+2026-10-03 12:18:04,548 ERROR frappe New Exception collected in error log
+Site: books.localhost
+Form Dict: {'cmd': 'frappe.auth.get_logged_user'}
