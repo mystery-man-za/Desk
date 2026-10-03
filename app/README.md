@@ -165,7 +165,12 @@ implementation and conventions:
 - `features/` owns page content and feature-specific interaction. Pages use
   the shared layout and UI primitives rather than implementing their own
   navigation, dialogs, or page-heading patterns.
-- `styles/global.css` holds the shared visual tokens and responsive patterns.
+- `styles/global.css` holds shared visual tokens and responsive patterns.
+  Tailwind CSS 4 is configured with Frappe UI semantic color, typography,
+  spacing, and radius conventions. Frappe Books uses Tailwind through its
+  `frappe-ui` preset; `@fontsource-variable/inter` supplies the same Inter
+  Variable family here. The React app adapts those design tokens without
+  importing Vue UI components.
   Backend-dependent Books components such as searchable document lists,
   report tables, filters, and pagination should be added with the corresponding
   data workflows rather than shipping nonfunctional controls.

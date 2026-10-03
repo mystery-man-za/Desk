@@ -1,18 +1,16 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useWorkspace } from '../../app/workspace/WorkspaceContext';
-import { ApiStatus } from '../system/ApiStatus';
 import { MobileNavigation } from './MobileNavigation';
 import { PageHeader } from './PageHeader';
 import { Sidebar } from './Sidebar';
 
 export function AppShell() {
-  const { company } = useWorkspace();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={`app-shell${sidebarOpen ? '' : ' sidebar-hidden'}`}>
+    <div className={`app-shell books-shell${sidebarOpen ? '' : ' sidebar-hidden'}`}>
       <Sidebar open={sidebarOpen} onHide={() => setSidebarOpen(false)} />
       <main className="main-content">
         <PageHeader
@@ -20,16 +18,14 @@ export function AppShell() {
           onToggleSidebar={() => setSidebarOpen((open) => !open)}
           sidebarOpen={sidebarOpen}
         />
-        <Outlet />
-        <footer className="system-footer">
-          <span>Books · {company?.name ?? 'Workspace'}</span>
-          <ApiStatus />
-        </footer>
+        <div className="shell-scroll" ref={contentRef}>
+          <Outlet />
+        </div>
       </main>
       <MobileNavigation
         onClose={() => setMobileMenuOpen(false)}
-        onOpen={() => setMobileMenuOpen(true)}
         open={mobileMenuOpen}
+        scrollToTop={() => contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
       />
     </div>
   );

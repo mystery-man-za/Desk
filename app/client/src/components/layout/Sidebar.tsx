@@ -42,17 +42,31 @@ export function Sidebar({
       className="sidebar"
       inert={!open}
     >
-      <NavLink aria-label="Books workspace" className="brand" to="/dashboard">
-        <span className="brand-mark" aria-hidden="true">
-          {(company?.name.slice(0, 1) ?? 'B').toUpperCase()}
-        </span>
-        <span className="brand-copy">
-          <strong>{company?.name ?? 'Books'}</strong>
-          <small>Books workspace</small>
-        </span>
-      </NavLink>
+      <details className="sidebar-identity">
+        <summary aria-label="Account menu" className="brand">
+          <span className="brand-mark" aria-hidden="true">
+            {(company?.name.slice(0, 1) ?? 'B').toUpperCase()}
+          </span>
+          <span className="brand-copy">
+            <strong>{company?.name ?? 'Books'}</strong>
+            <small>{user?.fullname ?? user?.email ?? 'Workspace'}</small>
+          </span>
+          <AppIcon className="brand-chevron" name="chevronDown" size={16} />
+        </summary>
+        <div className="sidebar-account-menu" role="menu">
+          {signOutError && <div className="form-alert" role="alert">{signOutError}</div>}
+          <button
+            className="sidebar-account-action"
+            onClick={() => void handleSignOut()}
+            role="menuitem"
+            type="button"
+          >
+            <AppIcon name="user" size={16} />
+            <span>Sign out</span>
+          </button>
+        </div>
+      </details>
 
-      <div className="workspace-label">WORKSPACE</div>
       <nav className="sidebar-navigation">
         <NavLink
           aria-label="Dashboard"
@@ -75,7 +89,7 @@ export function Sidebar({
               <NavLink
                 aria-expanded={active}
                 aria-label={group.label}
-                className={`nav-item sidebar-group-heading${active && visibleItems.length > 1 ? ' active' : ''}`}
+                className={`nav-item sidebar-group-heading${active && visibleItems.length === 1 ? ' active' : ''}`}
                 end={visibleItems.length === 1}
                 to={destination.to}
               >
@@ -110,26 +124,8 @@ export function Sidebar({
 
       <button className="sidebar-toggle" onClick={onHide} type="button">
         <AppIcon name="chevronsLeft" />
-        <span>Hide sidebar</span>
+        <span>Hide Sidebar</span>
       </button>
-
-      <div className="sidebar-bottom">
-        <div className="avatar" aria-hidden="true">
-          {(user?.fullname.slice(0, 1) ?? 'B').toUpperCase()}
-        </div>
-        <div className="profile-copy">
-          <strong>{user?.fullname ?? 'Your workspace'}</strong>
-          <span>{user?.role}</span>
-        </div>
-        <button
-          className="profile-menu sign-out-button"
-          onClick={() => void handleSignOut()}
-          type="button"
-        >
-          Sign out
-        </button>
-      </div>
-      {signOutError && <div className="form-alert sidebar-alert" role="alert">{signOutError}</div>}
     </aside>
   );
 }

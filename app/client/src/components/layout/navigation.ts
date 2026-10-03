@@ -51,6 +51,7 @@ export const mobileTabs = [
   { to: '/dashboard', label: 'Home', icon: 'dashboard' },
   { to: '/sales', label: 'Sales', icon: 'sales' },
   { to: '/expenses', label: 'Purchases', icon: 'expenses' },
+  { to: '/accounts', label: 'Accounts', icon: 'accounts' },
   { to: '/reports', label: 'Reports', icon: 'reports' },
 ] as const;
 

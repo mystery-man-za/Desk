@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-import { useWorkspace } from '../../app/workspace/WorkspaceContext';
 import { AppIcon } from '../ui/AppIcon';
 
 const titles: Record<string, string> = {
@@ -22,35 +21,33 @@ export function PageHeader({
   onOpenMobileMenu: () => void;
 }) {
   const { pathname } = useLocation();
-  const { company } = useWorkspace();
   const title = titles[pathname] ?? 'Books';
 
   return (
     <header className="topbar">
-      <div className="breadcrumb">
-        <button
-          aria-label={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
-          className="icon-button desktop-sidebar-toggle"
-          onClick={onToggleSidebar}
-          type="button"
-        >
-          <AppIcon name={sidebarOpen ? 'chevronsLeft' : 'chevronsRight'} />
-        </button>
-        <span>{company?.name ?? 'Workspace'}</span>
-        <span aria-hidden="true">/</span>
-        <strong>{title}</strong>
-      </div>
-      <div className="topbar-right">
-        <span className="environment-tag">BOOKS</span>
+      <div className="page-header-left">
         <button
           aria-label="Open navigation menu"
+          aria-haspopup="dialog"
           className="icon-button mobile-menu-trigger"
           onClick={onOpenMobileMenu}
           type="button"
         >
-          <AppIcon name="menu" />
+          <AppIcon name="panelLeft" />
         </button>
+        {!sidebarOpen && (
+          <button
+            aria-label="Show sidebar"
+            className="icon-button desktop-sidebar-toggle"
+            onClick={onToggleSidebar}
+            type="button"
+          >
+            <AppIcon name="chevronsRight" />
+          </button>
+        )}
+        <h1 className="page-header-title">{title}</h1>
       </div>
+      <h1 className="mobile-page-title">{title}</h1>
     </header>
   );
 }

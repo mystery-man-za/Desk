@@ -8,12 +8,12 @@ import { isNavigationItemActive, mobileTabs, navigationGroups } from './navigati
 
 export function MobileNavigation({
   open,
-  onOpen,
   onClose,
+  scrollToTop,
 }: {
   open: boolean;
-  onOpen: () => void;
   onClose: () => void;
+  scrollToTop: () => void;
 }) {
   const { pathname, hash } = useLocation();
   const navigate = useNavigate();
@@ -28,9 +28,6 @@ export function MobileNavigation({
   );
   const [expandedGroup, setExpandedGroup] = useState(activeGroup?.label ?? '');
   const [signOutError, setSignOutError] = useState<string | null>(null);
-  const isMoreActive = !mobileTabs.some(
-    ({ to }) => pathname === to || pathname.startsWith(`${to}/`),
-  );
 
   useEffect(() => {
     if (open) setExpandedGroup(activeGroup?.label ?? '');
@@ -52,42 +49,57 @@ export function MobileNavigation({
       <nav aria-label="Quick navigation" className="mobile-tab-bar">
         {mobileTabs.map(({ to, label, icon }) => {
           const active = pathname === to || pathname.startsWith(`${to}/`);
+          const contents = (
+            <>
+              <AppIcon name={icon} size={24} />
+              <span>{label}</span>
+            </>
+          );
+
+          if (active) {
+            return (
+              <button
+                aria-current="page"
+                className="mobile-tab active"
+                key={to}
+                onClick={scrollToTop}
+                type="button"
+              >
+                {contents}
+              </button>
+            );
+          }
+
           return (
             <NavLink
-              aria-current={active ? 'page' : undefined}
-              className={`mobile-tab${active ? ' active' : ''}`}
+              className="mobile-tab"
               end={to === '/dashboard'}
               key={to}
               to={to}
             >
-              <AppIcon name={icon} size={20} />
-              <span>{label}</span>
+              {contents}
             </NavLink>
           );
         })}
-        <button
-          aria-expanded={open}
-          className={`mobile-tab${open || isMoreActive ? ' active' : ''}`}
-          onClick={() => {
-            setExpandedGroup(activeGroup?.label ?? '');
-            onOpen();
-          }}
-          type="button"
-        >
-          <AppIcon name="menu" size={20} />
-          <span>More</span>
-        </button>
       </nav>
 
       <AppSheet
         className="navigation-sheet"
-        description={company?.name ?? 'Your Books workspace'}
         onClose={onClose}
         open={open}
         title="Books"
       >
         <nav aria-label="Books navigation" className="sheet-nav-list">
           {signOutError && <div className="form-alert" role="alert">{signOutError}</div>}
+          <div className="mobile-sheet-identity">
+            <span className="brand-mark" aria-hidden="true">
+              {(company?.name.slice(0, 1) ?? 'B').toUpperCase()}
+            </span>
+            <span>
+              <strong>{company?.name ?? 'Books'}</strong>
+              <small>{user?.fullname ?? user?.email ?? 'Workspace'}</small>
+            </span>
+          </div>
           <NavLink
             aria-current={pathname === '/dashboard' ? 'page' : undefined}
             className={`sheet-nav-item${pathname === '/dashboard' ? ' active' : ''}`}
